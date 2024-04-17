@@ -45,6 +45,7 @@ erDiagram
   varchar note
   }
 
+  customerSetTasks }|--|o repeatTask : repeats
   customerSetTasks{
   int id pk
   int customerId pk
