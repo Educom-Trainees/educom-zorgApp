@@ -13,7 +13,7 @@ erDiagram
 
   Appointment }|--|| Customer : Visited
   Appointment }|--|o appointmentTasks : complete
-  Appointment o|--|o customerSetTasks : Copies
+  Appointment o|..|o customerSetTasks : Copies
   Appointment{
   int id pk
   int employeeId fk
@@ -29,6 +29,7 @@ erDiagram
   varchar task
   varchar note
   boolean taskCompleted
+  varchar noteEmployee
   }
 
   Customer ||--|{ customerSetTasks : has
@@ -41,7 +42,7 @@ erDiagram
   varchar residence
   }
 
-  generalTasks o|--|o customerSetTasks : Copies
+  generalTasks o|..|o customerSetTasks : Copies
   generalTasks{
   int id pk
   varchar task
