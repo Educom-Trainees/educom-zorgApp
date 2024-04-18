@@ -12,7 +12,8 @@ erDiagram
   }
 
   Appointment }|--|| Customer : Visited
-  Appointment }|--|o Tasks : complete
+  Appointment }|--|o appointmentTasks : complete
+  Appointment o|--|o customerSetTasks : Copies
   Appointment{
   int id pk
   int employeeId fk
@@ -22,6 +23,15 @@ erDiagram
   datetime logoutTime
   }
 
+  appointmentTasks{
+  int id pk
+  int appointmentId fk
+  varchar task
+  varchar note
+  boolean taskCompleted
+  }
+
+  Customer ||--|{ customerSetTasks : has
   Customer{
   int id pk
   varchar firstname
@@ -31,18 +41,10 @@ erDiagram
   varchar residence
   }
 
-  Tasks{
-  int id pk
-  int appointmentId fk
-  varchar task
-  varchar note
-  boolean taskCompleted
-  }
-
+  generalTasks o|--|o customerSetTasks : Copies
   generalTasks{
   int id pk
   varchar task
-  varchar note
   }
 
   customerSetTasks }|--|o repeatTask : repeats
