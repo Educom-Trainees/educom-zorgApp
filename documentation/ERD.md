@@ -1,6 +1,6 @@
 ```mermaid
 erDiagram
-  Employee ||--|{ Appointment : Attends
+  Employee ||--|{ EmployeeToAppointment : Assigned
   Employee{
   int id pk
   varchar userName
@@ -11,12 +11,17 @@ erDiagram
   varchar role
   }
 
+  EmployeeToAppointment o|--|| Appointment : Attends
+  EmployeeToAppointment{
+  int employeeId fk
+  int appointmentId fk
+  }
+
   Appointment }|--|| Customer : Visited
   Appointment }|--|o appointmentTasks : complete
-  Appointment o|--|o customerSetTasks : Copies
+  Appointment o|..|o customerSetTasks : Copies
   Appointment{
   int id pk
-  int employeeId fk
   int customerId fk
   datetime date
   datetime registrationTime
@@ -29,6 +34,7 @@ erDiagram
   varchar task
   varchar note
   boolean taskCompleted
+  varchar noteEmployee
   }
 
   Customer ||--|{ customerSetTasks : has
@@ -41,7 +47,7 @@ erDiagram
   varchar residence
   }
 
-  generalTasks o|--|o customerSetTasks : Copies
+  generalTasks o|..|o customerSetTasks : Copies
   generalTasks{
   int id pk
   varchar task
@@ -50,7 +56,7 @@ erDiagram
   customerSetTasks }|--|o repeatTask : repeats
   customerSetTasks{
   int id pk
-  int customerId pk
+  int customerId fk
   varchar task
   varchar note
   }
