@@ -1,4 +1,4 @@
-package nu.educom.zapp.entities;
+package nu.zapp.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
