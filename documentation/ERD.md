@@ -1,6 +1,6 @@
 ```mermaid
 erDiagram
-  Employee ||--|{ Appointment : Attends
+  Employee ||--|{ EmployeeToAppointment : Assigned
   Employee{
   int id pk
   varchar userName
@@ -11,12 +11,17 @@ erDiagram
   varchar role
   }
 
+  EmployeeToAppointment o|--|| Appointment : Attends
+  EmployeeToAppointment{
+  int employeeId fk
+  int appointmentId fk
+  }
+
   Appointment }|--|| Customer : Visited
   Appointment }|--|o appointmentTasks : complete
   Appointment o|..|o customerSetTasks : Copies
   Appointment{
   int id pk
-  int employeeId fk
   int customerId fk
   datetime date
   datetime registrationTime
