@@ -1,7 +1,9 @@
 package nu.educom.zapp.entities;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 
+@Entity
 public class EmployeeToAppointment {
     @JoinColumn
     private int employeeId;
