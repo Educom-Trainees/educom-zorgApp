@@ -1,36 +1,27 @@
 package nu.zapp.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.*;
 
 @Entity
 public class EmployeeToAppointment {
-    @JoinColumn
-    private int employeeId;
-    @JoinColumn
-    private int appointmentId;
+
+    // Temporary id to make code function
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @ManyToOne
+    @JoinColumn(name = "employee_id", referencedColumnName = "id")
+    private Employee employee;
+
+    @OneToOne
+    @JoinColumn(name = "appointment_id", referencedColumnName = "id")
+    private Appointment appointment;
 
     public EmployeeToAppointment() {
     }
 
-    public EmployeeToAppointment(int employeeId, int appointmentId) {
-        this.employeeId = employeeId;
-        this.appointmentId = appointmentId;
-    }
-
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public int getAppointmentId() {
-        return appointmentId;
-    }
-
-    public void setAppointmentId(int appointmentId) {
-        this.appointmentId = appointmentId;
+    public EmployeeToAppointment(Employee employee, Appointment appointment) {
+        this.employee = employee;
+        this.appointment = appointment;
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
@@ -30,6 +31,7 @@ public class ApiController {
 
     @GetMapping("/calender")
     List<Appointment> getCalender() {
+
         return aModel.getCalender();
     }
 
@@ -37,6 +39,7 @@ public class ApiController {
     //Not sure on the url of the next two. They're meant to return the appointments an employee has
     @GetMapping("/appointment/{employee}")
     List<Appointment> getAppointments(@PathVariable String employee) {
+
         return aModel.getAppointments(employee);
     }
 
@@ -46,29 +49,109 @@ public class ApiController {
         return aModel.getAppointmentDetails(appointmentId);
     }
 
-    @GetMapping("/tasks")
-    List<generalTasks> getTasks(){
-        return tModel.getTasks();
-    }
 
     @GetMapping("/employees")
     List<Employee> getEmployees(){
-        return mModel.getEmployees();
+        List<Employee> employees = new ArrayList<>();
+        Employee one=new Employee();
+        one.setId(101);
+        one.setUserName("Een");
+        one.setFirstName("Eendrecht");
+        one.setLastName("Een");
+        one.setRole("Employee");
+        one.setAddress("Een");
+        one.setPostalCode("1234Een");
+        one.setResidence("EenStad");
+        one.setMonday(true);
+        one.setTuesday(true);
+        one.setWednesday(false);
+        one.setThursday(true);
+        one.setFriday(false);
+
+        Employee two=new Employee();
+        two.setId(102);
+        two.setUserName("Twee");
+        two.setFirstName("Twee");
+        two.setLastName("Twee");
+        two.setRole("Employee");
+        two.setAddress("Twee");
+        two.setPostalCode("1234TW");
+        two.setResidence("TweeStad");
+        two.setMonday(true);
+        two.setTuesday(false);
+        two.setWednesday(false);
+        two.setThursday(false);
+        two.setFriday(true);
+
+        employees.add(one);
+        employees.add(two);
+        return employees;
+        //return mModel.getEmployees();
     }
 
     @GetMapping("employees/{id}")
     Employee getEmployee(@PathVariable String id){
+
         return mModel.getEmployee(id);
     }
 
     @GetMapping("/customers")
     List<Customer> getCustomers(){
-        return cModel.getCustomers();
+        List<Customer> customers = new ArrayList<>();
+
+        Customer one = new Customer();
+        one.setId(101);
+        one.setFirstName("Een");
+        one.setLastName("Eendart");
+        one.setAddress("Eenstraat");
+        one.setPostalCode("1234EN");
+        one.setResidence("EenStad");
+        one.setActive(true);
+
+        Customer two = new Customer();
+        two.setId(102);
+        two.setFirstName("Twee");
+        two.setLastName("Tweedart");
+        two.setAddress("Tweestraat");
+        two.setPostalCode("1234TW");
+        two.setResidence("TweeStad");
+        two.setActive(true);
+
+        Customer three = new Customer();
+        three.setId(103);
+        three.setFirstName("Drie");
+        three.setLastName("Driedrecht");
+        three.setAddress("Driestraat");
+        three.setPostalCode("1234DR");
+        three.setResidence("Driestad");
+        three.setActive(false);
+
+        customers.add(one);
+        customers.add(two);
+        customers.add(three);
+        return customers;
+        //return cModel.getCustomers();
     }
 
     @GetMapping("/customers/{id}")
     Customer getCustomer(@PathVariable String id){
         return cModel.getCustomer(id);
+    }
+
+    @GetMapping("/tasks")
+    List<generalTasks> getTasks(){
+        List<generalTasks> tasks = new ArrayList<>();
+        generalTasks one = new generalTasks();
+        one.setId(101);
+        one.setTask("Opstaan uit bed");
+        generalTasks two = new generalTasks();
+        two.setId(102);
+        two.setTask("Naar bed brengen");
+
+        tasks.add(one);
+        tasks.add(two);
+
+        return tasks;
     }
 
 

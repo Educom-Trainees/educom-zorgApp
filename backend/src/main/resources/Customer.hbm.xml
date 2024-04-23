@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="nu.zapp.entities.Customer" table="Customer">
+        <id name="id"/>
+        <property name="firstName" insert="true"/>
+        <property name="lastName" insert="true"/>
+        <property name="address" insert="true"/>
+        <property name="postalCode" insert="true"/>
+        <property name="residency" insert="true"/>
+    </class>
+</hibernate-mapping>

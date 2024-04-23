@@ -20,7 +20,19 @@ public class AppointmentTasks {
 
     private String noteEmployee;
 
+    private boolean noteRead;
+
     public AppointmentTasks() {
+    }
+
+    public AppointmentTasks(int id, int appointmentId, String task, String note, boolean completed, String noteEmployee, boolean noteRead) {
+        this.id = id;
+        this.appointmentId = appointmentId;
+        this.task = task;
+        this.note = note;
+        this.completed = completed;
+        this.noteEmployee = noteEmployee;
+        this.noteRead = noteRead;
     }
 
     public AppointmentTasks(int id, int appointmentId, String task, String note, boolean completed, String noteEmployee) {
@@ -78,5 +90,13 @@ public class AppointmentTasks {
 
     public void setNoteEmployee(String noteEmployee) {
         this.noteEmployee = noteEmployee;
+    }
+
+    public boolean isNoteRead() {
+        return noteRead;
+    }
+
+    public void setNoteRead(boolean noteRead) {
+        this.noteRead = noteRead;
     }
 }

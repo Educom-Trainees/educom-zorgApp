@@ -1,13 +1,9 @@
 package nu.zapp.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Customer {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -22,16 +18,19 @@ public class Customer {
 
     private String residence;
 
+    private boolean active;
+
     public Customer() {
     }
 
-    public Customer(int id, String firstName, String lastName, String address, String postalCode, String residence) {
+    public Customer(int id, String firstName, String lastName, String address, String postalCode, String residence, boolean active) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.postalCode = postalCode;
         this.residence = residence;
+        this.active = active;
     }
 
     public int getId() {
@@ -80,5 +79,13 @@ public class Customer {
 
     public void setResidence(String residence) {
         this.residence = residence;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
