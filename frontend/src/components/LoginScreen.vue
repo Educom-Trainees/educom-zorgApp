@@ -1,18 +1,27 @@
+<script setup>
+    import translations from '../config/nl-NL.js'
+
+
+</script>
+
 <template class="m-0">
     <div class="zapp-gradient vh-100 vw-100">
-        <RouterLink to="/"><img class="ms-2 mt-2" src="../assets/small-logo.png" width="5%" /></RouterLink>
-        <div class="container">
-            <form class="row vw-100 vertical-center">
-                <div class="col-4 offset-4 mb-3 pe-5 ps-5">
-                    <input class="form-control" type="text" placeholder="Gebruikersnaam" />
-                </div>
-                <div class="col-4 offset-4 mb-3 pe-5 ps-5">
-                    <input class="form-control" type="password" placeholder="Wachtwoord" />
-                </div>
-                <button class="login-button col-2 offset-4">Vergeten?</button>
-                <button class="login-button col-2" type="submit">Login</button>
-            </form>
+        <RouterLink to="/"><img class="ms-2 mt-2" src="../assets/small-logo.png" height="10%" /></RouterLink>
+        <div class="container vw-100 vertical-center">
+            <div class="row">
+                <div class="col-2 col-md-3 col-lg-4"></div>
+                <form class="col-8 col-md-6 col-lg-4">
+                    <div class="mb-3">
+                        <input class="form-control" type="text" :placeholder="translations.username" tabindex="1" />
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control" type="password" :placeholder="translations.password" tabindex="2" />
+                    </div>
+                    <button class="login-button w-50" tabindex="4" >{{translations.forgot_password}}?</button>
+                    <button class="login-button w-50" type="submit" tabindex="3" >{{translations.login_button}}</button>
+                </form>
+            </div>
         </div>
-        <img class="img-bottom-right mb-2 me-2" src="../assets/logo-text.png" width="25%" />
-</div>
+        <img class="position-bottom-right mb-2 me-2" src="../assets/logo-text.png" height="15%" />
+    </div>
 </template>
