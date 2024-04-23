@@ -9,6 +9,14 @@ erDiagram
   varchar firstName
   varchar lastName
   varchar role
+  varchar adress
+  varchar postalCode
+  varchar residence
+  boolean monday
+  boolean tuesday
+  boolean wednesday
+  boolean thursday
+  boolean friday
   }
 
   EmployeeToAppointment o|--|| Appointment : Attends
@@ -35,6 +43,7 @@ erDiagram
   varchar note
   boolean taskCompleted
   varchar noteEmployee
+  boolean noteRead
   }
 
   Customer ||--|{ customerSetTasks : has
@@ -45,6 +54,7 @@ erDiagram
   varchar adress
   varchar postalCode
   varchar residence
+  boolean active
   }
 
   generalTasks o|..|o customerSetTasks : Copies
