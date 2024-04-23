@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>nu.educom.zapp</groupId>
-    <artifactId>my-Mi6</artifactId>
+    <artifactId>zapp</artifactId>
     <version>1</version>
     <properties>
         <java.version>22</java.version>
