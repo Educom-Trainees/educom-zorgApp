@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="nu.zapp.entities.Employee" table="employee">
+        <id name="id"/>
+        <property name="userName" insert="true"/>
+        <property name="password" insert="true"/>
+        <property name="passwordExpiration"/>
+        <property name="firstName" insert="true"/>
+        <property name="lastName" insert="true"/>
+        <property name="role" insert="true"/>
+    </class>
+</hibernate-mapping>
