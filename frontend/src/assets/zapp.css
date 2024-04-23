@@ -1,6 +1,11 @@
 :root {
     --zapp-light: #005fab;
     --zapp-dark: #0158a4;
+    --navbar-height: calc(1rem + 50px);
+}
+
+.navbar-padding {
+    padding-top: var(--navbar-height);
 }
 
 @font-face {
@@ -10,7 +15,7 @@
 
 .zapp-text {
     font-family: helvetica-neue;
-    font-weight: normal;
+    font-weight: 200;
     font-style: normal;
     font-size: 1.5em;
 }
@@ -23,14 +28,30 @@
     background: linear-gradient(180deg, var(--zapp-light) 0%, var(--zapp-dark) 50%, black 175%);
 }
 
+.default-button {
+    background: var(--zapp-light);
+    border: none;
+    border-radius: 0.9rem;
+    padding-bottom: 0.375rem;
+    padding-top: 0.375rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    color: white;
+    font-size: large;
+}
+
+.default-button:focus, .default-button:hover {
+    background: var(--zapp-dark);
+}
+
 .login-button {
-    opacity: 0.5;
+    opacity: 0.75;
+    border-radius: 0.9rem;
     padding-bottom: 0.375rem;
     padding-top: 0.375rem;
     padding-left: 0.75rem;
     padding-right: 0.75rem;
     border: none;
-
     font-weight: lighter !important;
     color: white !important;
     background: linear-gradient(white,white) bottom no-repeat;
@@ -39,6 +60,9 @@
 
 .login-button:focus, .login-button:hover {
     opacity: 1;
+    background: white;
+    color: black !important;
+    font-weight: normal !important;
     outline: none;
 }
 
@@ -51,8 +75,14 @@
     transform: translate(-50%, -50%);
 }
 
-.img-bottom-right {
+.position-bottom-right {
     position: absolute;
     bottom: 0;
     right: 0;
+}
+
+td a {
+    display: block;
+    text-decoration: none;
+    color: black;
 }
