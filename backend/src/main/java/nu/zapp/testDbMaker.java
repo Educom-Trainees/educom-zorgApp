@@ -1,5 +1,6 @@
 package nu.zapp;
 
+import nu.zapp.entities.Customer;
 import nu.zapp.entities.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -38,15 +39,25 @@ public class testDbMaker {
 //            SessionFactory sessionFactory=config.buildSessionFactory();
             Session session=sessionFactory.openSession();
             System.out.println(session);
-            Employee s=new Employee();
-            s.setId(101);
-            s.setUserName("Test");
-            s.setPassword("Test");
-            s.setPasswordExpiration(null);
-            s.setFirstName("Test");
-            s.setLastName("Test");
-            s.setRole("worker");
-            session.save(s);
+            Employee em=new Employee();
+            em.setId(101);
+            em.setUserName("Test");
+            em.setPassword("Test");
+            em.setPasswordExpiration(null);
+            em.setFirstName("Test");
+            em.setLastName("Test");
+            em.setRole("worker");
+            session.save(em);
+
+            Customer c = new Customer();
+            c.setId(101);
+            c.setFirstName("Test");
+            c.setLastName("Test");
+            c.setAddress("Teststraat 1234");
+            c.setPostalCode("1234TT");
+            c.setResidence("Teststad");
+            session.save(c);
+
             Transaction t=session.beginTransaction();
             t.commit();
         }
