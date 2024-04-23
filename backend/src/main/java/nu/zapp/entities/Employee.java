@@ -1,9 +1,6 @@
 package nu.zapp.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
@@ -12,11 +9,17 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(length = 30)
     private String userName;
+    @Column(length = 60)
     private String password;
     private LocalDateTime passwordExpiration;
+    @Column(length=50)
     private String firstName;
+    @Column(length=50)
     private String lastName;
+    @Column(length=10)
     private String role;
 
     public Employee() {
