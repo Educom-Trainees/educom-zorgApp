@@ -11,7 +11,7 @@
         </property>
 
         <property name = "hibernate.connection.url">
-            jdbc:mysql://localhost:3306/testZapp?createDatabaseIfNotExist=true
+            jdbc:mysql://localhost:3306/testzapp?createDatabaseIfNotExist=true
         </property>
 
         <property name = "hibernate.connection.username">
@@ -27,7 +27,8 @@
 
         <!-- List of XML mapping files -->
         <mapping resource = "Employee.hbm.xml"/>
-        <!-- <mapping resource = "Customer.hbm.xml"/> -->
+        <mapping resource = "Customer.hbm.xml"/>
+        <mapping resource = "GeneralTasks.hbm.xml"/>
 
     </session-factory>
 </hibernate-configuration>

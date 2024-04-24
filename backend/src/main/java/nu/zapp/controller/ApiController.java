@@ -3,7 +3,7 @@ package nu.zapp.controller;
 import nu.zapp.entities.Appointment;
 import nu.zapp.entities.Customer;
 import nu.zapp.entities.Employee;
-import nu.zapp.entities.generalTasks;
+import nu.zapp.entities.GeneralTasks;
 import nu.zapp.models.AppointmentModel;
 import nu.zapp.models.CustomerModel;
 import nu.zapp.models.EmployeeModel;
@@ -91,8 +91,22 @@ public class ApiController {
 
     @GetMapping("employees/{id}")
     Employee getEmployee(@PathVariable String id){
-
-        return mModel.getEmployee(id);
+        Employee one=new Employee();
+        one.setId(101);
+        one.setUserName("Een");
+        one.setFirstName("Eendrecht");
+        one.setLastName("Een");
+        one.setRole("Employee");
+        one.setAddress("Een");
+        one.setPostalCode("1234Een");
+        one.setResidence("EenStad");
+        one.setMonday(true);
+        one.setTuesday(true);
+        one.setWednesday(false);
+        one.setThursday(true);
+        one.setFriday(false);
+        return one;
+        //return mModel.getEmployee(id);
     }
 
     @GetMapping("/customers")
@@ -135,16 +149,26 @@ public class ApiController {
 
     @GetMapping("/customers/{id}")
     Customer getCustomer(@PathVariable String id){
-        return cModel.getCustomer(id);
+        Customer one = new Customer();
+        one.setId(101);
+        one.setFirstName("Een");
+        one.setLastName("Eendart");
+        one.setAddress("Eenstraat");
+        one.setPostalCode("1234EN");
+        one.setResidence("EenStad");
+        one.setActive(true);
+
+        return one;
+        //return cModel.getCustomer(id);
     }
 
     @GetMapping("/tasks")
-    List<generalTasks> getTasks(){
-        List<generalTasks> tasks = new ArrayList<>();
-        generalTasks one = new generalTasks();
+    List<GeneralTasks> getTasks(){
+        List<GeneralTasks> tasks = new ArrayList<>();
+        GeneralTasks one = new GeneralTasks();
         one.setId(101);
         one.setTask("Opstaan uit bed");
-        generalTasks two = new generalTasks();
+        GeneralTasks two = new GeneralTasks();
         two.setId(102);
         two.setTask("Naar bed brengen");
 
