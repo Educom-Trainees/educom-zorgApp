@@ -53,7 +53,7 @@ public class TestDbMaker {
 
     private static Employee makeEmployeeOne(){
         Employee one=new Employee();
-        one.setId(101);
+        //one.setId(101);
         one.setUserName("Een");
         one.setFirstName("Eendrecht");
         one.setLastName("Een");
@@ -71,7 +71,7 @@ public class TestDbMaker {
 
     private static Employee makeEmployeeTwo(){
         Employee two=new Employee();
-        two.setId(102);
+        //two.setId(102);
         two.setUserName("Twee");
         two.setFirstName("Twee");
         two.setLastName("Twee");
@@ -89,7 +89,7 @@ public class TestDbMaker {
 
     private static Customer makeCustomerOne(){
         Customer one = new Customer();
-        one.setId(101);
+        //one.setId(101);
         one.setFirstName("Een");
         one.setLastName("Eendart");
         one.setAddress("Eenstraat");
@@ -101,7 +101,7 @@ public class TestDbMaker {
 
     private static Customer makeCustomerTwo(){
         Customer two = new Customer();
-        two.setId(102);
+        //two.setId(102);
         two.setFirstName("Twee");
         two.setLastName("Tweedart");
         two.setAddress("Tweestraat");
@@ -113,7 +113,7 @@ public class TestDbMaker {
 
     private static Customer makeCustomerThree(){
         Customer three = new Customer();
-        three.setId(103);
+        //three.setId(103);
         three.setFirstName("Drie");
         three.setLastName("Driedrecht");
         three.setAddress("Driestraat");
@@ -125,14 +125,14 @@ public class TestDbMaker {
 
     private static GeneralTasks makeTaskOne(){
         GeneralTasks one = new GeneralTasks();
-        one.setId(101);
+        //one.setId(101);
         one.setTask("Opstaan uit bed");
         return one;
     }
 
     private static GeneralTasks makeTaskTwo(){
         GeneralTasks two = new GeneralTasks();
-        two.setId(102);
+        //two.setId(102);
         two.setTask("Naar bed brengen");
         return two;
     }
