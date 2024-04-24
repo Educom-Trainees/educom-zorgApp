@@ -1,5 +1,6 @@
 package nu.zapp.controller;
 
+import nu.zapp.ExceptionHandler.EmployeeExceptionIdNum;
 import nu.zapp.entities.Appointment;
 import nu.zapp.entities.Customer;
 import nu.zapp.entities.Employee;
@@ -57,22 +58,11 @@ public class ApiController {
 
     @GetMapping("employees/{id}")
     Employee getEmployee(@PathVariable String id){
-        Employee one=new Employee();
-        one.setId(101);
-        one.setUserName("Een");
-        one.setFirstName("Eendrecht");
-        one.setLastName("Een");
-        one.setRole("Employee");
-        one.setAddress("Een");
-        one.setPostalCode("1234Een");
-        one.setResidence("EenStad");
-        one.setMonday(true);
-        one.setTuesday(true);
-        one.setWednesday(false);
-        one.setThursday(true);
-        one.setFriday(false);
-        return one;
-        //return mModel.getEmployee(id);
+        Employee employee = mModel.getEmployee(id);
+        if (employee == null){
+            throw new EmployeeExceptionIdNum(id);
+        }
+        return employee;
     }
 
     @GetMapping("/customers")
@@ -130,6 +120,7 @@ public class ApiController {
 
     @GetMapping("/tasks")
     List<GeneralTasks> getTasks(){
+
         return tModel.getTasks();
     }
 
