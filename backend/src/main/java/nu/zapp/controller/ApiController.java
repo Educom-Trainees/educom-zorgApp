@@ -164,18 +164,7 @@ public class ApiController {
 
     @GetMapping("/tasks")
     List<GeneralTasks> getTasks(){
-        List<GeneralTasks> tasks = new ArrayList<>();
-        GeneralTasks one = new GeneralTasks();
-        one.setId(101);
-        one.setTask("Opstaan uit bed");
-        GeneralTasks two = new GeneralTasks();
-        two.setId(102);
-        two.setTask("Naar bed brengen");
-
-        tasks.add(one);
-        tasks.add(two);
-
-        return tasks;
+        return tModel.getTasks();
     }
 
 
