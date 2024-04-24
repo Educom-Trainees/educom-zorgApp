@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
+import ListView from '../views/ListView.vue'
+import translations from '../config/nl-NL.js'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +22,33 @@ const router = createRouter({
             meta: {
                 title: 'Login',
                 hideNav: true,
+            }
+        },
+        {
+            path: '/medewerkers',
+            name: 'employees',
+            component: ListView,
+            meta: {
+                title: translations['employees'],
+                addButtonText: translations['add_employee'],
+            }
+        },
+        {
+            path: '/klanten',
+            name: 'customers',
+            component: ListView,
+            meta: {
+                title: translations['customers'],
+                addButtonText: translations['add_customer'],
+            }
+        },
+        {
+            path: '/taken',
+            name: 'tasks',
+            component: ListView,
+            meta: {
+                title: translations['tasks'],
+                addButtonText: translations['add_task'],
             }
         },
         {

@@ -5,9 +5,9 @@
 </script>
 
 <template>
-  <header>
-    <NavBar v-if="!this.$route.meta.hideNav"></NavBar>
-  </header>
-
-  <RouterView />
+    <header>
+        <NavBar v-if="!$route.meta.hideNav"></NavBar>
+    </header>
+    <div v-if="!$route.meta.hideNav" class="navbar-padding"></div>
+    <RouterView />
 </template>
