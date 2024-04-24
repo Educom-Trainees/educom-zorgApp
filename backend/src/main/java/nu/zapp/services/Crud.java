@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Crud {
     private static SessionFactory sessionFactory;
-    public static SessionFactory setUpSessionFactory() {
+    public void setUpSessionFactory() {
 
         String mysqlUser = System.getenv("MYSQL_USER");
         String mysqlPassword = System.getenv("MYSQL_PASSWORD");
@@ -22,13 +22,13 @@ public class Crud {
                     .build();
             try {
                 sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-                return sessionFactory;
+                //return sessionFactory;
             } catch (Exception e) {
                 System.out.println("Error setting up session factory: " + e.getMessage());
                 StandardServiceRegistryBuilder.destroy(registry);
             }
         }
-        return null;
+        //return null;
     }
 
     public SessionFactory getSessionFactory() {

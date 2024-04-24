@@ -52,41 +52,7 @@ public class ApiController {
 
     @GetMapping("/employees")
     List<Employee> getEmployees(){
-        List<Employee> employees = new ArrayList<>();
-        Employee one=new Employee();
-        one.setId(101);
-        one.setUserName("Een");
-        one.setFirstName("Eendrecht");
-        one.setLastName("Een");
-        one.setRole("Employee");
-        one.setAddress("Een");
-        one.setPostalCode("1234Een");
-        one.setResidence("EenStad");
-        one.setMonday(true);
-        one.setTuesday(true);
-        one.setWednesday(false);
-        one.setThursday(true);
-        one.setFriday(false);
-
-        Employee two=new Employee();
-        two.setId(102);
-        two.setUserName("Twee");
-        two.setFirstName("Twee");
-        two.setLastName("Twee");
-        two.setRole("Employee");
-        two.setAddress("Twee");
-        two.setPostalCode("1234TW");
-        two.setResidence("TweeStad");
-        two.setMonday(true);
-        two.setTuesday(false);
-        two.setWednesday(false);
-        two.setThursday(false);
-        two.setFriday(true);
-
-        employees.add(one);
-        employees.add(two);
-        return employees;
-        //return mModel.getEmployees();
+        return mModel.getEmployees();
     }
 
     @GetMapping("employees/{id}")
