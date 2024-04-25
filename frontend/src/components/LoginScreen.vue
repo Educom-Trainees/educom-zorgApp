@@ -1,5 +1,5 @@
 <script setup>
-    import translations from '../config/nl-NL.js'
+    import translations from '../config/nl-NL'
 
 
 </script>
