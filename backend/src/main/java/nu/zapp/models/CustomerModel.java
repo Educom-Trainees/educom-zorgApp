@@ -26,6 +26,19 @@ public class CustomerModel {
         return crud.readOneRow(Customer.class, id, "Klant niet gevonden");
     }
 
+    public boolean createCustomer(String firstname, String lastname,
+                                  String address, String postalcode,
+                                  String residence, boolean active){
+        Customer newCustomer = new Customer();
+        newCustomer.setFirstName(firstname);
+        newCustomer.setLastName(lastname);
+        newCustomer.setAddress(address);
+        newCustomer.setPostalCode(postalcode);
+        newCustomer.setResidence(residence);
+        newCustomer.setActive(active);
+        Customer CreatedCustomer = crud.createRow(newCustomer, "Klant kon niet worden gemaakt");
+        return CreatedCustomer != null;
+    }
 }
 
 

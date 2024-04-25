@@ -80,6 +80,17 @@ public class ApiController {
     }
 
     @CrossOrigin()
+    @PostMapping("/customers")
+    boolean auth(@RequestParam("firstname") String firstName,
+                 @RequestParam("lastname") String lastName,
+                 @RequestParam("address") String address,
+                 @RequestParam("postalcode") String postalCode,
+                 @RequestParam("residence") String residence,
+                 @RequestParam("active") boolean active){
+        return cModel.createCustomer(firstName, lastName, address, postalCode, residence, active);
+    }
+
+    @CrossOrigin()
     @GetMapping("/tasks")
     List<GeneralTasks> getTasks(){
 
@@ -88,9 +99,8 @@ public class ApiController {
 
     @CrossOrigin()
     @PostMapping("/tasks")
-    boolean auth (@RequestParam("Task") String task){
+    boolean auth (@RequestParam("task") String task){
         return tModel.createTasks(task);
     }
-
 
 }
