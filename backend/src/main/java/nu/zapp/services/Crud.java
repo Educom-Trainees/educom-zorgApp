@@ -1,5 +1,6 @@
 package nu.zapp.services;
 
+import nu.zapp.ExceptionHandler.DatabaseFailedToConnect;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -24,8 +25,9 @@ public class Crud {
                 sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
                 //return sessionFactory;
             } catch (Exception e) {
-                System.out.println("Error setting up session factory: " + e.getMessage());
                 StandardServiceRegistryBuilder.destroy(registry);
+                throw new DatabaseFailedToConnect();
+                //System.out.println("Error setting up session factory: " + e.getMessage());
             }
         }
         //return null;

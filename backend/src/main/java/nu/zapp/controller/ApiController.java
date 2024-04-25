@@ -11,6 +11,7 @@ import nu.zapp.models.EmployeeModel;
 import nu.zapp.models.TaskModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +41,6 @@ public class ApiController {
     //Not sure on the url of the next two. They're meant to return the appointments an employee has
     @GetMapping("/appointment/{employee}")
     List<Appointment> getAppointments(@PathVariable String employee) {
-
         return aModel.getAppointments(employee);
     }
 
@@ -50,12 +50,13 @@ public class ApiController {
         return aModel.getAppointmentDetails(appointmentId);
     }
 
-
+    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/employees")
     List<Employee> getEmployees(){
         return mModel.getEmployees();
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("employees/{id}")
     Employee getEmployee(@PathVariable String id){
         Employee employee = mModel.getEmployee(id);
@@ -65,6 +66,7 @@ public class ApiController {
         return employee;
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/customers")
     List<Customer> getCustomers(){
         List<Customer> customers = new ArrayList<>();
@@ -103,6 +105,7 @@ public class ApiController {
         //return cModel.getCustomers();
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/customers/{id}")
     Customer getCustomer(@PathVariable String id){
         Customer one = new Customer();
@@ -118,6 +121,7 @@ public class ApiController {
         //return cModel.getCustomer(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/tasks")
     List<GeneralTasks> getTasks(){
 
