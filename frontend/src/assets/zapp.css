@@ -86,3 +86,38 @@ td a {
     text-decoration: none;
     color: black;
 }
+
+.prev-button {
+    height: 0;
+    width: 0;
+    background: none;
+    border-top: 25px solid transparent;
+    border-bottom: 25px solid transparent;
+    border-left: none;
+    border-right: 25px solid var(--zapp-light);
+}
+
+.prev-button:hover, .prev-button:focus {
+    border-right-color: var(--zapp-dark);
+}
+
+.next-button {
+    height: 0;
+    width: 0;
+    background: none;
+    border-top: 25px solid transparent;
+    border-bottom: 25px solid transparent;
+    border-left: 25px solid var(--zapp-light);
+    border-right: none;
+}
+
+.next-button:hover, .prev-button:focus {
+    border-left-color: var(--zapp-dark);
+}
+
+.prev-button:disabled {
+    border-right-color: grey;
+}
+.next-button:disabled {
+    border-left-color: grey;
+}
