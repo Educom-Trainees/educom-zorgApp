@@ -50,13 +50,13 @@ public class ApiController {
         return aModel.getAppointmentDetails(appointmentId);
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin()
     @GetMapping("/employees")
     List<Employee> getEmployees(){
         return mModel.getEmployees();
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin()
     @GetMapping("employees/{id}")
     Employee getEmployee(@PathVariable String id){
         Employee employee = mModel.getEmployee(id);
@@ -66,7 +66,7 @@ public class ApiController {
         return employee;
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin()
     @GetMapping("/customers")
     List<Customer> getCustomers(){
         List<Customer> customers = new ArrayList<>();
@@ -105,7 +105,7 @@ public class ApiController {
         //return cModel.getCustomers();
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin()
     @GetMapping("/customers/{id}")
     Customer getCustomer(@PathVariable String id){
         Customer one = new Customer();
@@ -121,7 +121,7 @@ public class ApiController {
         //return cModel.getCustomer(id);
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin()
     @GetMapping("/tasks")
     List<GeneralTasks> getTasks(){
 
