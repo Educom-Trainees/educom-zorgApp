@@ -22,31 +22,11 @@ public class EmployeeModel {
     }
 
     public List<Employee> getEmployees(){
-        crud.setUpSessionFactory(); // Ensure session factory is initialized
-        try (Session session = crud.getSessionFactory().openSession()) {
-            session.beginTransaction();
-            String queryString = "select a from Employee a";
-            List<Employee> employees = session.createQuery(queryString, Employee.class)
-                    .list();
-            session.getTransaction().commit();
-            session.close();
-            return employees;
-        } catch (Exception e) {
-            System.out.println("Error reading Employee Task List: " + e.getMessage());
-            return null;
-        }
+        String queryString = "select a from Employee a";
+        return crud.getAll(Employee.class, queryString, "Error reading Employee List");
     }
 
     public Employee getEmployee(String id){
-        crud.setUpSessionFactory(); // Ensure session factory is initialized
-        try (Session session = crud.getSessionFactory().openSession()) {
-            session.beginTransaction();
-            Employee employee = session.get(Employee.class, id);
-            session.getTransaction().commit();
-            session.close();
-            return employee;
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found");
-        }
+        return crud.getById(Employee.class, id, "Werknemer niet gevonden");
     }
 }
