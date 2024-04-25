@@ -2,7 +2,6 @@ package nu.zapp.models;
 
 import nu.zapp.entities.GeneralTasks;
 import nu.zapp.services.Crud;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +18,7 @@ public class TaskModel {
     }
     public List<GeneralTasks> getTasks() {
         String queryString = "select a from GeneralTasks a";
-        return crud.getAll(GeneralTasks.class, queryString, "Error reading General Task List");
+        return crud.readMultipleRows(GeneralTasks.class, queryString, "Error reading General Task List");
     }
 
     public boolean createTasks(String task){

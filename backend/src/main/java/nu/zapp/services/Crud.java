@@ -1,7 +1,6 @@
 package nu.zapp.services;
 
 import nu.zapp.ExceptionHandler.DatabaseFailedToConnect;
-import nu.zapp.entities.GeneralTasks;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -42,7 +41,7 @@ public class Crud {
         return sessionFactory;
     }
 
-    public <T> List<T> getAll(Class<T> entityClass, String queryString, String errorMessage){
+    public <T> List<T> readMultipleRows(Class<T> entityClass, String queryString, String errorMessage){
         setUpSessionFactory();
         try (Session session = getSessionFactory().openSession()) {
             session.beginTransaction();
@@ -55,7 +54,7 @@ public class Crud {
         }
     }
 
-    public <T> T getById(Class<T> entityClass, String id, String errorMessage){
+    public <T> T readOneRow(Class<T> entityClass, String id, String errorMessage){
         setUpSessionFactory();
         try (Session session = getSessionFactory().openSession()) {
             session.beginTransaction();
