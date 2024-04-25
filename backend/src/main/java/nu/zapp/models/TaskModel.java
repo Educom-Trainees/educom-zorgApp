@@ -11,7 +11,6 @@ import java.util.List;
 @Component
 public class TaskModel {
 
-    @Autowired
     private final Crud crud;
 
     @Autowired
@@ -19,17 +18,14 @@ public class TaskModel {
         this.crud = crud;
     }
     public List<GeneralTasks> getTasks() {
-        crud.setUpSessionFactory(); // Ensure session factory is initialized
-        try (Session session = crud.getSessionFactory().openSession()) {
-            session.beginTransaction();
-            String queryString = "select a from GeneralTasks a";
-            List<GeneralTasks> tasks = session.createQuery(queryString, GeneralTasks.class)
-                    .list();
-            session.getTransaction().commit();
-            return tasks;
-        } catch (Exception e) {
-            System.out.println("Error reading General Task List: " + e.getMessage());
-            return null;
-        }
+        String queryString = "select a from GeneralTasks a";
+        return crud.getAll(GeneralTasks.class, queryString, "Error reading General Task List");
+    }
+
+    public boolean createTasks(String task){
+        GeneralTasks newTask = new GeneralTasks();
+        newTask.setTask(task);
+        GeneralTasks createdTask = crud.createRow(newTask, "Taak kon niet gemaakt worden");
+        return createdTask != null;
     }
 }
