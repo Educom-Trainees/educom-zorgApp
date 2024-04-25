@@ -1,5 +1,6 @@
 package nu.zapp.controller;
 
+import nu.zapp.ExceptionHandler.CustomerExceptionIdNum;
 import nu.zapp.ExceptionHandler.EmployeeExceptionIdNum;
 import nu.zapp.entities.Appointment;
 import nu.zapp.entities.Customer;
@@ -11,10 +12,7 @@ import nu.zapp.models.EmployeeModel;
 import nu.zapp.models.TaskModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +31,6 @@ public class ApiController {
 
     @GetMapping("/calender")
     List<Appointment> getCalender() {
-
         return aModel.getCalender();
     }
 
@@ -69,56 +66,17 @@ public class ApiController {
     @CrossOrigin()
     @GetMapping("/customers")
     List<Customer> getCustomers(){
-        List<Customer> customers = new ArrayList<>();
-
-        Customer one = new Customer();
-        one.setId(101);
-        one.setFirstName("Een");
-        one.setLastName("Eendart");
-        one.setAddress("Eenstraat");
-        one.setPostalCode("1234EN");
-        one.setResidence("EenStad");
-        one.setActive(true);
-
-        Customer two = new Customer();
-        two.setId(102);
-        two.setFirstName("Twee");
-        two.setLastName("Tweedart");
-        two.setAddress("Tweestraat");
-        two.setPostalCode("1234TW");
-        two.setResidence("TweeStad");
-        two.setActive(true);
-
-        Customer three = new Customer();
-        three.setId(103);
-        three.setFirstName("Drie");
-        three.setLastName("Driedrecht");
-        three.setAddress("Driestraat");
-        three.setPostalCode("1234DR");
-        three.setResidence("Driestad");
-        three.setActive(false);
-
-        customers.add(one);
-        customers.add(two);
-        customers.add(three);
-        return customers;
-        //return cModel.getCustomers();
+        return cModel.getCustomers();
     }
 
     @CrossOrigin()
     @GetMapping("/customers/{id}")
     Customer getCustomer(@PathVariable String id){
-        Customer one = new Customer();
-        one.setId(101);
-        one.setFirstName("Een");
-        one.setLastName("Eendart");
-        one.setAddress("Eenstraat");
-        one.setPostalCode("1234EN");
-        one.setResidence("EenStad");
-        one.setActive(true);
-
-        return one;
-        //return cModel.getCustomer(id);
+        Customer customer =  cModel.getCustomer(id);
+        if (customer == null){
+            throw new CustomerExceptionIdNum(id);
+        }
+        return customer;
     }
 
     @CrossOrigin()
@@ -126,6 +84,12 @@ public class ApiController {
     List<GeneralTasks> getTasks(){
 
         return tModel.getTasks();
+    }
+
+    @CrossOrigin()
+    @PostMapping("/tasks")
+    boolean auth (@RequestParam("Task") String task){
+        return tModel.createTasks(task);
     }
 
 
