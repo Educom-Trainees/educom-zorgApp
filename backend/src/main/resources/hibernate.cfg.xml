@@ -3,7 +3,7 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <!-- Set .auto to create to make the database -->
+        <!-- Set property to create to make the database, none to disable Db creation -->
         <property name="hibernate.hbm2ddl.auto">none</property>
 
         <property name = "hibernate.connection.driver_class">
