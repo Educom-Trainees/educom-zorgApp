@@ -7,17 +7,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class generalTasks {
+public class GeneralTasks {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String task;
 
-    public generalTasks() {
+    public GeneralTasks() {
     }
 
-    public generalTasks(int id, String task) {
+    public GeneralTasks(int id, String task) {
         this.id = id;
         this.task = task;
     }

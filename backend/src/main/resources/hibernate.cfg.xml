@@ -3,15 +3,15 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="hibernate.hbm2ddl.auto">create-drop</property>
-
+        <!-- Set property to create to make the database, none to disable Db creation -->
+        <property name="hibernate.hbm2ddl.auto">none</property>
 
         <property name = "hibernate.connection.driver_class">
             com.mysql.cj.jdbc.Driver
         </property>
 
         <property name = "hibernate.connection.url">
-            jdbc:mysql://localhost:3306/testZapp?createDatabaseIfNotExist=true
+            jdbc:mysql://localhost:3306/testzapp?createDatabaseIfNotExist=true
         </property>
 
         <property name = "hibernate.connection.username">
@@ -27,7 +27,8 @@
 
         <!-- List of XML mapping files -->
         <mapping resource = "Employee.hbm.xml"/>
-        <!-- <mapping resource = "Customer.hbm.xml"/> -->
+        <mapping resource = "Customer.hbm.xml"/>
+        <mapping resource = "GeneralTasks.hbm.xml"/>
 
     </session-factory>
 </hibernate-configuration>

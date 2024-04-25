@@ -3,11 +3,14 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="nu.zapp.entities.Customer" table="Customer">
-        <id name="id"/>
+        <id name="id" column="id" type="int">
+            <generator class="identity"/>
+        </id>
         <property name="firstName" insert="true"/>
         <property name="lastName" insert="true"/>
         <property name="address" insert="true"/>
         <property name="postalCode" insert="true"/>
-        <property name="residency" insert="true"/>
+        <property name="residence" insert="true"/>
+        <property name="active" insert="true"/>
     </class>
 </hibernate-mapping>

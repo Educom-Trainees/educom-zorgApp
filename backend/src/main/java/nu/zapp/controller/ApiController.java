@@ -1,15 +1,17 @@
 package nu.zapp.controller;
 
+import nu.zapp.ExceptionHandler.EmployeeExceptionIdNum;
 import nu.zapp.entities.Appointment;
 import nu.zapp.entities.Customer;
 import nu.zapp.entities.Employee;
-import nu.zapp.entities.generalTasks;
+import nu.zapp.entities.GeneralTasks;
 import nu.zapp.models.AppointmentModel;
 import nu.zapp.models.CustomerModel;
 import nu.zapp.models.EmployeeModel;
 import nu.zapp.models.TaskModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,7 +41,6 @@ public class ApiController {
     //Not sure on the url of the next two. They're meant to return the appointments an employee has
     @GetMapping("/appointment/{employee}")
     List<Appointment> getAppointments(@PathVariable String employee) {
-
         return aModel.getAppointments(employee);
     }
 
@@ -49,52 +50,23 @@ public class ApiController {
         return aModel.getAppointmentDetails(appointmentId);
     }
 
-
+    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/employees")
     List<Employee> getEmployees(){
-        List<Employee> employees = new ArrayList<>();
-        Employee one=new Employee();
-        one.setId(101);
-        one.setUserName("Een");
-        one.setFirstName("Eendrecht");
-        one.setLastName("Een");
-        one.setRole("Employee");
-        one.setAddress("Een");
-        one.setPostalCode("1234Een");
-        one.setResidence("EenStad");
-        one.setMonday(true);
-        one.setTuesday(true);
-        one.setWednesday(false);
-        one.setThursday(true);
-        one.setFriday(false);
-
-        Employee two=new Employee();
-        two.setId(102);
-        two.setUserName("Twee");
-        two.setFirstName("Twee");
-        two.setLastName("Twee");
-        two.setRole("Employee");
-        two.setAddress("Twee");
-        two.setPostalCode("1234TW");
-        two.setResidence("TweeStad");
-        two.setMonday(true);
-        two.setTuesday(false);
-        two.setWednesday(false);
-        two.setThursday(false);
-        two.setFriday(true);
-
-        employees.add(one);
-        employees.add(two);
-        return employees;
-        //return mModel.getEmployees();
+        return mModel.getEmployees();
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("employees/{id}")
     Employee getEmployee(@PathVariable String id){
-
-        return mModel.getEmployee(id);
+        Employee employee = mModel.getEmployee(id);
+        if (employee == null){
+            throw new EmployeeExceptionIdNum(id);
+        }
+        return employee;
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/customers")
     List<Customer> getCustomers(){
         List<Customer> customers = new ArrayList<>();
@@ -133,25 +105,27 @@ public class ApiController {
         //return cModel.getCustomers();
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/customers/{id}")
     Customer getCustomer(@PathVariable String id){
-        return cModel.getCustomer(id);
+        Customer one = new Customer();
+        one.setId(101);
+        one.setFirstName("Een");
+        one.setLastName("Eendart");
+        one.setAddress("Eenstraat");
+        one.setPostalCode("1234EN");
+        one.setResidence("EenStad");
+        one.setActive(true);
+
+        return one;
+        //return cModel.getCustomer(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/tasks")
-    List<generalTasks> getTasks(){
-        List<generalTasks> tasks = new ArrayList<>();
-        generalTasks one = new generalTasks();
-        one.setId(101);
-        one.setTask("Opstaan uit bed");
-        generalTasks two = new generalTasks();
-        two.setId(102);
-        two.setTask("Naar bed brengen");
+    List<GeneralTasks> getTasks(){
 
-        tasks.add(one);
-        tasks.add(two);
-
-        return tasks;
+        return tModel.getTasks();
     }
 
 

@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
     private int id;
-
     @Column(length = 30)
     private String userName;
     @Column(length = 60)
