@@ -12,7 +12,7 @@
                 <div class="col-2 col-md-3 col-lg-4"></div>
                 <form class="col-8 col-md-6 col-lg-4">
                     <div class="mb-3">
-                        <input class="form-control" type="text" :placeholder="translations.username" tabindex="1" />
+                        <input class="form-control" type="text" :placeholder="translations.userName" tabindex="1" />
                     </div>
                     <div class="mb-3">
                         <input class="form-control" type="password" :placeholder="translations.password" tabindex="2" />
