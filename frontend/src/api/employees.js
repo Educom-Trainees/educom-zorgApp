@@ -1,8 +1,3 @@
-export function getEmployees(page) {
-    return Promise.resolve([
-        { name: 'employee 1', email: 'none' },
-        { name: 'employee 2', email: 'none' },
-        { name: 'employee 3', email: 'none' },
-        { name: 'employee 4', email: 'none' }
-    ]);
+export function getEmployees() {
+    return fetch('http://localhost:8080/employees').then(response => response.json())
 }
