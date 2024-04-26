@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
@@ -25,7 +24,7 @@ public class ApiController {
     @Autowired
     private TaskModel tModel;
     @Autowired
-    private EmployeeModel mModel;
+    private EmployeeModel eModel;
     @Autowired
     private CustomerModel cModel;
 
@@ -50,17 +49,35 @@ public class ApiController {
     @CrossOrigin()
     @GetMapping("/employees")
     List<Employee> getEmployees(){
-        return mModel.getEmployees();
+        return eModel.getEmployees();
     }
 
     @CrossOrigin()
-    @GetMapping("employees/{id}")
+    @GetMapping("/employees/{id}")
     Employee getEmployee(@PathVariable String id){
-        Employee employee = mModel.getEmployee(id);
+        Employee employee = eModel.getEmployee(id);
         if (employee == null){
             throw new EmployeeExceptionIdNum(id);
         }
         return employee;
+    }
+
+    @CrossOrigin()
+    @PostMapping("/employees")
+    boolean authEmployee(@RequestParam("username") String userName,
+                         @RequestParam("password") String password,
+                         @RequestParam("firstname") String firstName,
+                         @RequestParam("lastname") String lastName,
+                         @RequestParam("role") String role,
+                         @RequestParam("address") String address,
+                         @RequestParam("postalcode") String postalCode,
+                         @RequestParam("residence") String residence,
+                         @RequestParam("monday") boolean monday,
+                         @RequestParam("tuesday") boolean tuesday,
+                         @RequestParam("wednesday") boolean wednesday,
+                         @RequestParam("thursday") boolean thursday,
+                         @RequestParam("friday") boolean friday){
+    return eModel.createEmployee(userName, password, firstName, lastName, role, address, postalCode, residence, monday, tuesday, wednesday, thursday, friday);
     }
 
     @CrossOrigin()
@@ -81,7 +98,7 @@ public class ApiController {
 
     @CrossOrigin()
     @PostMapping("/customers")
-    boolean auth(@RequestParam("firstname") String firstName,
+    boolean authCustomer(@RequestParam("firstname") String firstName,
                  @RequestParam("lastname") String lastName,
                  @RequestParam("address") String address,
                  @RequestParam("postalcode") String postalCode,
@@ -99,7 +116,7 @@ public class ApiController {
 
     @CrossOrigin()
     @PostMapping("/tasks")
-    boolean auth (@RequestParam("task") String task){
+    boolean authTask (@RequestParam("task") String task){
         return tModel.createTasks(task);
     }
 

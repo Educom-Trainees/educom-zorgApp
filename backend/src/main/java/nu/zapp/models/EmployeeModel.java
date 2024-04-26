@@ -25,4 +25,29 @@ public class EmployeeModel {
     public Employee getEmployee(String id){
         return crud.readOneRow(Employee.class, id, "Werknemer niet gevonden");
     }
+
+
+    public boolean createEmployee(String userName, String password,
+                                  String firstName, String lastName, String role,
+                                  String address, String postalCode, String residence,
+                                  boolean monday, boolean tuesday, boolean wednesday, boolean thursday, boolean friday) {
+            Employee newEmployee = new Employee();
+            newEmployee.setUserName(userName);
+            newEmployee.setPassword(password);
+            //On creation the password expiration would need to be calculated
+            newEmployee.setFirstName(firstName);
+            newEmployee.setLastName(lastName);
+            newEmployee.setRole(role);
+            newEmployee.setAddress(address);
+            newEmployee.setPostalCode(postalCode);
+            newEmployee.setResidence(residence);
+            newEmployee.setMonday(monday);
+            newEmployee.setTuesday(tuesday);
+            newEmployee.setWednesday(wednesday);
+            newEmployee.setThursday(thursday);
+            newEmployee.setFriday(friday);
+            Employee CreatedEmployee = crud.createRow(newEmployee, "Medewerker kon niet gemaakt worden");
+            return CreatedEmployee != null;
+        }
+    }
 }
