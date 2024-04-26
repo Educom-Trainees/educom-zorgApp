@@ -32,6 +32,7 @@ const router = createRouter({
                 title: translations['employees'],
                 listType: 'employees',
                 addButtonText: translations['add_employee'],
+                singular: translations['employee'],
             }
         },
         {
@@ -42,6 +43,7 @@ const router = createRouter({
                 title: translations['customers'],
                 listType: 'customers',
                 addButtonText: translations['add_customer'],
+                singular: translations['customer'],
             }
         },
         {
@@ -52,6 +54,7 @@ const router = createRouter({
                 title: translations['tasks'],
                 listType: 'tasks',
                 addButtonText: translations['add_task'],
+                singular: translations['task'],
             }
         },
         {
