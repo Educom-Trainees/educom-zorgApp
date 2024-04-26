@@ -49,5 +49,5 @@ public class EmployeeModel {
             Employee CreatedEmployee = crud.createRow(newEmployee, "Medewerker kon niet gemaakt worden");
             return CreatedEmployee != null;
         }
-    }
 }
+
