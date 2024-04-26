@@ -17,8 +17,8 @@ public class Crud {
     private static SessionFactory sessionFactory;
     private void setUpSessionFactory() {
 
-        String mysqlUser = System.getenv("MYSQL_USER");
-        String mysqlPassword = System.getenv("MYSQL_PASSWORD");
+        String mysqlUser = System.getenv("ZAPP_USER");
+        String mysqlPassword = System.getenv("ZAPP_PASSWORD");
 
         if (sessionFactory == null) {
             final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()

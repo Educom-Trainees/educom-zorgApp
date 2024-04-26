@@ -15,11 +15,11 @@
         </property>
 
         <property name = "hibernate.connection.username">
-            ${MYSQL_USER}
+            ${ZAPP_USER}
         </property>
 
         <property name = "hibernate.connection.password">
-            ${MYSQL_PASSWORD}
+            ${ZAPP_PASSWORD}
         </property>
 
         <!-- Echo all executed SQL to stdout -->
