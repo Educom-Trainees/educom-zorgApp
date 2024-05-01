@@ -7,6 +7,8 @@
 
     const props = defineProps(['list', 'listType'])
 
+    const pageLength = 10; // number of items shown per page
+
     const validData = ref(props.list);
     const page = ref(1);
     const searchval = ref('');
@@ -49,18 +51,18 @@
             <table class="table table-hover w-75">
                 <thead>
                     <tr>
-                        <th v-for="key in Object.keys(validData[0])">{{translations[key] ?? key}}</th>
+                        <th class="px-0" v-for="key in Object.keys(validData[0])">{{translations[key] ?? key}}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="item in validData">
+                    <tr v-for="item in validData.slice((page-1)*pageLength, page*pageLength)">
                         <td class="px-0" v-for="value in Object.values(item)"><RouterLink to="/login">{{value}}</RouterLink></td>
                     </tr>
                 </tbody>
             </table>
         </template>
 
-        <button class="next-button ms-5" @click="nextPage" :disabled="page >= Math.floor(validData.length/10)+1"></button>
+        <button class="next-button ms-5" @click="nextPage" :disabled="page >= Math.ceil(validData.length/pageLength)"></button>
     </div>
 
 </template>
