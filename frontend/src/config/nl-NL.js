@@ -28,6 +28,8 @@ const translations = {
 	wednesday: "Woensdag",
 	thursday: "Donderdag",
 	friday: "Vrijdag",
+	saturday: "Zaterdag",
+	sunday: "Zondag",
 
 }
 
