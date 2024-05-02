@@ -1,7 +1,7 @@
 <script setup>
     import { ref, toRaw, watch } from 'vue'
     import { useQuery, useQueryClient } from 'vue-query';
-    import Table from '../components/Table.vue'
+    import SearchableTable from '../components/SearchableTable.vue'
     import { useRoute } from 'vue-router'
     import { getEmployees } from '../api/employees'
     import { getCustomers } from '../api/customers';
@@ -47,7 +47,7 @@
             <div>Something went wrong</div>
         </template>
         <template v-else class="h-100">
-            <Table :list="toRaw(data)" :listType="route.meta.singular"/> 
+            <SearchableTable :list="toRaw(data)" :listType="route.meta.singular"/> 
             <button class="position-bottom-right default-button mb-4 me-4">{{route.meta.addButtonText}}</button>
         </template>
     </main>
