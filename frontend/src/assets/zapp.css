@@ -144,3 +144,15 @@ td a {
 .calendar-header {
     text-transform: capitalize;
 }
+
+.circle-initials {
+    text-align: center;
+    border-radius: 50%;
+    height: 64px;
+    width: 64px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font: bold 16px helvetica-neue;
+    color: white;
+}

@@ -1,5 +1,5 @@
 <script setup>
-    import WeekCalendar from '../components/WeekCalendar.vue'
+    import CustomerItem from '../components/CustomerItem.vue'
 
 </script>
 
@@ -8,5 +8,6 @@
         <form>
             <input class="form-control" type="text" />
         </form>
+        <CustomerItem />
     </main>
 </template>
