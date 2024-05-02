@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import ListView from '../views/ListView.vue'
+import TaskView from '../views/TaskView.vue'
 import translations from '../config/nl-NL'
 
 const router = createRouter({
@@ -55,6 +56,14 @@ const router = createRouter({
                 listType: 'tasks',
                 addButtonText: translations['add_task'],
                 singular: translations['task'],
+            }
+        },
+        {
+            path: '/taak/:id',
+            name: 'task',
+            component: TaskView,
+            meta: {
+                title: translations['task'],
             }
         },
         {
