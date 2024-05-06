@@ -3,9 +3,8 @@
     import { useQuery } from 'vue-query';
     import SearchableTable from '../components/SearchableTable.vue'
     import { useRoute } from 'vue-router'
-    import { getEmployees } from '../api/employees'
-    import { getCustomers } from '../api/customers';
-    import { getTasks } from '../api/tasks';
+    import { getCollection } from '../api/collections'
+
 
     var route = useRoute();
     const listType = ref(route.meta.listType);
@@ -19,24 +18,9 @@
         page.value = 1;
     })
 
-    const fetchData = () => {
-        console.log("fetching ", listType.value)
-        switch (listType.value) {
-            case 'employees':
-                return getEmployees();
-            case 'customers':
-                return getCustomers();
-            case 'tasks':
-                return getTasks();
-            default:
-                console.log('error');
-                break;
-        }
-    };
-
     const { isLoading, isError, data, error, isFetching, dataUpdatedAt } = useQuery({
         queryKey: ['list', listType],
-        queryFn: fetchData,
+        queryFn: () => getCollection(listType.value),
     })
 
 </script>
