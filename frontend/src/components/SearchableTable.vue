@@ -55,7 +55,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="item in validData.slice((props.page-1)*pageLength, props.page*pageLength)">
-                        <td class="px-0" v-for="value in Object.values(item)"><RouterLink :to="'/'+props.listType+'/'+item.id">{{value}}</RouterLink></td>
+                        <td class="px-0" v-for="value in Object.values(item)"><RouterLink :to="'/'+translations[props.listType]+'/'+item.id">{{value}}</RouterLink></td>
                     </tr>
                 </tbody>
             </table>
