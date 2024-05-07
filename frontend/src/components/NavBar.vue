@@ -21,9 +21,9 @@
         </div>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav ms-auto d-md-flex float-right me-3">
-            <RouterLink class="nav-item nav-link text-white ms-1 me-auto" :to="'/' + translations.employees">{{translations.employees}}</RouterLink>
-            <RouterLink class="nav-item nav-link text-white ms-1 me-auto" :to="'/' + translations.customers">{{translations.customers}}</RouterLink>
-            <RouterLink class="nav-item nav-link text-white ms-1 me-auto" :to="'/' + translations.tasks">{{translations.tasks}}</RouterLink>
+                <RouterLink class="nav-item nav-link text-white ms-1 me-auto" :to="'/' + translations.employees">{{translations.employees}}</RouterLink>
+                <RouterLink class="nav-item nav-link text-white ms-1 me-auto" :to="'/' + translations.customers">{{translations.customers}}</RouterLink>
+                <RouterLink class="nav-item nav-link text-white ms-1 me-auto" :to="'/' + translations.tasks">{{translations.tasks}}</RouterLink>
             </div>
         </div>
     </div>
