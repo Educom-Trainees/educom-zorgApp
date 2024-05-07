@@ -2,18 +2,19 @@
     import { computed } from "vue";
     import checkmark from '../assets/checkmark.png'
     import ellipsis from '../assets/ellipsis.png'
+    import blank from '../assets/blank.png'
 
     const props = defineProps(['initials', 'name', 'address', 'taskprogress'])
     
-    const img_src = (props['taskprogress'] == "done" ? checkmark : (props['taskprogress'] == "in_progress" ? ellipsis : ''));
+    const img_src = (props['taskprogress'] == "done" ? checkmark : (props['taskprogress'] == "in_progress" ? ellipsis : blank));
 
 </script>
 
 <template>
     <RouterLink to="../custdetail">
-        <div class="row mb-2 justify-content-center">
+        <div class="row mb-2 justify-content-center pr-0">
             <div class="row align-items-center">
-                <div class="col-2">
+                <div class="col-2 h-100 ps-1">
                     <div class="zapp-gradient circle-initials">
                         {{props.initials}}
                     </div>
@@ -22,14 +23,14 @@
                     <div class="customer-text-lg">
                         {{props.name}}
                     </div>
-                    <div class="customer-text-sm">
+                    <div class="customer-text-sm text-truncate">
                         {{props.address}}
                     </div>
                 </div>
                 <div class="col-2 check-or-in-progress">
-                    <div class="container d-flex flex-row-reverse">
+                    <div class="container d-flex flex-row-reverse pe-0">
 
-                    <img class="d-inline-block" :src="img_src" height="64"/>
+                    <img class="d-inline-block" :src="img_src" height="100%"/>
                     </div>
                 </div>
             </div>

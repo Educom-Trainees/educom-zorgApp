@@ -40,12 +40,15 @@
 </script>
 
 <template>
-    <div class="row justify-content-center mt-5">
-        <input class="form-control w-50" v-model="searchval" @change="updateList" />
+    <div class="row mt-3">
+        <div class="offset-1 col-10 offset-md-3 col-md-6">
+
+        <input class="form-control" v-model="searchval" @change="updateList" />
+        </div>
     </div>
 
-    <div class="row justify-content-center">
-        <div class="w-75">
+    <div class="row">
+        <div class="col offset-md-2 col-md-8">
             <hr class="mb-0"/>
             <div class="customer-list pb-1 pt-1">
                 <template v-for="item in validData">
@@ -53,7 +56,7 @@
                 </template>
             </div>
             <hr class="mt-0"/>
-            <button class="position-bottom-right default-button mb-4 me-4">Next</button>
+            <button class="float-end default-button mt-3 me-1">Volgende dag</button>
         </div>
     </div>
 </template>

@@ -152,8 +152,8 @@ td a {
 .circle-initials {
     text-align: center;
     border-radius: 50%;
-    height: 64px;
-    width: 64px;
+    height: 100%;
+    aspect-ratio: 1;
     margin-right: 20px;
     display: inline-flex;
     align-items: center;
@@ -175,7 +175,7 @@ td a {
 }
 
 .customer-list {
-    height: 60vh;
+    height: 65vh;
     flex-grow: 1;
     overflow: auto;
     overflow-x: hidden;
