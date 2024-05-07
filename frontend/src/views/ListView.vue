@@ -1,6 +1,6 @@
 <script setup>
     import { ref, toRaw, watch } from 'vue'
-    import { useQuery, useQueryClient } from 'vue-query';
+    import { useQuery } from 'vue-query';
     import SearchableTable from '../components/SearchableTable.vue'
     import { useRoute } from 'vue-router'
     import { getEmployees } from '../api/employees'
@@ -9,15 +9,18 @@
 
     var route = useRoute();
     const listType = ref(route.meta.listType);
-    const qClient = useQueryClient()
+    const page = ref(1);
+
+    const changePage = (newValue) => { page.value = newValue }
 
     watch(() => route.meta.listType, (ntype, otype) => {
-        qClient.clear();
         console.log(ntype, otype)
         listType.value = ntype
+        page.value = 1;
     })
 
     const fetchData = () => {
+        console.log("fetching ", listType.value)
         switch (listType.value) {
             case 'employees':
                 return getEmployees();
@@ -31,7 +34,7 @@
         }
     };
 
-    const { isLoading, isError, data, error, isFetching } = useQuery({
+    const { isLoading, isError, data, error, isFetching, dataUpdatedAt } = useQuery({
         queryKey: ['list', listType],
         queryFn: fetchData,
     })
@@ -47,7 +50,7 @@
             <div>Something went wrong</div>
         </template>
         <template v-else class="h-100">
-            <SearchableTable :list="toRaw(data)" :listType="route.meta.singular"/> 
+            <SearchableTable :list="toRaw(data)" :listType="route.meta.singular" :page ="page" :changePage="changePage" :key="listType + dataUpdatedAt"/> 
             <button class="position-bottom-right default-button mb-4 me-4">{{route.meta.addButtonText}}</button>
         </template>
     </main>
