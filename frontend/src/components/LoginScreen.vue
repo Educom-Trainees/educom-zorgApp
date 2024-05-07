@@ -10,14 +10,14 @@
         <div class="container vw-100 vertical-center">
             <div class="row">
                 <div class="col-2 col-md-3 col-lg-4"></div>
-                <form class="col-8 col-md-6 col-lg-4">
+                <form class="col-8 col-md-6 col-lg-4" action="javascript:void(0);">
                     <div class="mb-3">
                         <input class="form-control" type="text" :placeholder="translations.userName" tabindex="1" />
                     </div>
                     <div class="mb-3">
                         <input class="form-control" type="password" :placeholder="translations.password" tabindex="2" />
                     </div>
-                    <button class="login-button w-50" tabindex="4" >{{translations.forgot_password}}?</button>
+                    <button class="forgot-password-button w-50" tabindex="4" >{{translations.forgot_password}}?</button>
                     <button class="login-button w-50" type="submit" tabindex="3" >{{translations.login_button}}</button>
                 </form>
             </div>
