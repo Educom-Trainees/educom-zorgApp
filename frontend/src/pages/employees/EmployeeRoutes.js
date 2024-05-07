@@ -10,7 +10,7 @@ export const employeeRoutes = [
             title: translations['employees'],
             listType: 'employees',
             addButtonText: translations['add_employee'],
-            singular: translations['employee'],
+            singular: translations['an_employee'],
         }
     }
 ]

@@ -30,7 +30,7 @@
             <div>Something went wrong</div>
         </template>
         <template v-else class="h-100">
-            <SearchableTable :list="toRaw(data)" :listType="route.meta.listType" :page ="page" :changePage="changePage" :key="listType + dataUpdatedAt"/> 
+            <SearchableTable :list="toRaw(data)" :listType="route.meta.listType" :singular="route.meta.singular" :key="listType + dataUpdatedAt"/> 
             <button class="position-bottom-right default-button mb-4 me-4">{{route.meta.addButtonText}}</button>
         </template>
     </main>

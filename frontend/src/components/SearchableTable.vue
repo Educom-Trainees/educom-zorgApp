@@ -4,7 +4,7 @@
     import translations from '../config/nl-NL'
 
 
-    const props = defineProps(['list', 'listType'])
+    const props = defineProps(['list', 'listType', 'singular'])
 
     const pageLength = 10; // number of items shown per page
 
@@ -40,7 +40,7 @@
 
 <template>
     <div class="row justify-content-center mt-5">
-        <input class="form-control w-50" v-model="searchval" :placeholder="translations.search + ' een ' + props.listType.toLowerCase()" @keyup="updateList" />
+        <input class="form-control w-50" v-model="searchval" :placeholder="translations.search + ' ' + props.singular.toLowerCase()" @keyup="updateList" />
     </div>
     <div class="d-flex justify-content-center align-items-center mt-3">
         <button class="prev-button me-5" @click="prevPage" :disabled="page == 1"></button>
@@ -55,7 +55,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="item in validData.slice((page-1)*pageLength, page*pageLength)">
-                        <td class="px-0" v-for="value in Object.values(item)"><RouterLink :to="'/'+props.listType+'/'+item.id">{{value}}</RouterLink></td>
+                        <td class="px-0" v-for="value in Object.values(item)"><RouterLink :to="'/'+translations[props.listType]+'/'+item.id">{{value}}</RouterLink></td>
                     </tr>
                 </tbody>
             </table>

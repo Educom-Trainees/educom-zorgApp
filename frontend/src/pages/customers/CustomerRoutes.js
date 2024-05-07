@@ -10,7 +10,7 @@ export const customerRoutes = [
             title: translations['customers'],
             listType: 'customers',
             addButtonText: translations['add_customer'],
-            singular: translations['customer'],
+            singular: translations['a_customer'],
         }
     }
 ]

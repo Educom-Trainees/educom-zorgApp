@@ -11,7 +11,7 @@ export const taskRoutes = [
             title: translations['tasks'],
             listType: 'tasks',
             addButtonText: translations['add_task'],
-            singular: translations['task'],
+            singular: translations['a_task'],
         }
     },
     {
