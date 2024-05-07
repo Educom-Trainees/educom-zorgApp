@@ -8,6 +8,6 @@
         <form>
             <input class="form-control" type="text" />
         </form>
-        <CustomerItem />
+        <CustomerItem initials="PP" name="Pietje Precies" address="Wegenweg 12, 3456GH Pietjesburg"/>
     </main>
 </template>

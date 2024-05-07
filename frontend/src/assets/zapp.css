@@ -4,6 +4,10 @@
     --navbar-height: calc(1rem + 50px);
 }
 
+a:link {
+    text-decoration: none !important;
+}
+
 .navbar-padding {
     padding-top: var(--navbar-height);
 }
@@ -150,9 +154,29 @@ td a {
     border-radius: 50%;
     height: 64px;
     width: 64px;
+    margin-right: 20px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     font: bold 16px helvetica-neue;
     color: white;
+}
+
+.customer-text-lg {
+    font-size: 20px;
+    color: var(--zapp-dark);
+    text-decoration: none;
+}
+
+.customer-text-sm {
+    font-size: 16px;
+    color: var(--zapp-dark);
+    text-decoration: none;
+}
+
+.customer-list {
+    height: 60vh;
+    flex-grow: 1;
+    overflow: auto;
+    overflow-x: hidden;
 }
