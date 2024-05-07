@@ -1,49 +1,49 @@
 <script setup>
-    import { ref, watch } from "vue"
+    import { ref, watch, onBeforeUpdate } from "vue"
     import { useRoute } from "vue-router"
-    import translations from '../config/nl-NL';
-    import isSubsequence from '../util/subsequence';
+    import translations from '../config/nl-NL'
 
 
-    const props = defineProps(['list', 'listType', 'page', 'changePage'])
+    const props = defineProps(['list', 'listType'])
 
     const pageLength = 10; // number of items shown per page
 
     const validData = ref(props.list);
     const searchval = ref('');
-
+    const page = ref(1);
 
     const updateList = () => {
-        props.changePage(1);
-        console.log('search term:', searchval.value)
-        const validItems = []
-        props.list.forEach((item) => {
-            const search = Object.values(item).join('').toLowerCase();
-            if (isSubsequence(searchval.value, search)) {
-                console.log('success', searchval.value, search)
-                validItems.push(item);
-            }
-        })
-        validData.value = validItems;
-        console.log(validData.value)
+        page.value = 1;
     }
 
-    watch(searchval, updateList)
+    const filterList = () => {
+        if (searchval.value.length == 0) {
+            validData.value = props.list;
+            return;
+        }
+
+        validData.value = props.list.filter(item => {
+            const search = Object.values(item).join('').toLowerCase();
+            return search.includes(searchval.value) 
+        })
+    }
+
+    onBeforeUpdate(filterList);
 
     const prevPage = () => {
-        props.changePage(Math.max(props.page - 1, 1))
+        page.value = Math.max(page.value - 1, 1)
     }
     const nextPage = () => {
-        props.changePage(props.page + 1)
+        page.value = page.value + 1
     }
 </script>
 
 <template>
     <div class="row justify-content-center mt-5">
-        <input class="form-control w-50" v-model="searchval" :placeholder="translations.search + ' een ' + props.listType.toLowerCase()" @change="updateList" />
+        <input class="form-control w-50" v-model="searchval" :placeholder="translations.search + ' een ' + props.listType.toLowerCase()" @keyup="updateList" />
     </div>
     <div class="d-flex justify-content-center align-items-center mt-3">
-        <button class="prev-button me-5" @click="prevPage" :disabled="props.page == 1"></button>
+        <button class="prev-button me-5" @click="prevPage" :disabled="page == 1"></button>
 
         <div v-if="validData.length == 0" class="text-center w-75">{{translations.no_results}}</div>
         <template v-else>
@@ -54,14 +54,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="item in validData.slice((props.page-1)*pageLength, props.page*pageLength)">
+                    <tr v-for="item in validData.slice((page-1)*pageLength, page*pageLength)">
                         <td class="px-0" v-for="value in Object.values(item)"><RouterLink :to="'/'+props.listType+'/'+item.id">{{value}}</RouterLink></td>
                     </tr>
                 </tbody>
             </table>
         </template>
 
-        <button class="next-button ms-5" @click="nextPage" :disabled="props.page >= Math.ceil(validData.length/pageLength)"></button>
+        <button class="next-button ms-5" @click="nextPage" :disabled="page >= Math.ceil(validData.length/pageLength)"></button>
     </div>
 
 </template>
