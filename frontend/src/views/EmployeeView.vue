@@ -1,7 +1,6 @@
 <script setup>
     import { ref, watch } from "vue"
     import translations from '../config/nl-NL';
-    import isSubsequence from '../util/subsequence';
     import CustomerItem from '../components/CustomerItem.vue'
 
     const props = defineProps(['list'])
@@ -23,10 +22,11 @@
 
     const updateList = () => {
         console.log('search term:', searchval.value)
+        // TODO convert to .filter()
         const validItems = []
         props.list.forEach((item) => {
             const search = Object.values(item).join('').toLowerCase();
-            if (isSubsequence(searchval.value, search)) {
+            if (search.includes(searchval.value)) {
                 console.log('success', searchval.value, search)
                 validItems.push(item);
             }
