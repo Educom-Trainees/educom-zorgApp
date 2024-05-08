@@ -22,23 +22,22 @@ public class CustomerModel {
         return crud.readMultipleRows(Customer.class, queryString, "Error reading Customer List");
     }
 
-    public Customer getCustomer(String id){
-        return crud.readOneRow(Customer.class, id, "Klant niet gevonden");
+    public Customer getCustomer(int id){
+        return crud.readOneRow(Customer.class, Integer.toString(id), "Klant niet gevonden");
     }
 
-    public boolean createCustomer(String firstname, String lastname,
-                                  String address, String postalcode,
-                                  String residence, boolean active){
-        Customer newCustomer = new Customer();
-        newCustomer.setFirstName(firstname);
-        newCustomer.setLastName(lastname);
-        newCustomer.setAddress(address);
-        newCustomer.setPostalCode(postalcode);
-        newCustomer.setResidence(residence);
-        newCustomer.setActive(active);
-        Customer CreatedCustomer = crud.createRow(newCustomer, "Klant kon niet worden gemaakt");
-        return CreatedCustomer != null;
+    public Customer createCustomer( Customer newCustomer){
+        // TODO validate
+        Customer createdCustomer = crud.createRow(newCustomer, "Klant kon niet worden gemaakt");
+        return createdCustomer;
     }
+
+    public void updateCustomer( Customer updateCustomer) {
+        // TODO validate
+        crud.updateRow(updateCustomer, "Klant kon niet worden bijgewerkt");
+    }
+
+
 }
 
 

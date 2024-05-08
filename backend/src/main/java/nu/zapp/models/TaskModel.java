@@ -21,10 +21,12 @@ public class TaskModel {
         return crud.readMultipleRows(GeneralTasks.class, queryString, "Error reading General Task List");
     }
 
-    public boolean createTasks(String task){
-        GeneralTasks newTask = new GeneralTasks();
-        newTask.setTask(task);
+    public GeneralTasks createTasks(GeneralTasks newTask){
         GeneralTasks createdTask = crud.createRow(newTask, "Taak kon niet gemaakt worden");
-        return createdTask != null;
+        return createdTask;
+    }
+
+    public void updateTask(GeneralTasks updatedTask) {
+        crud.updateRow(updatedTask, "Taak kon niet worden bijgewerkt");
     }
 }

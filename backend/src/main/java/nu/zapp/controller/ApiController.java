@@ -2,6 +2,7 @@ package nu.zapp.controller;
 
 import nu.zapp.ExceptionHandler.CustomerExceptionIdNum;
 import nu.zapp.ExceptionHandler.EmployeeExceptionIdNum;
+import nu.zapp.ExceptionHandler.TaskExceptionIdNum;
 import nu.zapp.entities.Appointment;
 import nu.zapp.entities.Customer;
 import nu.zapp.entities.Employee;
@@ -14,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
+
 
 @SpringBootApplication
 @RestController
@@ -33,29 +36,31 @@ public class ApiController {
         return aModel.getCalender();
     }
 
-
-    //Not sure on the url of the next two. They're meant to return the appointments an employee has
-    @GetMapping("/appointment/{employee}")
-    List<Appointment> getAppointments(@PathVariable String employee) {
-        return aModel.getAppointments(employee);
+    /**
+     * Get all appointsments of a certain employee 
+     * @param id the id of the employee
+     * @param day the date of the employee
+     */
+    @GetMapping("/employees/{id}/appointments")
+    List<Appointment> getAppointments(@PathVariable int id, @RequestParam LocalDate date) {
+        return aModel.getAppointments(id, date);
     }
 
-    // While this one is for pulling up info on a single appointment for the detail page
-    @GetMapping("/appointment/{appointmentId}")
-    Appointment getAppointmentDetails(@PathVariable String appointmentId){
-        return aModel.getAppointmentDetails(appointmentId);
+    @GetMapping("/appointment/{id}")
+    Appointment getAppointmentDetails(@PathVariable int id){
+        return aModel.getAppointmentDetails(id);
     }
 
     @CrossOrigin()
     @GetMapping("/employees")
     List<Employee> getEmployees(){
-        return eModel.getEmployees();
+        return eModel.readAllEmployees();
     }
 
     @CrossOrigin()
     @GetMapping("/employees/{id}")
-    Employee getEmployee(@PathVariable String id){
-        Employee employee = eModel.getEmployee(id);
+    Employee getEmployee(@PathVariable int id){
+        Employee employee = eModel.readEmployeeById(id);
         if (employee == null){
             throw new EmployeeExceptionIdNum(id);
         }
@@ -64,20 +69,17 @@ public class ApiController {
 
     @CrossOrigin()
     @PostMapping("/employees")
-    boolean authEmployee(@RequestParam("username") String userName,
-                         @RequestParam("password") String password,
-                         @RequestParam("firstname") String firstName,
-                         @RequestParam("lastname") String lastName,
-                         @RequestParam("role") String role,
-                         @RequestParam("address") String address,
-                         @RequestParam("postalcode") String postalCode,
-                         @RequestParam("residence") String residence,
-                         @RequestParam("monday") boolean monday,
-                         @RequestParam("tuesday") boolean tuesday,
-                         @RequestParam("wednesday") boolean wednesday,
-                         @RequestParam("thursday") boolean thursday,
-                         @RequestParam("friday") boolean friday){
-    return eModel.createEmployee(userName, password, firstName, lastName, role, address, postalCode, residence, monday, tuesday, wednesday, thursday, friday);
+    Employee postEmployee(@RequestBody Employee newEmployee){
+        return eModel.createEmployee(newEmployee);
+    }
+
+    @CrossOrigin()
+    @PutMapping("/employees/{id}")
+    void updateEmployee(@PathVariable int id, @RequestBody Employee updatedEmployee){
+        if (id != updatedEmployee.getId()) {
+            throw new EmployeeExceptionIdNum(id);
+        }
+        eModel.updateEmployee(updatedEmployee);
     }
 
     @CrossOrigin()
@@ -88,7 +90,7 @@ public class ApiController {
 
     @CrossOrigin()
     @GetMapping("/customers/{id}")
-    Customer getCustomer(@PathVariable String id){
+    Customer getCustomer(@PathVariable int id){
         Customer customer =  cModel.getCustomer(id);
         if (customer == null){
             throw new CustomerExceptionIdNum(id);
@@ -98,14 +100,19 @@ public class ApiController {
 
     @CrossOrigin()
     @PostMapping("/customers")
-    boolean authCustomer(@RequestParam("firstname") String firstName,
-                 @RequestParam("lastname") String lastName,
-                 @RequestParam("address") String address,
-                 @RequestParam("postalcode") String postalCode,
-                 @RequestParam("residence") String residence,
-                 @RequestParam("active") boolean active){
-        return cModel.createCustomer(firstName, lastName, address, postalCode, residence, active);
+    Customer postCustomer(@RequestBody Customer newCustomer){
+        return cModel.createCustomer(newCustomer);
     }
+
+    @CrossOrigin()
+    @PutMapping("/customers/{id}")
+    void putCustomer(@PathVariable int id, @RequestBody Customer updatedCustomer){ 
+        if (id != updatedCustomer.getId()) {
+            throw new CustomerExceptionIdNum(id);
+        }
+        cModel.updateCustomer(updatedCustomer);
+    }
+
 
     @CrossOrigin()
     @GetMapping("/tasks")
@@ -116,8 +123,16 @@ public class ApiController {
 
     @CrossOrigin()
     @PostMapping("/tasks")
-    boolean authTask (@RequestParam("task") String task){
-        return tModel.createTasks(task);
+    GeneralTasks postTask (@RequestBody GeneralTasks newTask){
+        return tModel.createTasks(newTask);
     }
 
+    @CrossOrigin()
+    @PutMapping("/tasks/{id}")
+    void putTask(@PathVariable int id, @RequestBody GeneralTasks updatedTask){ 
+        if (id != updatedTask.getId()) {
+            throw new TaskExceptionIdNum(id);
+        }
+        tModel.updateTask(updatedTask);
+    }
 }

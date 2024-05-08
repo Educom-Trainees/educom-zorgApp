@@ -44,10 +44,8 @@ public class Crud {
     public <T> List<T> readMultipleRows(Class<T> entityClass, String queryString, String errorMessage){
         setUpSessionFactory();
         try (Session session = getSessionFactory().openSession()) {
-            session.beginTransaction();
             List<T> queryResult = session.createQuery(queryString, entityClass)
                     .list();
-            session.getTransaction().commit();
             return queryResult;
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, errorMessage, e);
@@ -57,10 +55,7 @@ public class Crud {
     public <T> T readOneRow(Class<T> entityClass, String id, String errorMessage){
         setUpSessionFactory();
         try (Session session = getSessionFactory().openSession()) {
-            session.beginTransaction();
             T queryResults = session.get(entityClass, id);
-            session.getTransaction().commit();
-            session.close();
             return queryResults;
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, errorMessage);
@@ -72,6 +67,18 @@ public class Crud {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.persist(entity);
+            session.getTransaction().commit();
+            return entity;
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, errorMessage);
+        }
+    }
+
+     public <T> T updateRow(T entity, String errorMessage){
+        setUpSessionFactory(); // Ensure session factory is initialized
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.update(entity);
             session.getTransaction().commit();
             return entity;
         } catch (Exception e) {
