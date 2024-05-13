@@ -7,5 +7,7 @@ import java.util.List;
 public interface TaskRepository extends CrudRepository<Generaltasks, Long> {
     public List<Generaltasks> findAll();
 
+    public Generaltasks findByTask(String task);
+
     public Generaltasks save(Generaltasks newtask);
 }
