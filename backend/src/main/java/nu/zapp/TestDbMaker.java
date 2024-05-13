@@ -21,10 +21,10 @@ public class TestDbMaker {
 
         if (sessionFactory == null) {
             final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                    .configure() // configures settings from hibernate.cfg.xml
-                    .applySetting("hibernate.hbm2ddl.auto", "create")
-                    .applySetting("hibernate.connection.username", mysqlUser)
-                    .applySetting("hibernate.connection.password", mysqlPassword)
+//                    .configure() //
+//                    .applySetting("hibernate.hbm2ddl.auto", "create")
+//                    .applySetting("hibernate.connection.username", mysqlUser)
+//                    .applySetting("hibernate.connection.password", mysqlPassword)
                     .build();
             try {
                 sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();

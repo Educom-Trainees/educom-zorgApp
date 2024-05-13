@@ -5,13 +5,12 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
 @ControllerAdvice
-public class DatabaseFailedToConnectAdvice {
+public class ExceptionNumIdAdvice {
     @ResponseBody
-    @ExceptionHandler(DatabaseFailedToConnect.class)
-    @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
-    String DatabaseFailedToConnect(DatabaseFailedToConnect ex) {
+    @ExceptionHandler(ExceptionNumId.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    String ExceptionNumId(ExceptionNumId ex) {
         return ex.getMessage();
     }
 }

@@ -6,14 +6,14 @@
         <id name="id" column="id" type="int">
             <generator class="identity"/>
         </id>
-        <property name="userName" insert="true"/>
+        <property name="username" insert="true"/>
         <property name="password" insert="true"/>
-        <property name="passwordExpiration"/>
-        <property name="firstName" insert="true"/>
-        <property name="lastName" insert="true"/>
+        <property name="password_expiration"/>
+        <property name="first_ame" insert="true"/>
+        <property name="last_name" insert="true"/>
         <property name="role" insert="true"/>
         <property name="address" insert="true"/>
-        <property name="postalCode" insert="true"/>
+        <property name="postalcode" insert="true"/>
         <property name="residence" insert="true"/>
         <property name="monday" insert="true"/>
         <property name="tuesday" insert="true"/>
