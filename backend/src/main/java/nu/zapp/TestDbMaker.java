@@ -2,14 +2,13 @@ package nu.zapp;
 
 import nu.zapp.entities.Customer;
 import nu.zapp.entities.Employee;
-import nu.zapp.entities.GeneralTasks;
+import nu.zapp.entities.Generaltasks;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.springframework.scheduling.config.Task;
 
 public class TestDbMaker {
 
@@ -124,15 +123,15 @@ public class TestDbMaker {
         return three;
     }
 
-    private static GeneralTasks makeTaskOne(){
-        GeneralTasks one = new GeneralTasks();
+    private static Generaltasks makeTaskOne(){
+        Generaltasks one = new Generaltasks();
         //one.setId(101);
         one.setTask("Opstaan uit bed");
         return one;
     }
 
-    private static GeneralTasks makeTaskTwo(){
-        GeneralTasks two = new GeneralTasks();
+    private static Generaltasks makeTaskTwo(){
+        Generaltasks two = new Generaltasks();
         //two.setId(102);
         two.setTask("Naar bed brengen");
         return two;
