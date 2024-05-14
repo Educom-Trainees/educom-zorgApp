@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <div class="navbar navbar-dark navbar-expand-md zapp-gradient fixed-top">
+    <div class="navbar navbar-dark navbar-expand-md zapp-gradient">
         <RouterLink to="/"><img class="navbar-brand ms-2 me-5" src="../assets/small-logo.png" height="50" /></RouterLink>
         <div class="nav-item ms-2 zapp-text text-white">
             {{$route.meta.title}}

@@ -8,6 +8,5 @@
     <header>
         <NavBar v-if="!$route.meta.hideNav"></NavBar>
     </header>
-    <div v-if="!$route.meta.hideNav" class="navbar-padding"></div>
     <RouterView />
 </template>
