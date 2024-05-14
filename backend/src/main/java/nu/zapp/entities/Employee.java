@@ -14,7 +14,7 @@ public class Employee {
     @Column(length = 30, nullable = false)
     private String userName;
     @Column(length = 60, nullable = false)
-    @JsonIgnore
+    //@JsonIgnore
     private String password;
     private LocalDateTime passwordExpiration;
     @Column(length=50, nullable = false)

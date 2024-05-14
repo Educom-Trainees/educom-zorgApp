@@ -1,8 +1,10 @@
 package nu.zapp.controller;
 
 
+import nu.zapp.ExceptionHandler.ExceptionItemExists;
 import nu.zapp.ExceptionHandler.ExceptionNumId;
 import nu.zapp.entities.Employee;
+import nu.zapp.models.EmployeeModel;
 import nu.zapp.repositories.EmployeeRepository;
 import org.hibernate.exception.JDBCConnectionException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,46 +20,35 @@ import java.util.List;
 public class EmployeeController {
 
     @Autowired
-    private EmployeeRepository eRepository;
+    private EmployeeModel eModel;
     @CrossOrigin()
     @GetMapping("")
     List<Employee> getEmployees(){
-        return eRepository.findAll();
+        return eModel.findAll();
     }
 
     @CrossOrigin()
     @GetMapping("/{id}")
     Employee getEmployee(@PathVariable int id){
-        Employee employee = eRepository.findById(id);
-        if (employee == null){
-            throw new ExceptionNumId(id, "werknemer");
-        }
-        return employee;
+        return eModel.findById(id);
     }
 
     @CrossOrigin()
     @GetMapping("/by-username/{username}")
     Employee getEmployee(@PathVariable String username){
-        Employee employee = eRepository.findByUserName(username);
-        if (employee == null){
-            throw new ExceptionNumId(0, "werknemer");
-        }
-        return employee;
+        return eModel.findByUserName(username);
     }
 
 
     @CrossOrigin()
-    @PostMapping("/employees")
+    @PostMapping("")
     Employee postEmployee(@RequestBody Employee newEmployee){
-        return eRepository.save(newEmployee);
+        return eModel.createEmployee(newEmployee);
     }
 
     @CrossOrigin()
-    @PutMapping("/employees/{id}")
-    void updateEmployee(@PathVariable int id, @RequestBody Employee updatedEmployee){
-        if (id != updatedEmployee.getId()) {
-            throw new ExceptionNumId(id, "werknemer");
-        }
-        eRepository.save(updatedEmployee);
+    @PutMapping("")
+    void updateEmployee(@RequestBody Employee updatedEmployee){
+        eModel.updateEmployee(updatedEmployee);
     }
 }
