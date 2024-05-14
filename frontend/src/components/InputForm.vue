@@ -1,23 +1,21 @@
 <script setup>
     const props = defineProps({
-        type: {
-            type: String,
-            default: 'text',
-            validator(value) {
-                return ['text', 'number', 'email', 'password', 'hidden'].includes(value);
-            }
+        modelValue: {
+            type: [String, Number],
+            default: '',
         },
         label: String,
-        value: String,
         id: String,
     })
 </script>
 
 <template>
-    <label :for="props.id">{{props.label}}</label>
-    <input 
-           :type="props.type"
-           v-model="props.value"
-           :id="props.id"
-    />
+    <div class="form-group mt-2">
+        <label :for="props.id">{{props.label}}</label>
+        <input class="form-control"
+               :value="props.modelValue"
+               :id="props.id"
+               @input="$emit('update:modelValue', $event.target.value)"
+        />
+    </div>
 </template>
