@@ -1,5 +1,5 @@
 import ListView from '../../views/ListView.vue'
-import TaskView from '../../views/TaskView.vue'
+import TaskDetailView from './TaskDetailView.vue'
 import translations from '../../config/nl-NL'
 
 export const taskRoutes = [
@@ -17,7 +17,7 @@ export const taskRoutes = [
     {
         path: '/taken/:id',
         name: 'task',
-        component: TaskView,
+        component: TaskDetailView,
         meta: {
             title: translations['task'],
         }
