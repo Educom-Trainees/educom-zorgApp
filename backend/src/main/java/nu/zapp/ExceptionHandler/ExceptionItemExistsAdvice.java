@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
-public class CustomerExceptionIdNumAdvice {
+public class ExceptionItemExistsAdvice {
     @ResponseBody
-    @ExceptionHandler(EmployeeExceptionIdNum.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    String CustomerExceptionIdNum(CustomerExceptionIdNum ex) {
+    @ExceptionHandler(ExceptionItemExists.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    String ExceptionItemExists(ExceptionItemExists ex) {
         return ex.getMessage();
     }
 }

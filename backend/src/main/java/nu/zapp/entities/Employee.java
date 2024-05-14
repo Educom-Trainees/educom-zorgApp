@@ -1,5 +1,6 @@
 package nu.zapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -10,24 +11,28 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private int id;
-    @Column(length = 30)
-    private String userName;
-    @Column(length = 60)
+    @Column(length = 30, nullable = false)
+    private String username;
+    @Column(length = 60, nullable = false)
+    //@JsonIgnore
     private String password;
     private LocalDateTime passwordExpiration;
-    @Column(length=50)
+    @Column(length=50, nullable = false)
     private String firstName;
-    @Column(length=50)
+    @Column(length=50, nullable = false)
     private String lastName;
     @Column(length=10)
     private String role;
 
+    @Column(length=50, nullable = false)
     private String address;
 
-    private String postalCode;
+    @Column(length=6, nullable = false)
+    private String postalcode;
 
+    @Column(length=50, nullable = false)
     private String residence;
-
+    
     private boolean monday;
     private boolean tuesday;
     private boolean wednesday;
@@ -37,19 +42,19 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(int id, String userName, String password, LocalDateTime passwordExpiration,
+    public Employee(int id, String username, String password, LocalDateTime passwordExpiration,
                     String firstName, String lastName, String role,
-                    String address, String postalCode, String residence,
+                    String address, String postalcode, String residence,
                     boolean monday, boolean tuesday, boolean wednesday, boolean thursday, boolean friday) {
         this.id = id;
-        this.userName = userName;
+        this.username = username;
         this.password = password;
         this.passwordExpiration = passwordExpiration;
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
         this.address = address;
-        this.postalCode = postalCode;
+        this.postalcode = postalcode;
         this.residence = residence;
         this.monday = monday;
         this.tuesday = tuesday;
@@ -66,12 +71,12 @@ public class Employee {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getuserName() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setuserName(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -123,11 +128,11 @@ public class Employee {
     }
 
     public String getPostalCode() {
-        return postalCode;
+        return postalcode;
     }
 
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
+    public void setPostalCode(String postalcode) {
+        this.postalcode = postalcode;
     }
 
     public String getResidence() {

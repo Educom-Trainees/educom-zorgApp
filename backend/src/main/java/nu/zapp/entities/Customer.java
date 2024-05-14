@@ -14,7 +14,7 @@ public class Customer {
 
     private String address;
 
-    private String postalCode;
+    private String postalcode;
 
     private String residence;
 
@@ -28,7 +28,7 @@ public class Customer {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
-        this.postalCode = postalCode;
+        this.postalcode = postalCode;
         this.residence = residence;
         this.active = active;
     }
@@ -66,11 +66,11 @@ public class Customer {
     }
 
     public String getPostalCode() {
-        return postalCode;
+        return postalcode;
     }
 
     public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
+        this.postalcode = postalCode;
     }
 
     public String getResidence() {

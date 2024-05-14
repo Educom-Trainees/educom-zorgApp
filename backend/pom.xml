@@ -14,9 +14,6 @@
     <properties>
         <java.version>18</java.version>
 
-        <MYSQL_USER>${env.ZAPP_USER}</MYSQL_USER>
-        <MYSQL_PASSWORD>${env.ZAPP_PASSWORD}</MYSQL_PASSWORD>
-
     </properties>
     <dependencyManagement>
         <dependencies>

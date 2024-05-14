@@ -1,8 +1,10 @@
 package nu.zapp.models;
 
-import nu.zapp.entities.GeneralTasks;
-import nu.zapp.services.Crud;
+import nu.zapp.ExceptionHandler.ExceptionItemExists;
+import nu.zapp.entities.Generaltasks;
+import nu.zapp.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -10,23 +12,22 @@ import java.util.List;
 @Component
 public class TaskModel {
 
-    private final Crud crud;
-
     @Autowired
-    public TaskModel(Crud crud) {
-        this.crud = crud;
-    }
-    public List<GeneralTasks> getTasks() {
-        String queryString = "select a from GeneralTasks a";
-        return crud.readMultipleRows(GeneralTasks.class, queryString, "Error reading General Task List");
+    private TaskRepository tRepository;
+
+    public List<Generaltasks> findAll(){
+        return tRepository.findAll();
     }
 
-    public GeneralTasks createTasks(GeneralTasks newTask){
-        GeneralTasks createdTask = crud.createRow(newTask, "Taak kon niet gemaakt worden");
-        return createdTask;
+    public Generaltasks createTasks(Generaltasks newTask){
+        //First letter of a task should be capitalised for consistency
+        String task = newTask.getTask();
+        String taskCap = task.substring(0, 1).toUpperCase() + task.substring(1);
+        newTask.setTask(taskCap);
+        if (tRepository.findByTask(newTask.getTask()) != null){
+            throw new ExceptionItemExists("taak");
+        }
+        return tRepository.save(newTask);
     }
 
-    public void updateTask(GeneralTasks updatedTask) {
-        crud.updateRow(updatedTask, "Taak kon niet worden bijgewerkt");
-    }
 }

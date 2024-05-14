@@ -2,65 +2,52 @@ package nu.zapp;
 
 import nu.zapp.entities.Customer;
 import nu.zapp.entities.Employee;
-import nu.zapp.entities.GeneralTasks;
+import nu.zapp.entities.Generaltasks;
+import nu.zapp.models.CustomerModel;
+import nu.zapp.models.EmployeeModel;
+import nu.zapp.models.TaskModel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.springframework.scheduling.config.Task;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public class TestDbMaker {
+@Component
+public class TestDbFill {
 
-    private static SessionFactory sessionFactory;
+    @Autowired
+    private EmployeeModel eModel;
 
-    public static void main(String... args) {
-        String mysqlUser = System.getenv("MYSQL_USER");
-        String mysqlPassword = System.getenv("MYSQL_PASSWORD");
+    @Autowired
+    private CustomerModel cModel;
 
-        if (sessionFactory == null) {
-            final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                    .configure() // configures settings from hibernate.cfg.xml
-                    .applySetting("hibernate.hbm2ddl.auto", "create")
-                    .applySetting("hibernate.connection.username", mysqlUser)
-                    .applySetting("hibernate.connection.password", mysqlPassword)
-                    .build();
-            try {
-                sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-            } catch (Exception e) {
-                System.out.println("Error setting up session factory: " + e.getMessage());
-                StandardServiceRegistryBuilder.destroy(registry);
-            }
-        }
+    @Autowired
+    private TaskModel tModel;
 
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-
-        System.out.println(session);
-        session.save(makeEmployeeOne());
-        session.save(makeEmployeeTwo());
-        session.save(makeCustomerOne());
-        session.save(makeCustomerTwo());
-        session.save(makeCustomerThree());
-        session.save(makeTaskOne());
-        session.save(makeTaskTwo());
-        transaction.commit();
-        session.close();
-
-
+    public void fillDb(){
+        eModel.createEmployee(makeEmployeeOne());
+        eModel.createEmployee(makeEmployeeTwo());
+        cModel.createCustomer(makeCustomerOne());
+        cModel.createCustomer(makeCustomerTwo());
+        cModel.createCustomer(makeCustomerThree());
+        tModel.createTasks(makeTaskOne());
+        tModel.createTasks(makeTaskTwo());
 
     }
 
     private static Employee makeEmployeeOne(){
         Employee one=new Employee();
         //one.setId(101);
-        one.setUserName("Een");
+        one.setuserName("Een");
         one.setFirstName("Eendrecht");
         one.setLastName("Een");
         one.setRole("Employee");
+        one.setPassword("Placeholder");
         one.setAddress("Een");
-        one.setPostalCode("1234Een");
+        one.setPostalCode("1234En");
         one.setResidence("EenStad");
         one.setMonday(true);
         one.setTuesday(true);
@@ -73,10 +60,11 @@ public class TestDbMaker {
     private static Employee makeEmployeeTwo(){
         Employee two=new Employee();
         //two.setId(102);
-        two.setUserName("Twee");
+        two.setuserName("Twee");
         two.setFirstName("Twee");
         two.setLastName("Twee");
         two.setRole("Employee");
+        two.setPassword("Placeholder");
         two.setAddress("Twee");
         two.setPostalCode("1234TW");
         two.setResidence("TweeStad");
@@ -124,15 +112,15 @@ public class TestDbMaker {
         return three;
     }
 
-    private static GeneralTasks makeTaskOne(){
-        GeneralTasks one = new GeneralTasks();
+    private static Generaltasks makeTaskOne(){
+        Generaltasks one = new Generaltasks();
         //one.setId(101);
         one.setTask("Opstaan uit bed");
         return one;
     }
 
-    private static GeneralTasks makeTaskTwo(){
-        GeneralTasks two = new GeneralTasks();
+    private static Generaltasks makeTaskTwo(){
+        Generaltasks two = new Generaltasks();
         //two.setId(102);
         two.setTask("Naar bed brengen");
         return two;

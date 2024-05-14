@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class DatabaseFailedToConnectAdvice {
+public class ExceptionInvalidInputAdvice {
     @ResponseBody
-    @ExceptionHandler(DatabaseFailedToConnect.class)
-    @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
-    String DatabaseFailedToConnect(DatabaseFailedToConnect ex) {
+    @ExceptionHandler(ExceptionInvalidInput.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    String ExceptionInvalidInput(ExceptionInvalidInput ex) {
         return ex.getMessage();
     }
 }

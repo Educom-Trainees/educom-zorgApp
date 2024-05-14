@@ -1,7 +1,10 @@
 package nu.zapp.models;
 
+import nu.zapp.ExceptionHandler.ExceptionInvalidInput;
+import nu.zapp.ExceptionHandler.ExceptionItemExists;
+import nu.zapp.ExceptionHandler.ExceptionNumId;
 import nu.zapp.entities.Employee;
-import nu.zapp.services.Crud;
+import nu.zapp.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,31 +13,57 @@ import java.util.List;
 @Component
 public class EmployeeModel {
 
-    private final Crud crud;
-
     @Autowired
-    public EmployeeModel(Crud crud) {
-        this.crud = crud;
+    private EmployeeRepository eRepository;
+
+    public List<Employee> findAll(){
+        return eRepository.findAll();
     }
 
-    public List<Employee> readAllEmployees(){
-        String queryString = "select a from Employee a";
-        return crud.readMultipleRows(Employee.class, queryString, "Error reading Employee List");
+    public Employee findById(int id){
+        Employee employee = eRepository.findById(id);
+        if (employee == null){
+            throw new ExceptionNumId(id, "werknemer");
+        }
+        return employee;
     }
 
-    public Employee readEmployeeById(int id){
-        return crud.readOneRow(Employee.class, Integer.toString(id), "Werknemer niet gevonden");
+    public Employee findByUserName(String username){
+        Employee employee = eRepository.findByUsername(username);
+        if (employee == null){
+            throw new ExceptionNumId(0, "werknemer");
+        }
+        return employee;
     }
 
-    public Employee createEmployee(Employee newEmployee) {
-        // TODO validate employee    
-        Employee createdEmployee = crud.createRow(newEmployee, "Medewerker kon niet gemaakt worden");
-        return createdEmployee;
+    public Employee createEmployee(Employee newEmployee){
+        // first have to check if username is occupied
+        newEmployee.setId(0);
+        userNameCheck(newEmployee.getuserName());
+
+
+        return eRepository.save(newEmployee);
     }
 
-    public void updateEmployee(Employee newEmployee) {
-        // TODO validate
-        crud.updateRow(newEmployee, "Medeweker kon niet worden bijgewerkt");
+    public Employee updateEmployee(Employee updatedEmployee){
+        //TODO username check
+        return eRepository.save(updatedEmployee);
+    }
+
+    private void userNameCheck(String username){
+        if (eRepository.findByUsername(username) != null){
+            throw new ExceptionItemExists("gebruikersnaam");
+        }
+    }
+
+    private String postalCodeCheck(String postalcode){
+        // This function will need to go to a generic place because both employees and customers can use it
+        if(postalcode.matches("^\\d{4}[a-zA-Z]{2}")){
+            throw new ExceptionInvalidInput("postcode");
+        }
+
+
+        return postalcode;
     }
 
 }

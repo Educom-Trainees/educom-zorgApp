@@ -1,7 +1,8 @@
 package nu.zapp.models;
 
+import nu.zapp.ExceptionHandler.ExceptionNumId;
 import nu.zapp.entities.Customer;
-import nu.zapp.services.Crud;
+import nu.zapp.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,33 +11,27 @@ import java.util.List;
 @Component
 public class CustomerModel {
 
-    private final Crud crud;
-
     @Autowired
-    public CustomerModel(Crud crud) {
-        this.crud = crud;
+    private CustomerRepository cRepository;
+
+    public List<Customer> findAll(){ return cRepository.findAll();}
+
+    public Customer findById(int id){
+        Customer customer = cRepository.findById(id);
+        if (customer == null){
+            throw new ExceptionNumId(id, "klant");
+        }
+        return customer;
     }
 
-    public List<Customer> getCustomers() {
-        String queryString = "select a from Customer a";
-        return crud.readMultipleRows(Customer.class, queryString, "Error reading Customer List");
+    public Customer createCustomer(Customer newCustomer){
+        newCustomer.setId(0);
+        return cRepository.save(newCustomer);
     }
 
-    public Customer getCustomer(int id){
-        return crud.readOneRow(Customer.class, Integer.toString(id), "Klant niet gevonden");
+    public Customer updateCustomer(Customer updatedCustomer){
+        return cRepository.save(updatedCustomer);
     }
-
-    public Customer createCustomer( Customer newCustomer){
-        // TODO validate
-        Customer createdCustomer = crud.createRow(newCustomer, "Klant kon niet worden gemaakt");
-        return createdCustomer;
-    }
-
-    public void updateCustomer( Customer updateCustomer) {
-        // TODO validate
-        crud.updateRow(updateCustomer, "Klant kon niet worden bijgewerkt");
-    }
-
 
 }
 
