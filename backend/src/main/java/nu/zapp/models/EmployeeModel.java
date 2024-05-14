@@ -1,5 +1,6 @@
 package nu.zapp.models;
 
+import nu.zapp.ExceptionHandler.ExceptionInvalidInput;
 import nu.zapp.ExceptionHandler.ExceptionItemExists;
 import nu.zapp.ExceptionHandler.ExceptionNumId;
 import nu.zapp.entities.Employee;
@@ -28,7 +29,7 @@ public class EmployeeModel {
     }
 
     public Employee findByUserName(String username){
-        Employee employee = eRepository.findByuserName(username);
+        Employee employee = eRepository.findByUsername(username);
         if (employee == null){
             throw new ExceptionNumId(0, "werknemer");
         }
@@ -38,16 +39,32 @@ public class EmployeeModel {
     public Employee createEmployee(Employee newEmployee){
         // first have to check if username is occupied
         newEmployee.setId(0);
-        if (eRepository.findByuserName(newEmployee.getUserName()) != null){
-            throw new ExceptionItemExists("gebruikersnaam");
-        }
+        userNameCheck(newEmployee.getuserName());
+
+
         return eRepository.save(newEmployee);
     }
 
     public Employee updateEmployee(Employee updatedEmployee){
-        return null;
+        //TODO username check
+        return eRepository.save(updatedEmployee);
     }
 
+    private void userNameCheck(String username){
+        if (eRepository.findByUsername(username) != null){
+            throw new ExceptionItemExists("gebruikersnaam");
+        }
+    }
+
+    private String postalCodeCheck(String postalcode){
+        // This function will need to go to a generic place because both employees and customers can use it
+        if(postalcode.matches("^\\d{4}[a-zA-Z]{2}")){
+            throw new ExceptionInvalidInput("postcode");
+        }
+
+
+        return postalcode;
+    }
 
 }
 
