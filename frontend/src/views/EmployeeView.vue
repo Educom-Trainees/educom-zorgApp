@@ -41,24 +41,26 @@
 
 <template>
     <div class="full-page-container">
-        <div class="row mb-0 searchbar-height">
-            <div class="offset-1 col-10 offset-md-3 col-md-6 d-flex align-items-center">
-                <div class="input-group">
-                    <span class="input-group-prepend">
-                        <button class="btn border-0 rounded-pill me-n5" type="button">
-                            <i class="bi bi-search"></i>
-                        </button>
-                    </span>
-                    <input class="form-control border rounded-pill bg-light"  v-model="searchval" @change="updateList">
-                </div>
-            </div>
-            <div class="col-12 offset-md-2 col-md-8 mt-auto">
-                <div class="ms-2">{{new Date().toLocaleDateString('nl-NL', {day: 'numeric', month: 'long'})}}</div>
-                <hr class="mb-0 mt-0" />
-            </div>
-        </div>
 
         <div class="row customer-list">
+            <div class="searchbar-height">
+                <div class="row mt-3 mb-0">
+                    <div class="offset-1 col-10 offset-md-3 col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-prepend">
+                                <button class="btn border-0 rounded-pill me-n5" type="button">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </span>
+                            <input class="form-control border rounded-pill bg-light" v-model="searchval" @change="updateList">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 offset-md-2 col-md-8 mt-3">
+                    <div class="ms-1">{{new Date().toLocaleDateString('nl-NL', {day: 'numeric', month: 'long'})}}</div>
+                    <hr class="mb-0 mt-0" />
+                </div>
+            </div>
             <div class="col offset-md-2 col-md-8">
                 <div class="pb-1 pt-1">
                     <template v-for="item in validData">
@@ -92,11 +94,11 @@
     }
     
     .searchbar-height {
-        height: 5em;
+        height: 6em;
     }
 
     .customer-list {
-        height: calc(89% - 5em);
+        height: 89%;
         flex-grow: 1;
         overflow: auto;
         overflow-x: hidden;
