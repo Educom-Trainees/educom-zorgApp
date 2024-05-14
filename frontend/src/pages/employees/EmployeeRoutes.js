@@ -1,4 +1,5 @@
 import ListView from '../../views/ListView.vue'
+import EmployeeDetailView from './EmployeeDetailView.vue'
 import translations from '../../config/nl-NL'
 
 export const employeeRoutes = [
@@ -6,6 +7,17 @@ export const employeeRoutes = [
         path: '/medewerkers',
         name: 'employees',
         component: ListView,
+        meta: {
+            title: translations['employees'],
+            listType: 'employees',
+            addButtonText: translations['add_employee'],
+            singular: translations['an_employee'],
+        }
+    },
+    {
+        path: '/medewerkers/:id',
+        name: 'employees.show',
+        component: EmployeeDetailView,
         meta: {
             title: translations['employees'],
             listType: 'employees',
