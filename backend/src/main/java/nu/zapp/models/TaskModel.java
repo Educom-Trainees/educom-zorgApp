@@ -20,6 +20,10 @@ public class TaskModel {
     }
 
     public Generaltasks createTasks(Generaltasks newTask){
+        //First letter of a task should be capitalised for consistency
+        String task = newTask.getTask();
+        String taskCap = task.substring(0, 1).toUpperCase() + task.substring(1);
+        newTask.setTask(taskCap);
         if (tRepository.findByTask(newTask.getTask()) != null){
             throw new ExceptionItemExists("taak");
         }
