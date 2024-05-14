@@ -15,8 +15,8 @@ public class TestDbMaker {
     private static SessionFactory sessionFactory;
 
     public static void main(String... args) {
-        String mysqlUser = System.getenv("ZAPP_USER");
-        String mysqlPassword = System.getenv("ZAPP_PASSWORD");
+        String mysqlUser = System.getenv("MYSQL_USER");
+        String mysqlPassword = System.getenv("MYSQL_PASSWORD");
 
         if (sessionFactory == null) {
             final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()

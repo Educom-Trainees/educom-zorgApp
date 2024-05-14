@@ -33,6 +33,7 @@ const translations = {
 	friday: "Vrijdag",
 	saturday: "Zaterdag",
 	sunday: "Zondag",
+	save: "Opslaan",
 
 }
 

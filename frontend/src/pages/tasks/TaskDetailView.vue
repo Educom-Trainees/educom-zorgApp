@@ -5,29 +5,29 @@
     import InputForm from '../../components/InputForm.vue'
     import { ref, toRaw, toRef, watch } from 'vue'
     import translations from '../../config/nl-NL'
-    import { putCustomer } from '../../api/customers'
+    import { putTask } from '../../api/tasks'
 
     var route = useRoute();
     const id = route.params.id;
 
     const { isLoading, isError, data, error, isFetching, dataUpdatedAt } = useQuery({
-        queryKey: ['customers', id],
-        queryFn: () => getIndividual('customers', id), //might want to move customers to route meta info
+        queryKey: ['tasks', id],
+        queryFn: () => getIndividual('tasks', id), //might want to move customers to route meta info
     })
 
-    const customer = ref(JSON.parse(JSON.stringify(data?.value ? data.value : '')))
+    const task = ref(JSON.parse(JSON.stringify(data?.value ? data.value : '')))
     watch(data, (value) => {
-        console.log('updating')
-        customer.value = JSON.parse(JSON.stringify(value))
+        console.log(value)
+        task.value = JSON.parse(JSON.stringify(value))
     });
 
     const {isSuccess, mutate } = useMutation({
-        mutationFn: putCustomer,
+        mutationFn: putTask,
     })
 
     const postIfValid = () => {
         //console.log(firstName, lastName, address, postalCode, residence)
-        mutate({ id: id, customer: JSON.stringify(customer.value) })
+        mutate({ id: id, task: JSON.stringify(task.value) })
     }
 
 </script>
@@ -42,13 +42,8 @@
     <template v-else>
         <div class="row">
             <form class="offset-1 col-10" @submit.prevent="postIfValid">
-                <InputForm type="text" :label="translations.firstName" v-model="customer.firstName" id="firstName" />
-                <InputForm type="text" :label="translations.lastName" v-model="customer.lastName" id="lastName" />
-                <InputForm type="text" :label="translations.address" v-model="customer.address" id="address" />
-                <div class="row">
-                    <InputForm class="col-6" type="text" :label="translations.postalCode" v-model="customer.postalCode" id="postalCode" />
-                    <InputForm class="col-6" type="text" :label="translations.residence" v-model="customer.residence" id="residence" />
-                </div>
+                <InputForm type="text" :label="translations.firstName" v-model="task.task" id="firstName" />
+                
                 <button type="submit" class="position-bottom-right default-button mb-4 me-4">{{translations.save}}</button>
             </form>
         </div>
