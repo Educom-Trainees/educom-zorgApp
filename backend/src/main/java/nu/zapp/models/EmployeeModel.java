@@ -40,8 +40,7 @@ public class EmployeeModel {
         // first have to check if username is occupied
         newEmployee.setId(0);
         userNameCheck(newEmployee.getuserName());
-
-
+        newEmployee.setPostalCode(postalCodeCheck(newEmployee.getPostalCode()));
         return eRepository.save(newEmployee);
     }
 
@@ -58,12 +57,11 @@ public class EmployeeModel {
 
     private String postalCodeCheck(String postalcode){
         // This function will need to go to a generic place because both employees and customers can use it
-        if(postalcode.matches("^\\d{4}[a-zA-Z]{2}")){
+        if(!postalcode.matches("^\\d{4}[a-zA-Z]{2}")){
             throw new ExceptionInvalidInput("postcode");
         }
-
-
-        return postalcode;
+        String postalcodeCap = postalcode.substring(0,4) + postalcode.substring(4, 6).toUpperCase();
+        return postalcodeCap;
     }
 
 }
