@@ -28,7 +28,7 @@ public class EmployeeModel {
     }
 
     public Employee findByUserName(String username){
-        Employee employee = eRepository.findByuserName(username);
+        Employee employee = eRepository.findByUsername(username);
         if (employee == null){
             throw new ExceptionNumId(0, "werknemer");
         }
@@ -38,16 +38,15 @@ public class EmployeeModel {
     public Employee createEmployee(Employee newEmployee){
         // first have to check if username is occupied
         newEmployee.setId(0);
-        if (eRepository.findByuserName(newEmployee.getUserName()) != null){
+        if (eRepository.findByUsername(newEmployee.getuserName()) != null){
             throw new ExceptionItemExists("gebruikersnaam");
         }
         return eRepository.save(newEmployee);
     }
 
     public Employee updateEmployee(Employee updatedEmployee){
-        return null;
+        return eRepository.save(updatedEmployee);
     }
-
 
 }
 

@@ -12,7 +12,7 @@ public class Employee {
     @Column(unique = true, nullable = false)
     private int id;
     @Column(length = 30, nullable = false)
-    private String userName;
+    private String username;
     @Column(length = 60, nullable = false)
     //@JsonIgnore
     private String password;
@@ -42,12 +42,12 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(int id, String userName, String password, LocalDateTime passwordExpiration,
+    public Employee(int id, String username, String password, LocalDateTime passwordExpiration,
                     String firstName, String lastName, String role,
                     String address, String postalcode, String residence,
                     boolean monday, boolean tuesday, boolean wednesday, boolean thursday, boolean friday) {
         this.id = id;
-        this.userName = userName;
+        this.username = username;
         this.password = password;
         this.passwordExpiration = passwordExpiration;
         this.firstName = firstName;
@@ -71,12 +71,12 @@ public class Employee {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getuserName() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setuserName(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

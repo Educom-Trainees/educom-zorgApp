@@ -9,9 +9,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class ApiStartUp {
     public static void main(String... args) {
         if (args != null && args.length > 0 && "TestDbMaker".equals(args[0])) {
-            TestDbMaker.main(null); 
+            System.setProperty("spring.jpa.ddl-auto", "create");
         } else {
-            SpringApplication.run(ApiStartUp.class, args);
+            System.setProperty("spring.jpa.ddl-auto", "none");
         }
+        SpringApplication.run(ApiStartUp.class, args);
     }
 }

@@ -25,7 +25,12 @@ public class CustomerModel {
     }
 
     public Customer createCustomer(Customer newCustomer){
+        newCustomer.setId(0);
         return cRepository.save(newCustomer);
+    }
+
+    public Customer updateCustomer(Customer updatedCustomer){
+        return cRepository.save(updatedCustomer);
     }
 
 }
