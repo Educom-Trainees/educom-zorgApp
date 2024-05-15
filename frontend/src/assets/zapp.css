@@ -2,6 +2,7 @@
     --zapp-light: #005fab;
     --zapp-dark: #0158a4;
     --navbar-height: calc(1rem + 50px);
+    --page-height: calc(100vh - var(--navbar-height));
 }
 
 a:link {
@@ -186,8 +187,19 @@ td a {
 }
 
 .customer-list {
-    height: 65vh;
     flex-grow: 1;
     overflow: auto;
     overflow-x: hidden;
+}
+
+.full-page-container {
+    height: var(--page-height);
+}
+
+.ms-n5 {
+    margin-left: -40px;
+}
+
+.me-n5 {
+    margin-right: -40px;
 }
