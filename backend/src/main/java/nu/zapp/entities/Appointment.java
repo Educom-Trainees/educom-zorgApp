@@ -12,8 +12,9 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @JoinColumn
-    private int customerId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
     private LocalDate date;
 
@@ -24,9 +25,9 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(int id, int customerId, LocalDate date, LocalTime registerTime, LocalTime logoutTime) {
+    public Appointment(int id, Customer customer, LocalDate date, LocalTime registerTime, LocalTime logoutTime) {
         this.id = id;
-        this.customerId = customerId;
+        this.customer = customer;
         this.date = date;
         this.registerTime = registerTime;
         this.logoutTime = logoutTime;
@@ -41,12 +42,12 @@ public class Appointment {
         this.id = id;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public LocalDate getDate() {
@@ -65,8 +66,7 @@ public class Appointment {
         this.registerTime = registerTime;
     }
 
-    public LocalTime getLogoutTime() {
-        return logoutTime;
+    public LocalTime getLogoutTime() {return logoutTime;
     }
 
     public void setLogoutTime(LocalTime logoutTime) {

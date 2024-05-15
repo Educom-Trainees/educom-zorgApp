@@ -9,6 +9,8 @@ import java.util.List;
 public interface CustomerRepository extends CrudRepository<Customer, Integer> {
     public Customer findById(int id);
     public List<Customer> findAll();
+
+    public Customer save(Customer customer);
 }
 
 

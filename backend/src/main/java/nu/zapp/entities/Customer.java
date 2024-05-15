@@ -2,6 +2,8 @@ package nu.zapp.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Customer {
     @Id
@@ -19,6 +21,9 @@ public class Customer {
     private String residence;
 
     private boolean active;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Appointment> appointments;
 
     public Customer() {
     }
