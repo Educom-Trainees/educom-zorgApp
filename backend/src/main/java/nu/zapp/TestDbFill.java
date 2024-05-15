@@ -44,7 +44,7 @@ public class TestDbFill {
         aModel.createAppointment(makeAppointmentOne(1));
         aModel.createAppointment(makeAppointmentTwo(2));
         eTaModel.createEtA(makeETA(1, 1));
-
+        eTaModel.createEtA(makeETA(1, 2));
     }
 
     private static Employee makeEmployeeOne(){
