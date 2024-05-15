@@ -1,8 +1,10 @@
 package nu.zapp;
 
+import nu.zapp.entities.Appointment;
 import nu.zapp.entities.Customer;
 import nu.zapp.entities.Employee;
 import nu.zapp.entities.Generaltasks;
+import nu.zapp.models.AppointmentModel;
 import nu.zapp.models.CustomerModel;
 import nu.zapp.models.EmployeeModel;
 import nu.zapp.models.TaskModel;
@@ -14,6 +16,10 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.sql.Date;
+import java.time.DateTimeException;
+import java.time.LocalDate;
 
 @Component
 public class TestDbFill {
@@ -27,6 +33,9 @@ public class TestDbFill {
     @Autowired
     private TaskModel tModel;
 
+    @Autowired
+    private AppointmentModel aModel;
+
     public void fillDb(){
         eModel.createEmployee(makeEmployeeOne());
         eModel.createEmployee(makeEmployeeTwo());
@@ -35,6 +44,8 @@ public class TestDbFill {
         cModel.createCustomer(makeCustomerThree());
         tModel.createTasks(makeTaskOne());
         tModel.createTasks(makeTaskTwo());
+        aModel.createAppointment(makeAppointmentOne(1));
+        aModel.createAppointment(makeAppointmentTwo(2));
 
     }
 
@@ -123,6 +134,22 @@ public class TestDbFill {
         Generaltasks two = new Generaltasks();
         //two.setId(102);
         two.setTask("Naar bed brengen");
+        return two;
+    }
+
+    private Appointment makeAppointmentOne(int id){
+        Appointment one = new Appointment();
+        Customer customer = cModel.findById(id);
+        one.setCustomer(customer);
+        one.setDate(Date.valueOf(LocalDate.of(2024, 5, 24)).toLocalDate());
+        return one;
+    }
+
+    private Appointment makeAppointmentTwo(int id){
+        Appointment two = new Appointment();
+        Customer customer = cModel.findById(id);
+        two.setCustomer(customer);
+        two.setDate(Date.valueOf(LocalDate.of(2024, 5, 22)).toLocalDate());
         return two;
     }
 
