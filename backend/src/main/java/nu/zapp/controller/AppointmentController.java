@@ -6,10 +6,7 @@ import nu.zapp.entities.Customer;
 import nu.zapp.models.AppointmentModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,11 +16,18 @@ import java.util.List;
 public class AppointmentController {
     @Autowired
     AppointmentModel aModel;
-
     @CrossOrigin()
     @GetMapping("")
     List<Appointment> getAppointments(){
         return aModel.findAll();
     }
+
+    @CrossOrigin()
+    @GetMapping("/{id}")
+    Appointment getAppointment(@PathVariable int id) { return aModel.findById(id); }
+
+//    @CrossOrigin()
+//    @GetMapping("/employee/{id}")
+//    List<Appointment> getAppointmentsEmployee(@PathVariable int id) { return aModel.findByEmployeeId(id); }
 
 }
