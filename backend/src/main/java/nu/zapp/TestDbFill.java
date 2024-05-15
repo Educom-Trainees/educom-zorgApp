@@ -1,13 +1,7 @@
 package nu.zapp;
 
-import nu.zapp.entities.Appointment;
-import nu.zapp.entities.Customer;
-import nu.zapp.entities.Employee;
-import nu.zapp.entities.Generaltasks;
-import nu.zapp.models.AppointmentModel;
-import nu.zapp.models.CustomerModel;
-import nu.zapp.models.EmployeeModel;
-import nu.zapp.models.TaskModel;
+import nu.zapp.entities.*;
+import nu.zapp.models.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -36,6 +30,9 @@ public class TestDbFill {
     @Autowired
     private AppointmentModel aModel;
 
+    @Autowired
+    private EmployeeToAppointmentModel eTaModel;
+
     public void fillDb(){
         eModel.createEmployee(makeEmployeeOne());
         eModel.createEmployee(makeEmployeeTwo());
@@ -46,6 +43,7 @@ public class TestDbFill {
         tModel.createTasks(makeTaskTwo());
         aModel.createAppointment(makeAppointmentOne(1));
         aModel.createAppointment(makeAppointmentTwo(2));
+        eTaModel.createEtA(makeETA(1, 1));
 
     }
 
@@ -151,6 +149,15 @@ public class TestDbFill {
         two.setCustomer(customer);
         two.setDate(Date.valueOf(LocalDate.of(2024, 5, 22)).toLocalDate());
         return two;
+    }
+
+    private EmployeeToAppointment makeETA(int employeeId, int AppointmentId){
+        EmployeeToAppointment one = new EmployeeToAppointment();
+        Appointment appointment = aModel.findById(AppointmentId);
+        Employee employee = eModel.findById(employeeId);
+        one.setAppointment(appointment);
+        one.setEmployee(employee);
+        return one;
     }
 
 }

@@ -1,9 +1,9 @@
 package nu.zapp.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Employee {
@@ -39,6 +39,8 @@ public class Employee {
     private boolean thursday;
     private boolean friday;
 
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<EmployeeToAppointment> employeeToAppointments;
     public Employee() {
     }
 

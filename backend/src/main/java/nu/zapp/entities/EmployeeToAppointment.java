@@ -1,27 +1,54 @@
 package nu.zapp.entities;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 public class EmployeeToAppointment {
 
-    // Temporary id to make code function
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
-    @JoinColumn(name = "employee_id", referencedColumnName = "id")
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    @OneToOne
-    @JoinColumn(name = "appointment_id", referencedColumnName = "id")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "appointment_id")
     private Appointment appointment;
 
     public EmployeeToAppointment() {
     }
-
-    public EmployeeToAppointment(Employee employee, Appointment appointment) {
+    public EmployeeToAppointment(int id, Employee employee, Appointment appointment) {
+        this.id = id;
         this.employee = employee;
         this.appointment = appointment;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public Appointment getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
+    }
+
+
 }

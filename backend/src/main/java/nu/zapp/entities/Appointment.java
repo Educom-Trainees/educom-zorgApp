@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 
 @Entity
@@ -21,6 +22,9 @@ public class Appointment {
     private LocalTime registerTime;
 
     private LocalTime logoutTime;
+
+    @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private EmployeeToAppointment employeeToAppointments;
 
     public Appointment() {
     }

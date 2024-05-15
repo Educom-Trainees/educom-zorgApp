@@ -18,6 +18,10 @@ public class AppointmentModel {
         return aRepository.findAll();
     }
 
+    public Appointment findById(int id){
+        return aRepository.findById(id);
+    }
+
     public Appointment createAppointment(Appointment newAppointment){
         return aRepository.save(newAppointment);
     }
