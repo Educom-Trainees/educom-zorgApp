@@ -26,4 +26,6 @@ public class AppointmentModel {
         return aRepository.save(newAppointment);
     }
 
+    public List<Appointment> findByEmployeeId(int id) { return aRepository.findByEmployeeId(id);
+    }
 }
