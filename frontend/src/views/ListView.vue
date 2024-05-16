@@ -16,7 +16,7 @@
     })
 
     const { isLoading, isError, data, error, isFetching, dataUpdatedAt } = useQuery({
-        queryKey: ['list', listType],
+        queryKey: [listType],
         queryFn: () => getCollection(listType.value),
     })
 
