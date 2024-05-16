@@ -2,18 +2,13 @@ package nu.zapp;
 
 import nu.zapp.entities.*;
 import nu.zapp.models.*;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Component
 public class TestDbFill {
@@ -49,38 +44,28 @@ public class TestDbFill {
     private static Employee makeEmployeeOne(){
         Employee one=new Employee();
         //one.setId(101);
-        one.setuserName("Een");
+        one.setUsername("Een");
         one.setFirstName("Eendrecht");
         one.setLastName("Een");
         one.setRole("Employee");
         one.setPassword("Placeholder");
         one.setAddress("Een");
-        one.setPostalCode("1234En");
+        one.setPostalcode("1234En");
         one.setResidence("EenStad");
-        one.setMonday(true);
-        one.setTuesday(true);
-        one.setWednesday(false);
-        one.setThursday(true);
-        one.setFriday(false);
         return one;
     }
 
     private static Employee makeEmployeeTwo(){
         Employee two=new Employee();
         //two.setId(102);
-        two.setuserName("Twee");
+        two.setUsername("Twee");
         two.setFirstName("Twee");
         two.setLastName("Twee");
         two.setRole("Employee");
         two.setPassword("Placeholder");
         two.setAddress("Twee");
-        two.setPostalCode("1234TW");
+        two.setPostalcode("1234TW");
         two.setResidence("TweeStad");
-        two.setMonday(true);
-        two.setTuesday(false);
-        two.setWednesday(false);
-        two.setThursday(false);
-        two.setFriday(true);
         return two;
     }
 
@@ -124,6 +109,7 @@ public class TestDbFill {
         Generaltasks one = new Generaltasks();
         //one.setId(101);
         one.setTask("Opstaan uit bed");
+        one.setActive(true);
         return one;
     }
 
@@ -131,6 +117,7 @@ public class TestDbFill {
         Generaltasks two = new Generaltasks();
         //two.setId(102);
         two.setTask("Naar bed brengen");
+        two.setActive(true);
         return two;
     }
 
@@ -139,6 +126,8 @@ public class TestDbFill {
         Customer customer = cModel.findById(id);
         one.setCustomer(customer);
         one.setDate(Date.valueOf(LocalDate.of(2024, 5, 24)).toLocalDate());
+        one.setStartTime(LocalTime.of(16, 0));
+        one.setEndTime(LocalTime.of(17, 0));
         return one;
     }
 
@@ -146,6 +135,8 @@ public class TestDbFill {
         Appointment two = new Appointment();
         Customer customer = cModel.findById(id);
         two.setCustomer(customer);
+        two.setStartTime(LocalTime.of(16, 0));
+        two.setEndTime(LocalTime.of(17, 0));
         two.setDate(Date.valueOf(LocalDate.of(2024, 5, 22)).toLocalDate());
         return two;
     }
