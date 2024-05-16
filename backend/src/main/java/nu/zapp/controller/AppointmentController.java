@@ -26,8 +26,8 @@ public class AppointmentController {
     @GetMapping("/{id}")
     Appointment getAppointment(@PathVariable int id) { return aModel.findById(id); }
 
-//    @CrossOrigin()
-//    @GetMapping("/employee/{id}")
-//    List<Appointment> getAppointmentsEmployee(@PathVariable int id) { return aModel.findByEmployeeId(id); }
+    @CrossOrigin()
+    @GetMapping("/employee/{id}")
+    List<Appointment> getAppointmentsEmployee(@PathVariable int id) { return aModel.findByEmployeeId(id); }
 
 }
