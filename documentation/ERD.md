@@ -10,13 +10,8 @@ erDiagram
   varchar lastName
   varchar role
   varchar adress
-  varchar postalCode
+  char(6) postalCode
   varchar residence
-  boolean monday
-  boolean tuesday
-  boolean wednesday
-  boolean thursday
-  boolean friday
   }
 
   EmployeeToAppointment o|--|| Appointment : Attends
@@ -31,9 +26,11 @@ erDiagram
   Appointment{
   int id pk
   int customerId fk
-  datetime date
-  datetime registrationTime
-  datetime logoutTime
+  date date
+  time start_time
+  time end_time
+  time registrationTime
+  time logoutTime
   }
 
   appointmentTasks{
@@ -52,7 +49,7 @@ erDiagram
   varchar firstname
   varchar lastname
   varchar adress
-  varchar postalCode
+  char(6) postalCode
   varchar residence
   boolean active
   }
@@ -61,6 +58,9 @@ erDiagram
   generalTasks{
   int id pk
   varchar task
+  time start_time
+  time end_time
+  boolean active
   }
 
   customerSetTasks }|--|o repeatTask : repeats
@@ -69,6 +69,7 @@ erDiagram
   int customerId fk
   varchar task
   varchar note
+  boolean active
   }
 
   repeatTask{
