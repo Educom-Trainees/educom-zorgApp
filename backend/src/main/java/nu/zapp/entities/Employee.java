@@ -1,6 +1,7 @@
 package nu.zapp.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.jdbc.Work;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -32,22 +33,23 @@ public class Employee {
 
     @Column(length=50, nullable = false)
     private String residence;
+
+    @Column(nullable = false, columnDefinition = "boolean default true")
+    private boolean active;
     
-    private boolean monday;
-    private boolean tuesday;
-    private boolean wednesday;
-    private boolean thursday;
-    private boolean friday;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<EmployeeToAppointment> employeeToAppointments;
+
+
+
     public Employee() {
     }
 
-    public Employee(int id, String username, String password, LocalDateTime passwordExpiration,
-                    String firstName, String lastName, String role,
-                    String address, String postalcode, String residence,
-                    boolean monday, boolean tuesday, boolean wednesday, boolean thursday, boolean friday) {
+    public Employee(int id, String username, String password, LocalDateTime passwordExpiration, 
+                    String firstName, String lastName, String role, 
+                    String address, String postalcode, String residence, 
+                    boolean active) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -58,11 +60,7 @@ public class Employee {
         this.address = address;
         this.postalcode = postalcode;
         this.residence = residence;
-        this.monday = monday;
-        this.tuesday = tuesday;
-        this.wednesday = wednesday;
-        this.thursday = thursday;
-        this.friday = friday;
+        this.active = active;
     }
 
     public int getId() {
@@ -73,11 +71,11 @@ public class Employee {
         this.id = id;
     }
 
-    public String getuserName() {
+    public String getUsername() {
         return username;
     }
 
-    public void setuserName(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
@@ -129,11 +127,11 @@ public class Employee {
         this.address = address;
     }
 
-    public String getPostalCode() {
+    public String getPostalcode() {
         return postalcode;
     }
 
-    public void setPostalCode(String postalcode) {
+    public void setPostalcode(String postalcode) {
         this.postalcode = postalcode;
     }
 
@@ -145,43 +143,11 @@ public class Employee {
         this.residence = residence;
     }
 
-    public boolean isMonday() {
-        return monday;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setMonday(boolean monday) {
-        this.monday = monday;
-    }
-
-    public boolean isTuesday() {
-        return tuesday;
-    }
-
-    public void setTuesday(boolean tuesday) {
-        this.tuesday = tuesday;
-    }
-
-    public boolean isWednesday() {
-        return wednesday;
-    }
-
-    public void setWednesday(boolean wednesday) {
-        this.wednesday = wednesday;
-    }
-
-    public boolean isThursday() {
-        return thursday;
-    }
-
-    public void setThursday(boolean thursday) {
-        this.thursday = thursday;
-    }
-
-    public boolean isFriday() {
-        return friday;
-    }
-
-    public void setFriday(boolean friday) {
-        this.friday = friday;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

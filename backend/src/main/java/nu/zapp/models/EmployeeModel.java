@@ -39,8 +39,8 @@ public class EmployeeModel {
     public Employee createEmployee(Employee newEmployee){
         // first have to check if username is occupied
         newEmployee.setId(0);
-        userNameCheck(newEmployee.getuserName());
-        newEmployee.setPostalCode(postalCodeCheck(newEmployee.getPostalCode()));
+        userNameCheck(newEmployee.getUsername());
+        newEmployee.setPostalcode(postalCodeCheck(newEmployee.getPostalcode()));
         return eRepository.save(newEmployee);
     }
 

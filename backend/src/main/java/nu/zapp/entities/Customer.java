@@ -10,16 +10,22 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(nullable = false)
     private String firstName;
 
+    @Column(nullable = false)
     private String lastName;
 
+    @Column(nullable = false)
     private String address;
 
+    @Column(length=6, nullable = false)
     private String postalcode;
 
+    @Column(nullable = false)
     private String residence;
 
+    @Column(nullable = false, columnDefinition = "boolean default true")
     private boolean active;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
