@@ -1,7 +1,6 @@
 package nu.zapp.entities;
 
 import jakarta.persistence.*;
-import org.hibernate.jdbc.Work;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -41,7 +40,8 @@ public class Employee {
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<EmployeeToAppointment> employeeToAppointments;
 
-
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<WorkSchedule> workSchedule;
 
     public Employee() {
     }

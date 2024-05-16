@@ -10,9 +10,9 @@ public class WorkSchedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "employee_id")
-//    private Employee employee;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 
     @Column(length=9)
     private String day;
