@@ -1,5 +1,5 @@
 <script setup>
-    import { useMutation, useQuery } from 'vue-query'
+    import { useMutation, useQuery, useQueryClient } from 'vue-query'
     import { useRoute } from 'vue-router'
     import { getIndividual } from '../../api/collections'
     import InputForm from '../../components/InputForm.vue'
@@ -7,22 +7,46 @@
     import translations from '../../config/nl-NL'
     import { putCustomer } from '../../api/customers'
 
+    const CUSTOMERS = 'customers'
+
     var route = useRoute();
     const id = route.params.id;
-
+    const queryClient = useQueryClient();
     const { isLoading, isError, data, error, isFetching, dataUpdatedAt } = useQuery({
-        queryKey: ['customers', id],
-        queryFn: () => getIndividual('customers', id), //might want to move customers to route meta info
+        queryKey: [CUSTOMERS, id],
+        queryFn: () => getIndividual(CUSTOMERS, id), //might want to move customers to route meta info
+        placeholderData: () => {
+            // Use the smaller/list version of the customer from the CUSTOMERS
+            // query as the placeholder data for this customer query
+            const placeholder = queryClient
+                .getQueryData([CUSTOMERS])
+                ?.find(cust => cust.id == id)
+            return placeholder
+        }
     })
 
-    const customer = ref(JSON.parse(JSON.stringify(data?.value ? data.value : '')))
-    watch(data, (value) => {
-        console.log('updating')
-        customer.value = JSON.parse(JSON.stringify(value))
-    });
+    const customer = ref('')
+    function updateCustomer(value) {
+        customer.value = { ...value }
+    }
+
+    if (!isLoading && data.value) {
+        updateCustomer(data.value)
+    }
+    watch(data, (value) => updateCustomer(value));
 
     const {isSuccess, mutate } = useMutation({
         mutationFn: putCustomer,
+        onSuccess: (result) => {
+            queryClient.invalidateQueries([CUSTOMERS, id])
+            queryClient.cancelQueries([CUSTOMERS])
+            const prevList = queryClient.getQueryData([CUSTOMERS])
+            if (prevList) {
+                const tempList = prevList.map(cust => cust.id == id ? customer.value : cust)
+                queryClient.invalidateQueries([CUSTOMERS])
+                queryClient.setQueryData([CUSTOMERS], tempList)
+            }
+        }
     })
 
     const postIfValid = () => {
