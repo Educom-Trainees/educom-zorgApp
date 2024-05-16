@@ -30,6 +30,7 @@ public class AppointmentController {
     @CrossOrigin()
     @GetMapping("/employee/{id}/{date}")
     List<Appointment> getAppointmentsEmployee(@PathVariable int id, @PathVariable LocalDate date) {
+        // date uses a year-month-day input xxxx-xx-xx
         return aModel.findEmployeeAppointments(id, date); }
 
 }
