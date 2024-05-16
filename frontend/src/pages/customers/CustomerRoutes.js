@@ -1,6 +1,7 @@
 import ListView from '../../views/ListView.vue'
 import CustomerDetailView from './CustomerDetailView.vue'
 import translations from '../../config/nl-NL'
+import NewCustomer from './NewCustomer.vue'
 
 export const customerRoutes = [
     {
@@ -12,6 +13,7 @@ export const customerRoutes = [
             listType: 'customers',
             addButtonText: translations['add_customer'],
             singular: translations['a_customer'],
+            newComponent: NewCustomer
         }
     },
     {

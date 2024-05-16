@@ -9,3 +9,11 @@ export function putCustomer({ id, customer }) {
         body: customer,
     });
 }
+
+export function postCustomer(customer) {
+    return fetch('http://localhost:8080/customers', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: customer,
+    });
+}
