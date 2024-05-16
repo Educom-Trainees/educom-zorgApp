@@ -40,7 +40,7 @@
 
 <template>
     <div class="row justify-content-center mt-5">
-        <input class="form-control w-50" v-model="searchval" :placeholder="translations.search + ' ' + props.singular.toLowerCase()" @keyup="updateList" />
+        <input class="form-control w-50 bg-light" v-model="searchval" :placeholder="translations.search + ' ' + props.singular.toLowerCase()" @keyup="updateList" />
     </div>
     <div class="d-flex justify-content-center align-items-center mt-3">
         <button class="prev-button me-5" @click="prevPage" :disabled="page == 1"></button>
