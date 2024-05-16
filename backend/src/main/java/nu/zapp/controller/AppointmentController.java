@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @SpringBootApplication
@@ -27,7 +28,8 @@ public class AppointmentController {
     Appointment getAppointment(@PathVariable int id) { return aModel.findById(id); }
 
     @CrossOrigin()
-    @GetMapping("/employee/{id}")
-    List<Appointment> getAppointmentsEmployee(@PathVariable int id) { return aModel.findByEmployeeId(id); }
+    @GetMapping("/employee/{id}/{date}")
+    List<Appointment> getAppointmentsEmployee(@PathVariable int id, @PathVariable LocalDate date) {
+        return aModel.findEmployeeAppointments(id, date); }
 
 }
