@@ -14,6 +14,14 @@ erDiagram
   varchar residence
   }
 
+  workSchedule{
+  int id pk
+  int employee_id fk
+  varchar day
+  time start_shift
+  time end_shift
+  }
+
   EmployeeToAppointment o|--|| Appointment : Attends
   EmployeeToAppointment{
   int employeeId fk
