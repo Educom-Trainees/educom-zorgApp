@@ -1,5 +1,5 @@
 <script setup>
-    import { useMutation, useQuery } from 'vue-query'
+    import { useMutation, useQuery, useQueryClient } from 'vue-query'
     import { useRoute } from 'vue-router'
     import { getIndividual } from '../../api/collections'
     import InputForm from '../../components/InputForm.vue'
@@ -7,8 +7,12 @@
     import translations from '../../config/nl-NL'
     import { postCustomer } from '../../api/customers'
 
+    const CUSTOMERS = 'customers'
+
     var route = useRoute();
     const id = route.params.id;
+
+    const queryClient = useQueryClient();
 
     const customer = ref({
         id: 0,
@@ -16,11 +20,15 @@
         lastName: '',
         address: '',
         postalCode: '',
-        residence: ''
+        residence: '',
+        active: true,
     })
 
     const { isSuccess, mutate } = useMutation({
         mutationFn: postCustomer,
+        onSuccess: (result) => {
+            queryClient.invalidateQueries([CUSTOMERS])
+        }
     })
 
     const postIfValid = () => {
