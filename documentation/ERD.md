@@ -12,8 +12,11 @@ erDiagram
   varchar adress
   char(6) postalCode
   varchar residence
+  boolean active
   }
 
+
+  workSchedule }|--|| Employee : Works
   workSchedule{
   int id pk
   int employee_id fk
