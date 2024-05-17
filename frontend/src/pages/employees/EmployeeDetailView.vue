@@ -1,33 +1,59 @@
 <script setup>
-    import { useMutation, useQuery } from 'vue-query'
+    import { useMutation, useQuery, useQueryClient } from 'vue-query'
     import { useRoute } from 'vue-router'
-    import { getIndividual } from '../../api/collections'
+    import { getIndividual, putIndividual } from '../../api/collections'
     import InputForm from '../../components/InputForm.vue'
     import { ref, toRaw, toRef, watch } from 'vue'
     import translations from '../../config/nl-NL'
-    import { putEmployee } from '../../api/employees'
+
+    const EMPLOYEES = 'employees'
 
     var route = useRoute();
     const id = route.params.id;
-
+    const queryClient = useQueryClient();
     const { isLoading, isError, data, error, isFetching, dataUpdatedAt } = useQuery({
-        queryKey: ['employees', id],
-        queryFn: () => getIndividual('employees', id), //might want to move customers to route meta info
+        queryKey: [EMPLOYEES, id],
+        queryFn: () => getIndividual(EMPLOYEES, id), //might want to move customers to route meta info
+        placeholderData: () => {
+            // Use the smaller/list version of the customer from the CUSTOMERS
+            // query as the placeholder data for this customer query
+            const placeholder = queryClient
+                .getQueryData([EMPLOYEES])
+                ?.find(e => e.id == id)
+            return placeholder
+        }
     })
 
-    const employee = ref(JSON.parse(JSON.stringify(data?.value ? data.value : '')))
-    watch(data, (value) => {
-        console.log(value)
-        employee.value = JSON.parse(JSON.stringify(value))
-    });
+    const employee = ref('')
+    function updateEmployee(value) {
+        employee.value = { ...value }
+    }
 
-    const {isSuccess, mutate } = useMutation({
-        mutationFn: putEmployee,
+    if (!isLoading && data.value) {
+        updateEmployee(data.value)
+    }
+    watch(data, (value) => updateEmployee(value));
+
+    const { isSuccess, mutate } = useMutation({
+        mutationFn: putIndividual,
+        onSuccess: (result) => {
+            queryClient.invalidateQueries([EMPLOYEES, id])
+            queryClient.cancelQueries([EMPLOYEES])
+            const prevList = queryClient.getQueryData([EMPLOYEES])
+            if (prevList) {
+                const tempList = prevList.map(e => e.id == id ? employee.value : e)
+                queryClient.invalidateQueries([EMPLOYEES])
+                queryClient.setQueryData([EMPLOYEES], tempList)
+            }
+        }
     })
+
+
+
 
     const postIfValid = () => {
         //console.log(firstName, lastName, address, postalCode, residence)
-        mutate({ id: id, employee: JSON.stringify(employee.value) })
+        mutate({ type: EMPLOYEES, id: id, body: JSON.stringify(employee.value) })
     }
 
 </script>

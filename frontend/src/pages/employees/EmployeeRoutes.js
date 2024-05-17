@@ -1,6 +1,7 @@
 import ListView from '../../views/ListView.vue'
 import EmployeeDetailView from './EmployeeDetailView.vue'
 import translations from '../../config/nl-NL'
+import NewEmployee from './NewEmployee.vue'
 
 export const employeeRoutes = [
     {
@@ -12,6 +13,7 @@ export const employeeRoutes = [
             listType: 'employees',
             addButtonText: translations['add_employee'],
             singular: translations['an_employee'],
+            newComponent: NewEmployee
         }
     },
     {

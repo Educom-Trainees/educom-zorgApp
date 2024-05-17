@@ -1,11 +1,10 @@
 <script setup>
     import { useMutation, useQuery, useQueryClient } from 'vue-query'
     import { useRoute } from 'vue-router'
-    import { getIndividual } from '../../api/collections'
+    import { getIndividual, putIndividual } from '../../api/collections'
     import InputForm from '../../components/InputForm.vue'
     import { ref, toRaw, toRef, watch } from 'vue'
     import translations from '../../config/nl-NL'
-    import { putCustomer } from '../../api/customers'
 
     const CUSTOMERS = 'customers'
 
@@ -36,7 +35,7 @@
     watch(data, (value) => updateCustomer(value));
 
     const {isSuccess, mutate } = useMutation({
-        mutationFn: putCustomer,
+        mutationFn: putIndividual,
         onSuccess: (result) => {
             queryClient.invalidateQueries([CUSTOMERS, id])
             queryClient.cancelQueries([CUSTOMERS])
@@ -51,7 +50,7 @@
 
     const postIfValid = () => {
         //console.log(firstName, lastName, address, postalCode, residence)
-        mutate({ id: id, customer: JSON.stringify(customer.value) })
+        mutate({ type: CUSTOMERS, id: id, body: JSON.stringify(customer.value) })
     }
 
 </script>

@@ -1,6 +1,7 @@
 import ListView from '../../views/ListView.vue'
 import TaskDetailView from './TaskDetailView.vue'
 import translations from '../../config/nl-NL'
+import NewTask from './NewTask.vue'
 
 export const taskRoutes = [
     {
@@ -12,6 +13,7 @@ export const taskRoutes = [
             listType: 'tasks',
             addButtonText: translations['add_task'],
             singular: translations['a_task'],
+            newComponent: NewTask,
         }
     },
     {
