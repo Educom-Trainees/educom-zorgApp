@@ -1,6 +1,8 @@
 package nu.zapp.models;
 
+import nu.zapp.DTO.AppointmentDTO;
 import nu.zapp.entities.Appointment;
+import nu.zapp.mappers.AppointmentSourceDestinationMapper;
 import nu.zapp.repositories.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,10 +14,13 @@ import java.util.List;
 public class AppointmentModel {
 
     @Autowired
-    AppointmentRepository aRepository;
+    private AppointmentRepository aRepository;
+    @Autowired
+    private AppointmentSourceDestinationMapper mapper;
 
-    public List<Appointment> findAll() {
-        return aRepository.findAll();
+    public List<AppointmentDTO> findAll() {
+        List<Appointment> appointments = aRepository.findAll();
+        return mapper.sourceToDestination(appointments);
     }
 
     public Appointment findById(int id){
@@ -26,7 +31,8 @@ public class AppointmentModel {
         return aRepository.save(newAppointment);
     }
 
-    public List<Appointment> findEmployeeAppointments(int id, LocalDate date) {
-        return aRepository.findEmployeeAppointments(id, date);
+    public List<AppointmentDTO> findEmployeeAppointments(int id, LocalDate date) {
+        List<Appointment> appointments = aRepository.findEmployeeAppointments(id, date);
+        return mapper.sourceToDestination(appointments);
     }
 }

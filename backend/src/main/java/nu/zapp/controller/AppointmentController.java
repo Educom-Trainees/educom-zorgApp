@@ -1,6 +1,7 @@
 package nu.zapp.controller;
 
 
+import nu.zapp.DTO.AppointmentDTO;
 import nu.zapp.entities.Appointment;
 import nu.zapp.entities.Customer;
 import nu.zapp.models.AppointmentModel;
@@ -19,7 +20,7 @@ public class AppointmentController {
     AppointmentModel aModel;
     @CrossOrigin()
     @GetMapping("")
-    List<Appointment> getAppointments(){
+    List<AppointmentDTO> getAppointments(){
         return aModel.findAll();
     }
 
@@ -29,7 +30,7 @@ public class AppointmentController {
 
     @CrossOrigin()
     @GetMapping("/employee/{id}/{date}")
-    List<Appointment> getAppointmentsEmployee(@PathVariable int id, @PathVariable LocalDate date) {
+    List<AppointmentDTO> getAppointmentsEmployee(@PathVariable int id, @PathVariable LocalDate date) {
         // date uses a year-month-day input xxxx-xx-xx
         return aModel.findEmployeeAppointments(id, date); }
 
