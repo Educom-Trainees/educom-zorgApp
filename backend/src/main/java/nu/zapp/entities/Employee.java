@@ -19,7 +19,7 @@ public class Employee extends Person {
     private String role;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<EmployeeToAppointment> employeeToAppointments;
+    private List<Appointment> appointments;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<WorkSchedule> workSchedule;

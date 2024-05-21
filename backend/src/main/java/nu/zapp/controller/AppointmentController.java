@@ -2,9 +2,7 @@ package nu.zapp.controller;
 
 
 import nu.zapp.DTO.AppointmentDTO;
-import nu.zapp.entities.Appointment;
-import nu.zapp.entities.Customer;
-import nu.zapp.mappers.AppointmentSourceDestinationMapper;
+import nu.zapp.mappers.AppointmentMapper;
 import nu.zapp.models.AppointmentModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +19,7 @@ public class AppointmentController {
     AppointmentModel aModel;
 
     @Autowired
-    private AppointmentSourceDestinationMapper mapper;
+    private AppointmentMapper mapper;
     @CrossOrigin()
     @GetMapping("")
     List<AppointmentDTO> getAppointments(){

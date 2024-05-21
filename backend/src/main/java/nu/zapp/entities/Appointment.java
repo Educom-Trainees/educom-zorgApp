@@ -32,13 +32,15 @@ public class Appointment {
     @Column()
     private LocalTime logoutTime;
 
-    @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private EmployeeToAppointment employeeToAppointments;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 
     public Appointment() {
     }
 
-    public Appointment(int id, Customer customer, LocalDate date, LocalTime startTime, LocalTime endTime, LocalTime registerTime, LocalTime logoutTime) {
+    public Appointment(int id, Customer customer, LocalDate date, LocalTime startTime, LocalTime endTime,
+                       LocalTime registerTime, LocalTime logoutTime, Employee employee) {
         this.id = id;
         this.customer = customer;
         this.date = date;
@@ -46,6 +48,7 @@ public class Appointment {
         this.endTime = endTime;
         this.registerTime = registerTime;
         this.logoutTime = logoutTime;
+        this.employee = employee;
     }
 
     public int getId() {
@@ -102,5 +105,13 @@ public class Appointment {
 
     public void setLogoutTime(LocalTime logoutTime) {
         this.logoutTime = logoutTime;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }

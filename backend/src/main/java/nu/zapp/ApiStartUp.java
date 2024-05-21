@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories
 public class ApiStartUp {
 
-
     private static TestDbFill dbFill;
 
     @Autowired

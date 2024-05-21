@@ -38,34 +38,33 @@ public class TestDbFill {
         tModel.createTasks(makeTaskTwo());
         aModel.createAppointment(makeAppointmentOne(1));
         aModel.createAppointment(makeAppointmentTwo(2));
-        eTaModel.createEtA(makeETA(1, 1));
     }
 
     private static Employee makeEmployeeOne(){
         Employee one=new Employee();
         //one.setId(101);
-        one.setUsername("Een");
-        one.setFirstName("Eendrecht");
-        one.setLastName("Een");
+        one.setUsername("Spongebob");
+        one.setFirstName("Bob");
+        one.setLastName("Sponse");
         one.setRole("Employee");
         one.setPassword("Placeholder");
-        one.setAddress("Een");
-        one.setPostalcode("1234En");
-        one.setResidence("EenStad");
+        one.setAddress("Ananas 1");
+        one.setPostalcode("1234BB");
+        one.setResidence("Bikinibroek");
         return one;
     }
 
     private static Employee makeEmployeeTwo(){
         Employee two=new Employee();
         //two.setId(102);
-        two.setUsername("Twee");
-        two.setFirstName("Twee");
-        two.setLastName("Twee");
+        two.setUsername("PatrickSter");
+        two.setFirstName("Patrick");
+        two.setLastName("Ster");
         two.setRole("Employee");
         two.setPassword("Placeholder");
-        two.setAddress("Twee");
-        two.setPostalcode("1234TW");
-        two.setResidence("TweeStad");
+        two.setAddress("Steen 1");
+        two.setPostalcode("1234BB");
+        two.setResidence("Bikinibroek");
         return two;
     }
 
@@ -124,6 +123,8 @@ public class TestDbFill {
     private Appointment makeAppointmentOne(int id){
         Appointment one = new Appointment();
         Customer customer = cModel.findById(id);
+        Employee employee = eModel.findById(id);
+        one.setEmployee(employee);
         one.setCustomer(customer);
         one.setDate(Date.valueOf(LocalDate.of(2024, 5, 24)).toLocalDate());
         one.setStartTime(LocalTime.of(16, 0));
@@ -141,13 +142,6 @@ public class TestDbFill {
         return two;
     }
 
-    private EmployeeToAppointment makeETA(int employeeId, int AppointmentId){
-        EmployeeToAppointment one = new EmployeeToAppointment();
-        Appointment appointment = aModel.findById(AppointmentId);
-        Employee employee = eModel.findById(employeeId);
-        one.setAppointment(appointment);
-        one.setEmployee(employee);
-        return one;
-    }
+
 
 }

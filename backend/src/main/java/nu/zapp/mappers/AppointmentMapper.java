@@ -9,8 +9,8 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface AppointmentSourceDestinationMapper {
-    AppointmentSourceDestinationMapper INSTANCE = Mappers.getMapper(AppointmentSourceDestinationMapper.class);
+public interface AppointmentMapper {
+    AppointmentMapper INSTANCE = Mappers.getMapper(AppointmentMapper.class);
 
     Appointment destinationToSource(AppointmentDTO destination);
     List<Appointment> destinationToSource(List<AppointmentDTO> destination);

@@ -18,11 +18,15 @@ public interface AppointmentRepository extends CrudRepository<Appointment, Integ
 
     @Query("SELECT DISTINCT a FROM Appointment a " +
             "JOIN FETCH a.customer b " +
-            "WHERE a.employeeToAppointments.employee.id = :id " +
+            "WHERE a.employee.id = :id " +
             "AND a.date = :date")
     public List<Appointment> findEmployeeAppointments(@Param("id") int id, @Param("date") LocalDate date);
 
-
-    public Appointment findById(int id);
+//    @Query("SELECT a FROM Appointment a " +
+//            "JOIN FETCH a.customer b " +
+//            "LEFT JOIN  a.employeeToAppointments c " +
+//            "LEFT JOIN  c.employee d"+
+//            "WHERE d.id = :id")
+    public Appointment findById(@Param("id") int id);
 
 }
