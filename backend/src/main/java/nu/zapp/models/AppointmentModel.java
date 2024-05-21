@@ -18,9 +18,8 @@ public class AppointmentModel {
     @Autowired
     private AppointmentSourceDestinationMapper mapper;
 
-    public List<AppointmentDTO> findAll() {
-        List<Appointment> appointments = aRepository.findAll();
-        return mapper.sourceToDestination(appointments);
+    public List<Appointment> findAll() {
+        return aRepository.findAll();
     }
 
     public Appointment findById(int id){
@@ -31,8 +30,7 @@ public class AppointmentModel {
         return aRepository.save(newAppointment);
     }
 
-    public List<AppointmentDTO> findEmployeeAppointments(int id, LocalDate date) {
-        List<Appointment> appointments = aRepository.findEmployeeAppointments(id, date);
-        return mapper.sourceToDestination(appointments);
+    public List<Appointment> findEmployeeAppointments(int id, LocalDate date) {
+        return aRepository.findEmployeeAppointments(id, date);
     }
 }
