@@ -1,5 +1,6 @@
 package nu.zapp.models;
 
+import net.bytebuddy.asm.Advice;
 import nu.zapp.DTO.AppointmentDTO;
 import nu.zapp.entities.Appointment;
 import nu.zapp.mappers.AppointmentSourceDestinationMapper;
@@ -15,11 +16,14 @@ public class AppointmentModel {
 
     @Autowired
     private AppointmentRepository aRepository;
-    @Autowired
-    private AppointmentSourceDestinationMapper mapper;
 
     public List<Appointment> findAll() {
         return aRepository.findAll();
+    }
+
+    public List<Appointment> findWeek(LocalDate startWeek){
+        LocalDate endWeek = startWeek.plusDays(6);
+        return aRepository.findWeek(startWeek, endWeek);
     }
 
     public Appointment findById(int id){

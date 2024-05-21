@@ -29,7 +29,13 @@ public class AppointmentController {
     }
 
     @CrossOrigin()
-    @GetMapping("/{id}")
+    @GetMapping("/by-date/{date}")
+    List<AppointmentDTO> getAppointmentsWeek(@PathVariable LocalDate date){
+        return mapper.sourceToDestination(aModel.findWeek(date));
+    }
+
+    @CrossOrigin()
+    @GetMapping("/by-id/{id}")
     AppointmentDTO getAppointment(@PathVariable int id) {
         return mapper.sourceToDestination(aModel.findById(id)); }
 
