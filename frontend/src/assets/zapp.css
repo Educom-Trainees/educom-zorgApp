@@ -138,19 +138,12 @@ td a {
     border-left-color: grey;
 }
 
-.calendar {
-    width: 50%;
-}
 .day {
     height: 75vh;
-    width: 100%;
-    outline: 3px solid grey;
-    margin-top: 3px;
-    margin-left: 3px;
-    background-color: rgba(0,0,0,0);
+    outline: 3px solid white;
 }
 .day-title {
-    outline: 3px solid grey;
+    border-bottom: 1px solid white;
     width: 100%;
     margin: 0;
     font-size: large;

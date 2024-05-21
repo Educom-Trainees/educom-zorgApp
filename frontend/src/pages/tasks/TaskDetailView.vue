@@ -67,7 +67,7 @@
     <template v-else>
         <div class="row">
             <form class="offset-1 col-10" @submit.prevent="postIfValid">
-                <InputForm type="text" :label="translations.firstName" v-model="task.task" id="firstName" />
+                <InputForm type="text" :label="translations.task" v-model="task.task" id="firstName" />
                 
                 <button type="submit" class="position-bottom-right default-button mb-4 me-4">{{translations.save}}</button>
             </form>
