@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class EmployeeModel {
@@ -54,6 +55,13 @@ public class EmployeeModel {
 
     public Employee updateEmployee(Employee updatedEmployee){
         //TODO username check
+        //So I first need to check if the username changed or not
+        Employee oldEmployee = findById(updatedEmployee.getId());
+        if (!Objects.equals(oldEmployee.getUsername(), updatedEmployee.getUsername())){
+            userNameCheck(updatedEmployee.getUsername());
+        }
+
+        updatedEmployee.setPostalcode(postalCodeCheck(updatedEmployee.getPostalcode()));
         return eRepository.save(updatedEmployee);
     }
 

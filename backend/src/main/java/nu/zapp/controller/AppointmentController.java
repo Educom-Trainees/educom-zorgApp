@@ -37,6 +37,7 @@ public class AppointmentController {
     @CrossOrigin()
     @GetMapping("/by-id/{id}")
     AppointmentDTO getAppointment(@PathVariable int id) {
+        // this will miss data such as the employee and the tasks
         return mapper.sourceToDestination(aModel.findById(id)); }
 
     @CrossOrigin()
