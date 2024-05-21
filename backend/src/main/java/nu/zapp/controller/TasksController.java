@@ -28,7 +28,11 @@ public class TasksController {
     @PostMapping("")
     Generaltasks postTasks(@RequestBody Generaltasks newTask){
         return tModel.createTasks(newTask);
+    }
 
-
+    @CrossOrigin()
+    @PutMapping
+    Generaltasks updateTasks(@RequestBody Generaltasks updateTask){
+        return tModel.updateTasks(updateTask);
     }
 }

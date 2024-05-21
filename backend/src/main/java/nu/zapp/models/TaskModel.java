@@ -21,13 +21,22 @@ public class TaskModel {
 
     public Generaltasks createTasks(Generaltasks newTask){
         //First letter of a task should be capitalised for consistency
-        String task = newTask.getTask();
-        String taskCap = task.substring(0, 1).toUpperCase() + task.substring(1);
-        newTask.setTask(taskCap);
+        newTask.setId(0);
+        newTask.setTask(taskCap(newTask));
         if (tRepository.findByTask(newTask.getTask()) != null){
             throw new ExceptionItemExists("taak");
         }
         return tRepository.save(newTask);
     }
 
+
+    public Generaltasks updateTasks(Generaltasks updateTask) {
+        updateTask.setTask(taskCap(updateTask));
+        return tRepository.save(updateTask);
+    }
+
+    private String taskCap(Generaltasks task){
+        String taskName = task.getTask();
+        return(taskName.substring(0, 1).toUpperCase() + taskName.substring(1));
+    }
 }
