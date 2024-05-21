@@ -32,6 +32,7 @@ public class AppointmentController {
     @GetMapping("/employee/{id}/{date}")
     List<AppointmentDTO> getAppointmentsEmployee(@PathVariable int id, @PathVariable LocalDate date) {
         // date uses a year-month-day input xxxx-xx-xx
-        return aModel.findEmployeeAppointments(id, date); }
+        return aModel.findEmployeeAppointments(id, date);
+    }
 
 }
