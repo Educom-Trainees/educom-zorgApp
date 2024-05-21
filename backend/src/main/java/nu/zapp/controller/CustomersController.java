@@ -37,4 +37,8 @@ public class CustomersController {
         return cModel.createCustomer(newCustomer);
     }
 
+    @CrossOrigin()
+    @PutMapping("")
+    Customer putCustomer(@RequestBody Customer updateCustomer) { return cModel.updateCustomer(updateCustomer); }
+
 }

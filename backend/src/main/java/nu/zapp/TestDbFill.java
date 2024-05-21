@@ -75,7 +75,7 @@ public class TestDbFill {
         one.setFirstName("Een");
         one.setLastName("Eendart");
         one.setAddress("Eenstraat");
-        one.setPostalCode("1234EN");
+        one.setPostalcode("1234EN");
         one.setResidence("EenStad");
         one.setActive(true);
         return one;
@@ -87,7 +87,7 @@ public class TestDbFill {
         two.setFirstName("Twee");
         two.setLastName("Tweedart");
         two.setAddress("Tweestraat");
-        two.setPostalCode("1234TW");
+        two.setPostalcode("1234TW");
         two.setResidence("TweeStad");
         two.setActive(true);
         return two;
@@ -99,7 +99,7 @@ public class TestDbFill {
         three.setFirstName("Drie");
         three.setLastName("Driedrecht");
         three.setAddress("Driestraat");
-        three.setPostalCode("1234DR");
+        three.setPostalcode("1234DR");
         three.setResidence("Driestad");
         three.setActive(false);
         return three;

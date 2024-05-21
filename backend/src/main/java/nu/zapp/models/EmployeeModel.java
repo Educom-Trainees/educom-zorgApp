@@ -54,13 +54,10 @@ public class EmployeeModel {
     }
 
     public Employee updateEmployee(Employee updatedEmployee){
-        //TODO username check
-        //So I first need to check if the username changed or not
         Employee oldEmployee = findById(updatedEmployee.getId());
         if (!Objects.equals(oldEmployee.getUsername(), updatedEmployee.getUsername())){
             userNameCheck(updatedEmployee.getUsername());
         }
-
         updatedEmployee.setPostalcode(postalCodeCheck(updatedEmployee.getPostalcode()));
         return eRepository.save(updatedEmployee);
     }
