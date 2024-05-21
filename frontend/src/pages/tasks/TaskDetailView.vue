@@ -31,7 +31,7 @@
         task.value = { ...value }
     }
 
-    if (!isLoading && data.value) {
+    if (!isLoading.value && data.value) {
         updateTask(data.value)
     }
     watch(data, (value) => updateTask(value));

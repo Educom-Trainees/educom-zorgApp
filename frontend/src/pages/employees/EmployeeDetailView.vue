@@ -29,7 +29,7 @@
         employee.value = { ...value }
     }
 
-    if (!isLoading && data.value) {
+    if (!isLoading.value && data.value) {
         updateEmployee(data.value)
     }
     watch(data, (value) => updateEmployee(value));
