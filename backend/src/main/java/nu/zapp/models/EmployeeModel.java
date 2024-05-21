@@ -5,6 +5,7 @@ import nu.zapp.ExceptionHandler.ExceptionItemExists;
 import nu.zapp.ExceptionHandler.ExceptionNumId;
 import nu.zapp.entities.Employee;
 import nu.zapp.repositories.EmployeeRepository;
+import nu.zapp.services.UserPasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,12 @@ public class EmployeeModel {
 
     @Autowired
     private EmployeeRepository eRepository;
+
+    private final UserPasswordService passwordService;
+    @Autowired
+    public EmployeeModel(UserPasswordService passwordService) {
+        this.passwordService = passwordService;
+    }
 
     public List<Employee> findAll(){
         return eRepository.findAll();
@@ -37,10 +44,11 @@ public class EmployeeModel {
     }
 
     public Employee createEmployee(Employee newEmployee){
-        // first have to check if username is occupied
         newEmployee.setId(0);
         userNameCheck(newEmployee.getUsername());
         newEmployee.setPostalcode(postalCodeCheck(newEmployee.getPostalcode()));
+        String encodedPassword = passwordEncryption(newEmployee.getPassword());
+        newEmployee.setPassword(encodedPassword);
         return eRepository.save(newEmployee);
     }
 
@@ -62,6 +70,10 @@ public class EmployeeModel {
         }
         String postalcodeCap = postalcode.substring(0,4) + postalcode.substring(4, 6).toUpperCase();
         return postalcodeCap;
+    }
+
+    private String passwordEncryption(String password){
+        return passwordService.encodePassword(password);
     }
 
 }

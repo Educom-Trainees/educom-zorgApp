@@ -1,6 +1,9 @@
 package nu.zapp.models;
 
+import net.bytebuddy.asm.Advice;
+import nu.zapp.DTO.AppointmentDTO;
 import nu.zapp.entities.Appointment;
+import nu.zapp.mappers.AppointmentSourceDestinationMapper;
 import nu.zapp.repositories.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,10 +15,15 @@ import java.util.List;
 public class AppointmentModel {
 
     @Autowired
-    AppointmentRepository aRepository;
+    private AppointmentRepository aRepository;
 
     public List<Appointment> findAll() {
         return aRepository.findAll();
+    }
+
+    public List<Appointment> findWeek(LocalDate startWeek){
+        LocalDate endWeek = startWeek.plusDays(6);
+        return aRepository.findWeek(startWeek, endWeek);
     }
 
     public Appointment findById(int id){
