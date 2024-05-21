@@ -13,6 +13,12 @@ public class CustomerModel {
 
     @Autowired
     private CustomerRepository cRepository;
+    private final PersonModel personModel;
+
+    @Autowired
+    public CustomerModel(PersonModel personModel) {
+        this.personModel = personModel;
+    }
 
     public List<Customer> findAll(){ return cRepository.findAll();}
 
@@ -26,10 +32,12 @@ public class CustomerModel {
 
     public Customer createCustomer(Customer newCustomer){
         newCustomer.setId(0);
+        newCustomer.setPostalcode(personModel.postalCodeCheck(newCustomer.getPostalcode()));
         return cRepository.save(newCustomer);
     }
 
     public Customer updateCustomer(Customer updatedCustomer){
+        updatedCustomer.setPostalcode(personModel.postalCodeCheck(updatedCustomer.getPostalcode()));
         return cRepository.save(updatedCustomer);
     }
 
