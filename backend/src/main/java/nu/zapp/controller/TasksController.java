@@ -25,13 +25,17 @@ public class TasksController {
     }
 
     @CrossOrigin()
+    @GetMapping("/{id}")
+    Generaltasks getTask(@PathVariable int id) { return tModel.findById(id);}
+
+    @CrossOrigin()
     @PostMapping("")
     Generaltasks postTasks(@RequestBody Generaltasks newTask){
         return tModel.createTasks(newTask);
     }
 
     @CrossOrigin()
-    @PutMapping
+    @PutMapping ("")
     Generaltasks updateTasks(@RequestBody Generaltasks updateTask){
         return tModel.updateTasks(updateTask);
     }
