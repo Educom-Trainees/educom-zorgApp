@@ -29,7 +29,7 @@
         customer.value = { ...value }
     }
 
-    if (!isLoading && data.value) {
+    if (!isLoading.value && data.value) {
         updateCustomer(data.value)
     }
     watch(data, (value) => updateCustomer(value));
