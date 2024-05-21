@@ -44,11 +44,10 @@ public class EmployeeModel {
     }
 
     public Employee createEmployee(Employee newEmployee){
-        // first have to check if username is occupied
         newEmployee.setId(0);
         userNameCheck(newEmployee.getUsername());
         newEmployee.setPostalcode(postalCodeCheck(newEmployee.getPostalcode()));
-        String encodedPassword = passwordService.encodePassword(newEmployee.getPassword());
+        String encodedPassword = passwordEncryption(newEmployee.getPassword());
         newEmployee.setPassword(encodedPassword);
         return eRepository.save(newEmployee);
     }
@@ -74,9 +73,7 @@ public class EmployeeModel {
     }
 
     private String passwordEncryption(String password){
-
-
-        return null;
+        return passwordService.encodePassword(password);
     }
 
 }
