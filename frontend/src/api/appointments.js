@@ -6,8 +6,8 @@ export function getAppointmentsForAWeek(startingDay) {
     return [
         {
             day: 0, appointments: [
-                { name: 'guy', address: 'streetstreet', employee: 'fella' },
-                { name: 'guy', address: 'streetstreet', employee: 'fella' },
+                { name: 'Meneer Pietersen', address: 'streetstreet 1, 1234AB Helelangeweg', employee: 'fella' },
+                { name: 'Hendrina Niedermeijer', address: 'streetstreet', employee: 'fella' },
                 { name: 'guy', address: 'streetstreet', employee: 'fella' },
             ]
         },

@@ -64,30 +64,52 @@
     </template>
     <template v-else>
         <h2 class="row justify-content-center mt-3 calendar-header">{{firstDayOfCurrentWeek.toLocaleString('nl-NL', {month: 'long', year: 'numeric'})}}</h2>
-        <div class="d-flex justify-content-center align-items-center mt-3">
-            <button class="prev-button ms-1 me-5" @click="prevPage"></button>
-            <template class="calendar w-50" v-for="item in data">
-                <div class="day">
-                    <div class="day-title d-flex justify-content-between">
-                        <span class="float-left ms-1">
-                            {{translations[week[item.day]].slice(0,2).toUpperCase()}}
-                        </span>
-                        <span class="float-right me-1">
-                            {{addDays(firstDayOfCurrentWeek, item.day).getDate()}}
-                        </span>
-                    </div>
-                    <template v-for="appointment in item.appointments">
-                        <div>
-                            {{appointment.name}}
-                        </div>
-                        <div>
-                            {{appointment.address}}
+        <div class="row d-flex align-items-center mt-3">
+            <div class="col-2 col-md-1">
+                <button class="prev-button float-end" @click="prevPage"></button>
+            </div>
+            <div class="col-8 col-md-10">
+                <div class="row">
+
+                    <template v-for="item in data">
+                        <div class="day col-12 col-md-3 col-lg zapp-gradient">
+                            <div class="day-title d-flex justify-content-between">
+                                <span class="float-left ms-1 text-white">
+                                    {{translations[week[item.day]].slice(0,2).toUpperCase()}}
+                                </span>
+                                <span class="float-right me-1  text-white">
+                                    {{addDays(firstDayOfCurrentWeek, item.day).getDate()}}
+                                </span>
+                            </div>
+                            <template class="" v-for="appointment in item.appointments">
+                                <div class="mb-2">
+                                    <div class="name-text text-white text-wrap">
+                                        {{appointment.name}}
+                                    </div>
+                                    <div class="address-text text-white text-wrap">
+                                        {{appointment.address}}
+                                    </div>
+                                </div>
+                            </template>
                         </div>
                     </template>
                 </div>
-            </template>
+            </div>
+            <div class="col-2 col-md-1">
+                <button class="next-button" @click="nextPage"></button>
+            </div>
 
-            <button class="next-button ms-5 me-1" @click="nextPage"></button>
         </div>
     </template>
 </template>
+
+<style scoped>
+    .name-text {
+        font-size: 0.9em;
+        font-weight: bold;
+    }
+
+    .address-text {
+        font-size: 0.75em;
+    }
+</style>
