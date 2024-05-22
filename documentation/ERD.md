@@ -1,6 +1,6 @@
 ```mermaid
 erDiagram
-  Employee ||--|{ EmployeeToAppointment : Assigned
+  Employee ||--|{ Appointment  : Assigned
   Employee{
   int id pk
   varchar userName
@@ -25,11 +25,6 @@ erDiagram
   time end_shift
   }
 
-  EmployeeToAppointment o|--|| Appointment : Attends
-  EmployeeToAppointment{
-  int employeeId fk
-  int appointmentId fk
-  }
 
   Appointment }|--|| Customer : Visited
   Appointment }|--|o appointmentTasks : complete
@@ -80,6 +75,8 @@ erDiagram
   int customerId fk
   varchar task
   varchar note
+  time start_time
+  time end_time
   boolean active
   }
 
