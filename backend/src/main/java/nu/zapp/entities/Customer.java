@@ -1,5 +1,6 @@
 package nu.zapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -8,6 +9,7 @@ import java.util.List;
 @Entity
 public class Customer extends Person{
 
+    @JsonIgnore
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Appointment> appointments;
 
@@ -22,6 +24,7 @@ public class Customer extends Person{
         super(id, firstName, lastName, address, postalcode, residence, active);
     }
 
+    @JsonIgnore
     public List<Appointment> getAppointments() {
         return appointments;
     }
