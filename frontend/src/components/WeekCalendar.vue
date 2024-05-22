@@ -73,7 +73,7 @@
 
                     <template v-for="item in data">
                         <div class="day col-12 col-md-3 col-lg zapp-gradient">
-                            <div class="day-title d-flex justify-content-between">
+                            <div class="day-title d-flex justify-content-between mb-2">
                                 <span class="float-left ms-1 text-white">
                                     {{translations[week[item.day]].slice(0,2).toUpperCase()}}
                                 </span>
