@@ -5,11 +5,9 @@ import jakarta.persistence.*;
 
 @Entity
 public class AppointmentTasks {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "appointment_id")
     @JsonBackReference

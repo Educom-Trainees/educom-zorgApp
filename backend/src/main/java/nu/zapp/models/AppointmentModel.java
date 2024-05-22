@@ -36,6 +36,7 @@ public class AppointmentModel {
     }
 
     public Appointment createAppointment(Appointment newAppointment){
+
         return aRepository.save(newAppointment);
     }
 
