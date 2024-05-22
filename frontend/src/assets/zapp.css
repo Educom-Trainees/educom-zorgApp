@@ -30,7 +30,11 @@ a:link {
 }
 
 .zapp-gradient {
-    background: linear-gradient(180deg, var(--zapp-light) 0%, var(--zapp-dark) 50%, black 175%);
+    background: linear-gradient(180deg, var(--zapp-light) 0%, var(--zapp-dark) 50%, black 200%);
+}
+
+.zapp-gradient-continue {
+    background: linear-gradient(180deg, var(--zapp-light) -100%, var(--zapp-dark) -50%, black 100%);
 }
 
 .default-button {
