@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -41,7 +40,7 @@ public class TestDbFill {
         aModel.createAppointment(makeAppointmentOne(1));
         aModel.createAppointment(makeAppointmentTwo(2));
         ctModel.createTasks(makeCustomerTask(1));
-
+        ctModel.createTasks(makeCustomerTaskTwo(1));
     }
 
     private static Employee makeEmployeeOne(){
@@ -146,11 +145,21 @@ public class TestDbFill {
         return two;
     }
 
-    private CustomerSetTasks makeCustomerTask(int id) {
-        CustomerSetTasks one = new CustomerSetTasks();
+    private CustomerTasks makeCustomerTask(int id) {
+        CustomerTasks one = new CustomerTasks();
         one.setCustomer(cModel.findById(id));
         one.setTask("Koffie");
-        one.setNote("Twee klontjes suiken");
+        one.setNote("Twee klontjes suiker");
         return one;
+    }
+
+    private CustomerTasks makeCustomerTaskTwo(int id) {
+        CustomerTasks two = new CustomerTasks();
+        two.setCustomer(cModel.findById(id));
+        two.setTask("Koffie (s'avonds)");
+        two.setNote("Een klontje suiken");
+        two.setStartTime(LocalTime.parse("19:00"));
+        two.setEndTime(LocalTime.parse("20:00"));
+        return two;
     }
 }

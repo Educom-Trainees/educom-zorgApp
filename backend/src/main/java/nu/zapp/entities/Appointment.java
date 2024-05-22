@@ -1,5 +1,6 @@
 package nu.zapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -12,6 +13,10 @@ public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<AppointmentTasks> appointmentTasks;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
@@ -113,5 +118,13 @@ public class Appointment {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public List<AppointmentTasks> getAppointmentTasks() {
+        return appointmentTasks;
+    }
+
+    public void setAppointmentTasks(List<AppointmentTasks> appointmentTasks) {
+        this.appointmentTasks = appointmentTasks;
     }
 }

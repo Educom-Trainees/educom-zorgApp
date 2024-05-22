@@ -1,5 +1,6 @@
 package nu.zapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,8 +10,10 @@ public class AppointmentTasks {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @JoinColumn
-    private int appointmentId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "appointment_id")
+    @JsonBackReference
+    private Appointment appointment;
 
     private String task;
 
@@ -25,9 +28,9 @@ public class AppointmentTasks {
     public AppointmentTasks() {
     }
 
-    public AppointmentTasks(int id, int appointmentId, String task, String note, boolean completed, String noteEmployee, boolean noteRead) {
+    public AppointmentTasks(int id, Appointment appointment, String task, String note, boolean completed, String noteEmployee, boolean noteRead) {
         this.id = id;
-        this.appointmentId = appointmentId;
+        this.appointment = appointment;
         this.task = task;
         this.note = note;
         this.completed = completed;
@@ -35,14 +38,6 @@ public class AppointmentTasks {
         this.noteRead = noteRead;
     }
 
-    public AppointmentTasks(int id, int appointmentId, String task, String note, boolean completed, String noteEmployee) {
-        this.id = id;
-        this.appointmentId = appointmentId;
-        this.task = task;
-        this.note = note;
-        this.completed = completed;
-        this.noteEmployee = noteEmployee;
-    }
 
     public int getId() {
         return id;
@@ -52,12 +47,12 @@ public class AppointmentTasks {
         this.id = id;
     }
 
-    public int getAppointmentId() {
-        return appointmentId;
+    public Appointment getAppointment() {
+        return appointment;
     }
 
-    public void setAppointmentId(int appointmentId) {
-        this.appointmentId = appointmentId;
+    public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
     }
 
     public String getTask() {

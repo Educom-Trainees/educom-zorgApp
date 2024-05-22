@@ -1,12 +1,13 @@
 package nu.zapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.LocalTime;
 
 @Entity
 
-public class CustomerSetTasks{
+public class CustomerTasks {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,13 +28,14 @@ public class CustomerSetTasks{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
+    @JsonBackReference
     private Customer customer;
     private String note;
 
-    public CustomerSetTasks() {
+    public CustomerTasks() {
     }
 
-    public CustomerSetTasks(int id, String task, boolean active, LocalTime startTime, LocalTime endTime, Customer customer, String note) {
+    public CustomerTasks(int id, String task, boolean active, LocalTime startTime, LocalTime endTime, Customer customer, String note) {
         this.id = id;
         this.task = task;
         this.active = active;

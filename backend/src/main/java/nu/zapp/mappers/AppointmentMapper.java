@@ -8,8 +8,8 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
-public interface AppointmentMapper {
+@Mapper(componentModel = "spring", uses = BaseMapper.class)
+public interface AppointmentMapper extends BaseMapper {
     AppointmentMapper INSTANCE = Mappers.getMapper(AppointmentMapper.class);
 
     Appointment destinationToSource(AppointmentDTO destination);
@@ -19,13 +19,5 @@ public interface AppointmentMapper {
     @Mapping(target = "location", expression = "java(combineLocation(source.getCustomer().getAddress(), source.getCustomer().getResidence()))")
     AppointmentDTO sourceToDestination(Appointment source);
     List<AppointmentDTO> sourceToDestination(List<Appointment> source);
-
-    default String combineName(String firstName, String lastName) {
-        return firstName + " " + lastName;
-    }
-
-    default String combineLocation(String address, String residence){
-        return address + ", " + residence;
-    }
 
 }

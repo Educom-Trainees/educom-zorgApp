@@ -32,7 +32,6 @@ public class TaskModel {
         return tRepository.save(newTask);
     }
 
-
     public Generaltasks updateTasks(Generaltasks updateTask) {
         updateTask.setTask(taskCap(updateTask));
         return tRepository.save(updateTask);

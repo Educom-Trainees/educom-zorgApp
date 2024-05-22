@@ -22,11 +22,12 @@ public interface AppointmentRepository extends CrudRepository<Appointment, Integ
             "AND a.date = :date")
     public List<Appointment> findEmployeeAppointments(@Param("id") int id, @Param("date") LocalDate date);
 
-//    @Query("SELECT a FROM Appointment a " +
-//            "JOIN FETCH a.customer b " +
-//            "LEFT JOIN  a.employeeToAppointments c " +
-//            "LEFT JOIN  c.employee d"+
-//            "WHERE d.id = :id")
+    @Query("SELECT a FROM Appointment a " +
+            "JOIN FETCH a.customer b " +
+            "LEFT JOIN  b.customerTasks d " +
+            "LEFT JOIN  a.employee c " +
+            "LEFT JOIN  a.appointmentTasks e " +
+            "WHERE a.id = :id")
     public Appointment findById(@Param("id") int id);
 
 }

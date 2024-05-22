@@ -2,6 +2,8 @@ package nu.zapp.controller;
 
 
 import nu.zapp.DTO.AppointmentDTO;
+import nu.zapp.DTO.AppointmentDetailDTO;
+import nu.zapp.mappers.AppointmentDetailMapper;
 import nu.zapp.mappers.AppointmentMapper;
 import nu.zapp.models.AppointmentModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +19,12 @@ import java.util.List;
 public class AppointmentController {
     @Autowired
     AppointmentModel aModel;
-
     @Autowired
     private AppointmentMapper mapper;
+
+    @Autowired
+    private AppointmentDetailMapper dMapper;
+
     @CrossOrigin()
     @GetMapping("")
     List<AppointmentDTO> getAppointments(){
@@ -34,9 +39,9 @@ public class AppointmentController {
 
     @CrossOrigin()
     @GetMapping("/by-id/{id}")
-    AppointmentDTO getAppointment(@PathVariable int id) {
+    AppointmentDetailDTO getAppointment(@PathVariable int id) {
         // this will miss data such as the employee and the tasks
-        return mapper.sourceToDestination(aModel.findById(id)); }
+        return dMapper.sourceToDestination(aModel.findById(id)); }
 
     @CrossOrigin()
     @GetMapping("/employee/{id}/{date}")

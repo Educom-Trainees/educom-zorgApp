@@ -1,16 +1,16 @@
 package nu.zapp.repositories;
 
-import nu.zapp.entities.CustomerSetTasks;
+import nu.zapp.entities.CustomerTasks;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface CustomerTaskRepository extends CrudRepository<CustomerSetTasks, Integer> {
-    public List<CustomerSetTasks> findAll();
+public interface CustomerTaskRepository extends CrudRepository<CustomerTasks, Integer> {
+    public List<CustomerTasks> findAll();
 
-    public CustomerSetTasks findByTask(String task);
+    public CustomerTasks findByTask(String task);
 
-    public CustomerSetTasks findById(int id);
+    public CustomerTasks findById(int id);
 
-    public CustomerSetTasks save(CustomerSetTasks newtask);
+    public CustomerTasks save(CustomerTasks newtask);
 }
