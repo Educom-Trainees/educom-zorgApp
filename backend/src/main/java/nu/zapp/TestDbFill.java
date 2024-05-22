@@ -26,7 +26,9 @@ public class TestDbFill {
     private AppointmentModel aModel;
 
     @Autowired
-    private EmployeeToAppointmentModel eTaModel;
+    private CustomerTaskModel ctModel;
+
+
 
     public void fillDb(){
         eModel.createEmployee(makeEmployeeOne());
@@ -38,6 +40,8 @@ public class TestDbFill {
         tModel.createTasks(makeTaskTwo());
         aModel.createAppointment(makeAppointmentOne(1));
         aModel.createAppointment(makeAppointmentTwo(2));
+        ctModel.createTasks(makeCustomerTask(1));
+
     }
 
     private static Employee makeEmployeeOne(){
@@ -71,11 +75,11 @@ public class TestDbFill {
     private static Customer makeCustomerOne(){
         Customer one = new Customer();
         //one.setId(101);
-        one.setFirstName("Een");
-        one.setLastName("Eendart");
-        one.setAddress("Eenstraat");
-        one.setPostalcode("1234EN");
-        one.setResidence("EenStad");
+        one.setFirstName("Matthew");
+        one.setLastName("Mercer");
+        one.setAddress("Dorei 1");
+        one.setPostalcode("1234TD");
+        one.setResidence("Taldorei");
         one.setActive(true);
         return one;
     }
@@ -83,11 +87,11 @@ public class TestDbFill {
     private static Customer makeCustomerTwo(){
         Customer two = new Customer();
         //two.setId(102);
-        two.setFirstName("Twee");
-        two.setLastName("Tweedart");
-        two.setAddress("Tweestraat");
-        two.setPostalcode("1234TW");
-        two.setResidence("TweeStad");
+        two.setFirstName("Laura");
+        two.setLastName("Bailey");
+        two.setAddress("Dorai 2");
+        two.setPostalcode("1234TD");
+        two.setResidence("Taldorei");
         two.setActive(true);
         return two;
     }
@@ -95,11 +99,11 @@ public class TestDbFill {
     private static Customer makeCustomerThree(){
         Customer three = new Customer();
         //three.setId(103);
-        three.setFirstName("Drie");
-        three.setLastName("Driedrecht");
-        three.setAddress("Driestraat");
-        three.setPostalcode("1234DR");
-        three.setResidence("Driestad");
+        three.setFirstName("Liam");
+        three.setLastName("O'Brian");
+        three.setAddress("Mount 3");
+        three.setPostalcode("1234WD");
+        three.setResidence("Wildmount");
         three.setActive(false);
         return three;
     }
@@ -142,6 +146,11 @@ public class TestDbFill {
         return two;
     }
 
-
-
+    private CustomerSetTasks makeCustomerTask(int id) {
+        CustomerSetTasks one = new CustomerSetTasks();
+        one.setCustomer(cModel.findById(id));
+        one.setTask("Koffie");
+        one.setNote("Twee klontjes suiken");
+        return one;
+    }
 }
