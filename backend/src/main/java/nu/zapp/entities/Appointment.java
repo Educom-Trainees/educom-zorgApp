@@ -1,5 +1,7 @@
 package nu.zapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -12,6 +14,10 @@ public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<AppointmentTasks> appointmentTasks;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
@@ -32,13 +38,15 @@ public class Appointment {
     @Column()
     private LocalTime logoutTime;
 
-    @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private EmployeeToAppointment employeeToAppointments;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 
     public Appointment() {
     }
 
-    public Appointment(int id, Customer customer, LocalDate date, LocalTime startTime, LocalTime endTime, LocalTime registerTime, LocalTime logoutTime) {
+    public Appointment(int id, Customer customer, LocalDate date, LocalTime startTime, LocalTime endTime,
+                       LocalTime registerTime, LocalTime logoutTime, Employee employee) {
         this.id = id;
         this.customer = customer;
         this.date = date;
@@ -46,6 +54,7 @@ public class Appointment {
         this.endTime = endTime;
         this.registerTime = registerTime;
         this.logoutTime = logoutTime;
+        this.employee = employee;
     }
 
     public int getId() {
@@ -102,5 +111,21 @@ public class Appointment {
 
     public void setLogoutTime(LocalTime logoutTime) {
         this.logoutTime = logoutTime;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public List<AppointmentTasks> getAppointmentTasks() {
+        return appointmentTasks;
+    }
+
+    public void setAppointmentTasks(List<AppointmentTasks> appointmentTasks) {
+        this.appointmentTasks = appointmentTasks;
     }
 }

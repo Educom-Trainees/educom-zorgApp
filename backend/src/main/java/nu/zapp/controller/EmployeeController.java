@@ -48,7 +48,7 @@ public class EmployeeController {
 
     @CrossOrigin()
     @PutMapping("")
-    void updateEmployee(@RequestBody Employee updatedEmployee){
-        eModel.updateEmployee(updatedEmployee);
+    Employee updateEmployee(@RequestBody Employee updatedEmployee){
+        return eModel.updateEmployee(updatedEmployee);
     }
 }

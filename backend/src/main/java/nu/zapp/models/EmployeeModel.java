@@ -10,17 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class EmployeeModel {
 
     @Autowired
     private EmployeeRepository eRepository;
-
     private final UserPasswordService passwordService;
+    private final PersonModel personModel;
     @Autowired
-    public EmployeeModel(UserPasswordService passwordService) {
+    public EmployeeModel(UserPasswordService passwordService, PersonModel personModel) {
         this.passwordService = passwordService;
+        this.personModel = personModel;
     }
 
     public List<Employee> findAll(){
@@ -46,14 +48,18 @@ public class EmployeeModel {
     public Employee createEmployee(Employee newEmployee){
         newEmployee.setId(0);
         userNameCheck(newEmployee.getUsername());
-        newEmployee.setPostalcode(postalCodeCheck(newEmployee.getPostalcode()));
+        newEmployee.setPostalcode(personModel.postalCodeCheck(newEmployee.getPostalcode()));
         String encodedPassword = passwordEncryption(newEmployee.getPassword());
         newEmployee.setPassword(encodedPassword);
         return eRepository.save(newEmployee);
     }
 
     public Employee updateEmployee(Employee updatedEmployee){
-        //TODO username check
+        Employee oldEmployee = findById(updatedEmployee.getId());
+        if (!Objects.equals(oldEmployee.getUsername(), updatedEmployee.getUsername())){
+            userNameCheck(updatedEmployee.getUsername());
+        }
+        updatedEmployee.setPostalcode(personModel.postalCodeCheck(updatedEmployee.getPostalcode()));
         return eRepository.save(updatedEmployee);
     }
 
@@ -61,15 +67,6 @@ public class EmployeeModel {
         if (eRepository.findByUsername(username) != null){
             throw new ExceptionItemExists("gebruikersnaam");
         }
-    }
-
-    private String postalCodeCheck(String postalcode){
-        // This function will need to go to a generic place because both employees and customers can use it
-        if(!postalcode.matches("^\\d{4}[a-zA-Z]{2}")){
-            throw new ExceptionInvalidInput("postcode");
-        }
-        String postalcodeCap = postalcode.substring(0,4) + postalcode.substring(4, 6).toUpperCase();
-        return postalcodeCap;
     }
 
     private String passwordEncryption(String password){

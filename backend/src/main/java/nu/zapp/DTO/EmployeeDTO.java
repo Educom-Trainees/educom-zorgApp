@@ -1,5 +1,7 @@
 package nu.zapp.DTO;
 
+import java.util.List;
+
 public class EmployeeDTO {
     private int id;
     private String firstName;
@@ -7,11 +9,20 @@ public class EmployeeDTO {
     private String address;
     private String postalCode;
     private String residence;
-    private boolean monday;
-    private boolean tuesday;
-    private boolean wednesday;
-    private boolean thursday;
-    private boolean friday;
+
+    private List<String> days;
+
+    public EmployeeDTO() {
+    }
+
+    public EmployeeDTO(int id, String firstName, String lastName, String address, String postalCode, String residence) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.postalCode = postalCode;
+        this.residence = residence;
+    }
 
 
 }

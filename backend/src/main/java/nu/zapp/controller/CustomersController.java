@@ -1,8 +1,12 @@
 package nu.zapp.controller;
 
+import nu.zapp.DTO.CustomerDTO;
+import nu.zapp.DTO.CustomerDetailDTO;
 import nu.zapp.ExceptionHandler.ExceptionNumId;
 import nu.zapp.entities.Customer;
 import nu.zapp.entities.Employee;
+import nu.zapp.mappers.CustomerDetailMapper;
+import nu.zapp.mappers.CustomerMapper;
 import nu.zapp.models.CustomerModel;
 import nu.zapp.repositories.CustomerRepository;
 import nu.zapp.repositories.EmployeeRepository;
@@ -19,16 +23,22 @@ public class CustomersController {
     @Autowired
     private CustomerModel cModel;
 
+    @Autowired
+    private CustomerMapper mapper;
+
+    @Autowired
+    private CustomerDetailMapper dMapper;
+
     @CrossOrigin()
     @GetMapping("")
-    List<Customer> getCustomers(){
-        return cModel.findAll();
+    List<CustomerDTO> getCustomers(){
+        return mapper.sourceToDestination(cModel.findAll());
     }
 
     @CrossOrigin()
     @GetMapping("/{id}")
-    Customer getCustomer(@PathVariable int id){
-        return cModel.findById(id);
+    CustomerDetailDTO getCustomer(@PathVariable int id){
+        return dMapper.sourceToDestination(cModel.findById(id));
     }
 
     @CrossOrigin()
@@ -36,5 +46,9 @@ public class CustomersController {
     Customer postCustomer(@RequestBody Customer newCustomer){
         return cModel.createCustomer(newCustomer);
     }
+
+    @CrossOrigin()
+    @PutMapping("")
+    Customer putCustomer(@RequestBody Customer updateCustomer) { return cModel.updateCustomer(updateCustomer); }
 
 }

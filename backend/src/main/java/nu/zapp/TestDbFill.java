@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -26,7 +25,9 @@ public class TestDbFill {
     private AppointmentModel aModel;
 
     @Autowired
-    private EmployeeToAppointmentModel eTaModel;
+    private CustomerTaskModel ctModel;
+
+
 
     public void fillDb(){
         eModel.createEmployee(makeEmployeeOne());
@@ -38,45 +39,46 @@ public class TestDbFill {
         tModel.createTasks(makeTaskTwo());
         aModel.createAppointment(makeAppointmentOne(1));
         aModel.createAppointment(makeAppointmentTwo(2));
-        eTaModel.createEtA(makeETA(1, 1));
+        ctModel.createTasks(makeCustomerTask(1));
+        ctModel.createTasks(makeCustomerTaskTwo(1));
     }
 
     private static Employee makeEmployeeOne(){
         Employee one=new Employee();
         //one.setId(101);
-        one.setUsername("Een");
-        one.setFirstName("Eendrecht");
-        one.setLastName("Een");
+        one.setUsername("Spongebob");
+        one.setFirstName("Bob");
+        one.setLastName("Sponse");
         one.setRole("Employee");
         one.setPassword("Placeholder");
-        one.setAddress("Een");
-        one.setPostalcode("1234En");
-        one.setResidence("EenStad");
+        one.setAddress("Ananas 1");
+        one.setPostalcode("1234BB");
+        one.setResidence("Bikinibroek");
         return one;
     }
 
     private static Employee makeEmployeeTwo(){
         Employee two=new Employee();
         //two.setId(102);
-        two.setUsername("Twee");
-        two.setFirstName("Twee");
-        two.setLastName("Twee");
+        two.setUsername("PatrickSter");
+        two.setFirstName("Patrick");
+        two.setLastName("Ster");
         two.setRole("Employee");
         two.setPassword("Placeholder");
-        two.setAddress("Twee");
-        two.setPostalcode("1234TW");
-        two.setResidence("TweeStad");
+        two.setAddress("Steen 1");
+        two.setPostalcode("1234BB");
+        two.setResidence("Bikinibroek");
         return two;
     }
 
     private static Customer makeCustomerOne(){
         Customer one = new Customer();
         //one.setId(101);
-        one.setFirstName("Een");
-        one.setLastName("Eendart");
-        one.setAddress("Eenstraat");
-        one.setPostalCode("1234EN");
-        one.setResidence("EenStad");
+        one.setFirstName("Matthew");
+        one.setLastName("Mercer");
+        one.setAddress("Dorei 1");
+        one.setPostalcode("1234TD");
+        one.setResidence("Taldorei");
         one.setActive(true);
         return one;
     }
@@ -84,11 +86,11 @@ public class TestDbFill {
     private static Customer makeCustomerTwo(){
         Customer two = new Customer();
         //two.setId(102);
-        two.setFirstName("Twee");
-        two.setLastName("Tweedart");
-        two.setAddress("Tweestraat");
-        two.setPostalCode("1234TW");
-        two.setResidence("TweeStad");
+        two.setFirstName("Laura");
+        two.setLastName("Bailey");
+        two.setAddress("Dorai 2");
+        two.setPostalcode("1234TD");
+        two.setResidence("Taldorei");
         two.setActive(true);
         return two;
     }
@@ -96,11 +98,11 @@ public class TestDbFill {
     private static Customer makeCustomerThree(){
         Customer three = new Customer();
         //three.setId(103);
-        three.setFirstName("Drie");
-        three.setLastName("Driedrecht");
-        three.setAddress("Driestraat");
-        three.setPostalCode("1234DR");
-        three.setResidence("Driestad");
+        three.setFirstName("Liam");
+        three.setLastName("O'Brian");
+        three.setAddress("Mount 3");
+        three.setPostalcode("1234WD");
+        three.setResidence("Wildmount");
         three.setActive(false);
         return three;
     }
@@ -124,6 +126,8 @@ public class TestDbFill {
     private Appointment makeAppointmentOne(int id){
         Appointment one = new Appointment();
         Customer customer = cModel.findById(id);
+        Employee employee = eModel.findById(id);
+        one.setEmployee(employee);
         one.setCustomer(customer);
         one.setDate(Date.valueOf(LocalDate.of(2024, 5, 24)).toLocalDate());
         one.setStartTime(LocalTime.of(16, 0));
@@ -141,13 +145,21 @@ public class TestDbFill {
         return two;
     }
 
-    private EmployeeToAppointment makeETA(int employeeId, int AppointmentId){
-        EmployeeToAppointment one = new EmployeeToAppointment();
-        Appointment appointment = aModel.findById(AppointmentId);
-        Employee employee = eModel.findById(employeeId);
-        one.setAppointment(appointment);
-        one.setEmployee(employee);
+    private CustomerTasks makeCustomerTask(int id) {
+        CustomerTasks one = new CustomerTasks();
+        one.setCustomer(cModel.findById(id));
+        one.setTask("Koffie");
+        one.setNote("Twee klontjes suiker");
         return one;
     }
 
+    private CustomerTasks makeCustomerTaskTwo(int id) {
+        CustomerTasks two = new CustomerTasks();
+        two.setCustomer(cModel.findById(id));
+        two.setTask("Koffie (s'avonds)");
+        two.setNote("Een klontje suiken");
+        two.setStartTime(LocalTime.parse("19:00"));
+        two.setEndTime(LocalTime.parse("20:00"));
+        return two;
+    }
 }

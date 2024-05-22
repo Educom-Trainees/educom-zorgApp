@@ -2,48 +2,43 @@ package nu.zapp.models;
 
 import nu.zapp.ExceptionHandler.ExceptionItemExists;
 import nu.zapp.ExceptionHandler.ExceptionNumId;
-import nu.zapp.entities.Employee;
-import nu.zapp.entities.Generaltasks;
-import nu.zapp.repositories.TaskRepository;
+import nu.zapp.entities.CustomerTasks;
+import nu.zapp.repositories.CustomerTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class TaskModel {
-
+public class CustomerTaskModel {
     @Autowired
-    private TaskRepository tRepository;
+    private CustomerTaskRepository cRepository;
 
-    public List<Generaltasks> findAll(){
-        return tRepository.findAll();
-    }
+    public List<CustomerTasks> findAll() {return cRepository.findAll(); }
 
-    public Generaltasks createTasks(Generaltasks newTask){
+    public CustomerTasks createTasks(CustomerTasks newTask){
         //First letter of a task should be capitalised for consistency
         newTask.setId(0);
         newTask.setTask(taskCap(newTask));
         newTask.setActive(true);
-        if (tRepository.findByTask(newTask.getTask()) != null){
+        if (cRepository.findByTask(newTask.getTask()) != null){
             throw new ExceptionItemExists("taak");
         }
-        return tRepository.save(newTask);
+        return cRepository.save(newTask);
     }
 
-    public Generaltasks updateTasks(Generaltasks updateTask) {
+    public CustomerTasks updateTasks(CustomerTasks updateTask) {
         updateTask.setTask(taskCap(updateTask));
-        return tRepository.save(updateTask);
+        return cRepository.save(updateTask);
     }
 
-    private String taskCap(Generaltasks task){
+    private String taskCap(CustomerTasks task){
         String taskName = task.getTask();
         return(taskName.substring(0, 1).toUpperCase() + taskName.substring(1));
     }
 
-    public Generaltasks findById(int id) {
-        Generaltasks task = tRepository.findById(id);
+    public CustomerTasks findById(int id) {
+        CustomerTasks task = cRepository.findById(id);
         if (task == null){
             throw new ExceptionNumId(id, "taak");
         }
