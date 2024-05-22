@@ -2,11 +2,12 @@
     import { computed } from "vue";
     import checkmark from '../assets/checkmark.png'
     import ellipsis from '../assets/ellipsis.png'
+    import broom from '../assets/broom.png'
     import blank from '../assets/blank.png'
 
     const props = defineProps(['initials', 'name', 'address', 'taskprogress'])
     
-    const img_src = (props['taskprogress'] == "done" ? checkmark : (props['taskprogress'] == "in_progress" ? ellipsis : blank));
+    const img_src = (props['taskprogress'] == "done" ? checkmark : (props['taskprogress'] == "in_progress" ? broom : ellipsis));
 
 </script>
 
