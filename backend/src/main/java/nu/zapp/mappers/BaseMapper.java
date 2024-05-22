@@ -5,7 +5,7 @@ public interface BaseMapper {
         return firstName + " " + lastName;
     }
 
-    default String combineLocation(String address, String residence){
-        return address + ", " + residence;
+    default String combineLocation(String address, String postalcode, String residence){
+        return address + ", " + postalcode + ", " + residence;
     }
 }
