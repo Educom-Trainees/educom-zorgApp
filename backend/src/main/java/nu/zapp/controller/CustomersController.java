@@ -1,9 +1,11 @@
 package nu.zapp.controller;
 
 import nu.zapp.DTO.CustomerDTO;
+import nu.zapp.DTO.CustomerDetailDTO;
 import nu.zapp.ExceptionHandler.ExceptionNumId;
 import nu.zapp.entities.Customer;
 import nu.zapp.entities.Employee;
+import nu.zapp.mappers.CustomerDetailMapper;
 import nu.zapp.mappers.CustomerMapper;
 import nu.zapp.models.CustomerModel;
 import nu.zapp.repositories.CustomerRepository;
@@ -24,6 +26,9 @@ public class CustomersController {
     @Autowired
     private CustomerMapper mapper;
 
+    @Autowired
+    private CustomerDetailMapper dMapper;
+
     @CrossOrigin()
     @GetMapping("")
     List<CustomerDTO> getCustomers(){
@@ -32,8 +37,8 @@ public class CustomersController {
 
     @CrossOrigin()
     @GetMapping("/{id}")
-    Customer getCustomer(@PathVariable int id){
-        return cModel.findById(id);
+    CustomerDetailDTO getCustomer(@PathVariable int id){
+        return dMapper.sourceToDestination(cModel.findById(id));
     }
 
     @CrossOrigin()
