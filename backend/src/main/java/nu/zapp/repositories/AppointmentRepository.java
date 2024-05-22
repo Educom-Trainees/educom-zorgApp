@@ -30,4 +30,6 @@ public interface AppointmentRepository extends CrudRepository<Appointment, Integ
             "WHERE a.id = :id")
     public Appointment findById(@Param("id") int id);
 
+    public Appointment save(Appointment newAppointment);
+
 }

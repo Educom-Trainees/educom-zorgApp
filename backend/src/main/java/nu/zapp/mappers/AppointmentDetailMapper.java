@@ -1,18 +1,25 @@
 package nu.zapp.mappers;
 
-import nu.zapp.DTO.AppointmentDTO;
 import nu.zapp.DTO.AppointmentDetailDTO;
 import nu.zapp.entities.Appointment;
+import nu.zapp.entities.Customer;
+import nu.zapp.entities.Employee;
+import nu.zapp.models.CustomerModel;
+import nu.zapp.models.EmployeeModel;
+import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
 
-@Mapper(componentModel = "spring", uses = BaseMapper.class)
+@Mapper(componentModel = "spring", uses = {BaseMapper.class})
 public interface AppointmentDetailMapper extends BaseMapper {
+    public static final AppointmentDetailMapper INSTANCE = Mappers.getMapper(AppointmentDetailMapper.class);
 
-    AppointmentDetailMapper INSTANCE = Mappers.getMapper(AppointmentDetailMapper.class);
-
-    Appointment destinationToSource(AppointmentDetailDTO destination);
+    @Mapping(target = "customer", expression = "java(customerIdToCustomer(destination.getCustomer_id(), customerModel))")
+    @Mapping(target = "employee", expression = "java(employeeIdToEmployee(destination.getEmployee_id(), employeeModel))")
+    Appointment destinationToSource(AppointmentDetailDTO destination, @Context CustomerModel customerModel, @Context EmployeeModel employeeModel);
 
     @Mapping(target = "name", expression = "java(combineName(source.getCustomer().getFirstName(), source.getCustomer().getLastName()))")
     @Mapping(target = "location",  expression = "java(combineLocation(source.getCustomer().getAddress(),source.getCustomer().getPostalcode(), " +

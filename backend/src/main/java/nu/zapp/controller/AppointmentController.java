@@ -3,9 +3,13 @@ package nu.zapp.controller;
 
 import nu.zapp.DTO.AppointmentDTO;
 import nu.zapp.DTO.AppointmentDetailDTO;
+import nu.zapp.entities.Appointment;
+import nu.zapp.entities.Customer;
 import nu.zapp.mappers.AppointmentDetailMapper;
 import nu.zapp.mappers.AppointmentMapper;
 import nu.zapp.models.AppointmentModel;
+import nu.zapp.models.CustomerModel;
+import nu.zapp.models.EmployeeModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +24,11 @@ public class AppointmentController {
     @Autowired
     AppointmentModel aModel;
     @Autowired
+    CustomerModel cModel;
+    @Autowired
+    EmployeeModel eModel;
+    @Autowired
     private AppointmentMapper mapper;
-
     @Autowired
     private AppointmentDetailMapper dMapper;
 
@@ -48,6 +55,15 @@ public class AppointmentController {
     List<AppointmentDTO> getAppointmentsEmployee(@PathVariable int id, @PathVariable LocalDate date) {
         // date uses a year-month-day input xxxx-xx-xx
         return mapper.sourceToDestination(aModel.findEmployeeAppointments(id, date));
+    }
+
+    @CrossOrigin()
+    @PostMapping("")
+    void createAppointment(@RequestBody AppointmentDetailDTO newAppointment){
+        //Customer Employee doesn't get converted yet
+        Appointment appointment = dMapper.destinationToSource(newAppointment, cModel, eModel);
+
+        aModel.createAppointment(appointment);
     }
 
 }

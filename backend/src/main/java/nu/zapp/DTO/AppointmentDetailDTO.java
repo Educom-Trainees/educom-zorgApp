@@ -11,9 +11,7 @@ public class AppointmentDetailDTO extends AppointmentDTO {
 
     private int customer_id;
     private int employee_id;
-
     private String employee_name;
-
     private String employee_address;
     private List<CustomerTasks> customer_tasks;
     private List<AppointmentTasks> appointment_tasks;

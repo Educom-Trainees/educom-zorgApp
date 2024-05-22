@@ -1,6 +1,10 @@
 package nu.zapp.models;
 
+import nu.zapp.DTO.AppointmentDTO;
+import nu.zapp.DTO.AppointmentDetailDTO;
 import nu.zapp.entities.Appointment;
+import nu.zapp.entities.Customer;
+import nu.zapp.entities.Employee;
 import nu.zapp.repositories.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,6 +17,10 @@ public class AppointmentModel {
 
     @Autowired
     private AppointmentRepository aRepository;
+    @Autowired
+    private CustomerModel mModel;
+    @Autowired
+    private EmployeeModel eModel;
 
     public List<Appointment> findAll() {
         return aRepository.findAll();
