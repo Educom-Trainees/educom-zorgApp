@@ -1,8 +1,5 @@
 package nu.zapp.DTO;
 
-import nu.zapp.entities.Customer;
-
-import java.util.List;
 
 public class CustomerDTO {
     private int id;

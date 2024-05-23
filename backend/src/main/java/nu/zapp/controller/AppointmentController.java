@@ -19,11 +19,11 @@ import java.time.LocalDate;
 @RequestMapping("/appointments")
 public class AppointmentController {
     @Autowired
-    AppointmentModel aModel;
+    private AppointmentModel aModel;
     @Autowired
-    CustomerModel cModel;
+    private CustomerModel cModel;
     @Autowired
-    EmployeeModel eModel;
+    private EmployeeModel eModel;
     @Autowired
     private AppointmentMapper mapper;
     @Autowired
@@ -51,7 +51,6 @@ public class AppointmentController {
     @CrossOrigin()
     @PostMapping("")
     AppointmentDetailDTO createAppointment(@RequestBody AppointmentDetailDTO newAppointment){
-        //Customer Employee doesn't get converted yet
         Appointment appointment = dMapper.destinationToSource(newAppointment, cModel, eModel);
         return dMapper.sourceToDestination( aModel.createAppointment(appointment));
     }

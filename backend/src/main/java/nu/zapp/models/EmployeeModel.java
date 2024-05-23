@@ -1,6 +1,5 @@
 package nu.zapp.models;
 
-import nu.zapp.ExceptionHandler.ExceptionInvalidInput;
 import nu.zapp.ExceptionHandler.ExceptionItemExists;
 import nu.zapp.ExceptionHandler.ExceptionNumId;
 import nu.zapp.entities.Employee;

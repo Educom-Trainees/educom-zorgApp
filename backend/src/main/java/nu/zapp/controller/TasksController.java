@@ -1,10 +1,8 @@
 package nu.zapp.controller;
 
 
-import nu.zapp.ExceptionHandler.ExceptionItemExists;
 import nu.zapp.entities.Generaltasks;
 import nu.zapp.models.TaskModel;
-import nu.zapp.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;

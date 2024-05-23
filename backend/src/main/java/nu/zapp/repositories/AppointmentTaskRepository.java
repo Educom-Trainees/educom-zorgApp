@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface AppointmentTaskRepository extends CrudRepository<AppointmentTasks, Integer> {
 
-    public AppointmentTasks save(AppointmentTasks task);
+    AppointmentTasks save(AppointmentTasks task);
 
-    //public AppointmentTasks saveAll(List<AppointmentTasks> tasks);
+    //AppointmentTasks saveAll(List<AppointmentTasks> tasks);
 
 }

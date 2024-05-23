@@ -4,7 +4,6 @@ import nu.zapp.entities.Customer;
 import nu.zapp.entities.Employee;
 import nu.zapp.models.CustomerModel;
 import nu.zapp.models.EmployeeModel;
-import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public interface BaseMapper {

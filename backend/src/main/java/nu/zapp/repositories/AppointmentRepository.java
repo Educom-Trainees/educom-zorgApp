@@ -11,16 +11,16 @@ import java.util.List;
 public interface AppointmentRepository extends CrudRepository<Appointment, Integer> {
 
     @Query("SELECT a FROM Appointment a JOIN FETCH a.customer c")
-    public List<Appointment> findAll();
+    List<Appointment> findAll();
 
     @Query("SELECT a FROM Appointment a JOIN FETCH a.customer c WHERE a.date BETWEEN :startDate and :endDate")
-    public List<Appointment> findByDates(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    List<Appointment> findByDates(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
     @Query("SELECT DISTINCT a FROM Appointment a " +
             "JOIN FETCH a.customer b " +
             "WHERE a.employee.id = :id " +
             "AND a.date = :date")
-    public List<Appointment> findEmployeeAppointments(@Param("id") int id, @Param("date") LocalDate date);
+    List<Appointment> findEmployeeAppointments(@Param("id") int id, @Param("date") LocalDate date);
 
     @Query("SELECT a FROM Appointment a " +
             "JOIN FETCH a.customer b " +
@@ -28,7 +28,7 @@ public interface AppointmentRepository extends CrudRepository<Appointment, Integ
             "LEFT JOIN  a.employee c " +
             "LEFT JOIN  a.appointmentTasks e " +
             "WHERE a.id = :id")
-    public Appointment findById(@Param("id") int id);
+    Appointment findById(@Param("id") int id);
 
     public Appointment save(Appointment newAppointment);
 

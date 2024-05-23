@@ -2,11 +2,9 @@ package nu.zapp.models;
 
 import nu.zapp.ExceptionHandler.ExceptionItemExists;
 import nu.zapp.ExceptionHandler.ExceptionNumId;
-import nu.zapp.entities.Employee;
 import nu.zapp.entities.Generaltasks;
 import nu.zapp.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

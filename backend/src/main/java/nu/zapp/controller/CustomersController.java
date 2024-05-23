@@ -2,14 +2,10 @@ package nu.zapp.controller;
 
 import nu.zapp.DTO.CustomerDTO;
 import nu.zapp.DTO.CustomerDetailDTO;
-import nu.zapp.ExceptionHandler.ExceptionNumId;
 import nu.zapp.entities.Customer;
-import nu.zapp.entities.Employee;
 import nu.zapp.mappers.CustomerDetailMapper;
 import nu.zapp.mappers.CustomerMapper;
 import nu.zapp.models.CustomerModel;
-import nu.zapp.repositories.CustomerRepository;
-import nu.zapp.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;

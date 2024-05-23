@@ -1,15 +1,9 @@
 package nu.zapp.controller;
 
-
-import nu.zapp.ExceptionHandler.ExceptionItemExists;
-import nu.zapp.ExceptionHandler.ExceptionNumId;
 import nu.zapp.entities.Employee;
 import nu.zapp.models.EmployeeModel;
-import nu.zapp.repositories.EmployeeRepository;
-import org.hibernate.exception.JDBCConnectionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
