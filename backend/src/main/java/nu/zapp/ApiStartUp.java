@@ -20,6 +20,8 @@ public class ApiStartUp {
     public static void main(String... args) {
         if (args != null && args.length > 0 && "TestDbMaker".equals(args[0])) {
             System.setProperty("spring.jpa.ddl-auto", "create");
+            System.setProperty("spring.datasource.username", System.getProperty("MYSQL_USER"));
+            System.setProperty("spring.datasource.password", System.getProperty("MYSQL_PASSWORD"));
             SpringApplication.run(ApiStartUp.class, args);
             dbFill.fillDb();
         } else {
