@@ -36,7 +36,12 @@ public class AppointmentModel {
         return aRepository.findById(id);
     }
 
+    public List<Appointment> findEmployeeAppointments(int id, LocalDate date) {
+        return aRepository.findEmployeeAppointments(id, date);
+    }
+
     public Appointment createAppointment(Appointment newAppointment){
+        //TODO automate start/end time based on tasks
         List<AppointmentTasks> newAppointmentTasks = newAppointment.getAppointmentTasks();
         // Remove AppointmentTasks from newAppointment
         newAppointment.setAppointmentTasks(null);
@@ -53,7 +58,10 @@ public class AppointmentModel {
         return savedAppointment;
     }
 
-    public List<Appointment> findEmployeeAppointments(int id, LocalDate date) {
-        return aRepository.findEmployeeAppointments(id, date);
+    public Appointment updateAppointment(Appointment updatedAppointment){
+
+
+        return null;
     }
+
 }
