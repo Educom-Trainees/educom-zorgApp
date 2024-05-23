@@ -1,10 +1,8 @@
 package nu.zapp.controller;
 
 
-import nu.zapp.DTO.AppointmentDTO;
 import nu.zapp.DTO.AppointmentDetailDTO;
 import nu.zapp.entities.Appointment;
-import nu.zapp.entities.Customer;
 import nu.zapp.mappers.AppointmentDetailMapper;
 import nu.zapp.mappers.AppointmentMapper;
 import nu.zapp.models.AppointmentModel;
@@ -15,7 +13,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @SpringBootApplication
 @RestController
@@ -32,29 +29,23 @@ public class AppointmentController {
     @Autowired
     private AppointmentDetailMapper dMapper;
 
+
     @CrossOrigin()
     @GetMapping("")
-    List<AppointmentDTO> getAppointments(){
-        return mapper.sourceToDestination(aModel.findAll());
-    }
-
-    @CrossOrigin()
-    @GetMapping("/by-date/{date}")
-    List<AppointmentDTO> getAppointmentsWeek(@PathVariable LocalDate date){
-        return mapper.sourceToDestination(aModel.findWeek(date));
-    }
-
-    @CrossOrigin()
-    @GetMapping("/by-id/{id}")
-    AppointmentDetailDTO getAppointment(@PathVariable int id) {
-        // this will miss data such as the employee and the tasks
-        return dMapper.sourceToDestination(aModel.findById(id)); }
-
-    @CrossOrigin()
-    @GetMapping("/employee/{id}/{date}")
-    List<AppointmentDTO> getAppointmentsEmployee(@PathVariable int id, @PathVariable LocalDate date) {
-        // date uses a year-month-day input xxxx-xx-xx
-        return mapper.sourceToDestination(aModel.findEmployeeAppointments(id, date));
+    public Object getAppointments(@RequestParam(value = "employee_id", required = false) Integer employee_id,
+                                                @RequestParam(value = "date", required = false) LocalDate date,
+                                                @RequestParam(value = "count", required = false, defaultValue = "0") int count,
+                                                @RequestParam(value = "id", required = false) Integer id) {
+        if (id != null){
+            return dMapper.sourceToDestination(aModel.findById(id));
+        }
+         else if (employee_id != null) {
+            return mapper.sourceToDestination(aModel.findEmployeeAppointments(employee_id, date, count));
+        } else if (date != null) {
+            return mapper.sourceToDestination(aModel.findByDates(date, count));
+        } else {
+            return mapper.sourceToDestination(aModel.findAll());
+        }
     }
 
     @CrossOrigin()

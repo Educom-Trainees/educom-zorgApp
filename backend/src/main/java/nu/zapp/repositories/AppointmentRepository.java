@@ -14,7 +14,7 @@ public interface AppointmentRepository extends CrudRepository<Appointment, Integ
     public List<Appointment> findAll();
 
     @Query("SELECT a FROM Appointment a JOIN FETCH a.customer c WHERE a.date BETWEEN :startDate and :endDate")
-    public List<Appointment> findWeek(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    public List<Appointment> findByDates(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
     @Query("SELECT DISTINCT a FROM Appointment a " +
             "JOIN FETCH a.customer b " +

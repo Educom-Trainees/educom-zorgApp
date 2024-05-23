@@ -27,16 +27,16 @@ public class AppointmentModel {
         return aRepository.findAll();
     }
 
-    public List<Appointment> findWeek(LocalDate startWeek){
-        LocalDate endWeek = startWeek.plusDays(6);
-        return aRepository.findWeek(startWeek, endWeek);
+    public List<Appointment> findByDates(LocalDate startWeek, int count){
+        LocalDate endWeek = startWeek.plusDays(count);
+        return aRepository.findByDates(startWeek, endWeek);
     }
 
     public Appointment findById(int id){
         return aRepository.findById(id);
     }
 
-    public List<Appointment> findEmployeeAppointments(int id, LocalDate date) {
+    public List<Appointment> findEmployeeAppointments(int id, LocalDate date, int count) {
         return aRepository.findEmployeeAppointments(id, date);
     }
 
@@ -55,7 +55,6 @@ public class AppointmentModel {
     }
 
     public Appointment updateAppointment(Appointment updatedAppointment){
-
         return null;
     }
 
