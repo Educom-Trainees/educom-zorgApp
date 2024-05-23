@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Component
 public class TestDbFill {
@@ -132,6 +133,7 @@ public class TestDbFill {
         one.setDate(Date.valueOf(LocalDate.of(2024, 5, 24)).toLocalDate());
         one.setStartTime(LocalTime.of(16, 0));
         one.setEndTime(LocalTime.of(17, 0));
+        one.setAppointmentTasks(makeAppointmentTasks());
         return one;
     }
 
@@ -142,7 +144,16 @@ public class TestDbFill {
         two.setStartTime(LocalTime.of(16, 0));
         two.setEndTime(LocalTime.of(17, 0));
         two.setDate(Date.valueOf(LocalDate.of(2024, 5, 22)).toLocalDate());
+        two.setAppointmentTasks(makeAppointmentTasks());
         return two;
+    }
+
+    private List<AppointmentTasks> makeAppointmentTasks(){
+        AppointmentTasks taskOne = new AppointmentTasks();
+        AppointmentTasks taskTwo = new AppointmentTasks();
+        taskOne.setTask("Koffie");
+        taskTwo.setTask("Medicatie");
+        return List.of(taskOne, taskTwo);
     }
 
     private CustomerTasks makeCustomerTask(int id) {
