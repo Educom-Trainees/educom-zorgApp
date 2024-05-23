@@ -25,6 +25,14 @@ erDiagram
   time end_shift
   }
 
+  vacations }|--|| Employee : absent
+  vacations{
+  int id pk
+  int employee_id fk
+  date start_vacation
+  date end_vacation
+  }
+
 
   Appointment }|--|| Customer : Visited
   Appointment }|--|o appointmentTasks : complete
