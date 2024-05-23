@@ -9,7 +9,7 @@ public class AppointmentTasks {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "appointment_id")
+    @JoinColumn(name = "appointment_id", nullable = false)
     @JsonBackReference
     private Appointment appointment;
 

@@ -37,8 +37,8 @@ public class TestDbFill {
         cModel.createCustomer(makeCustomerThree());
         tModel.createTasks(makeTaskOne());
         tModel.createTasks(makeTaskTwo());
-//        aModel.createAppointment(makeAppointmentOne(1));
-//        aModel.createAppointment(makeAppointmentTwo(2));
+        aModel.createAppointment(makeAppointmentOne(1));
+        aModel.createAppointment(makeAppointmentTwo(2));
         ctModel.createTasks(makeCustomerTask(1));
         ctModel.createTasks(makeCustomerTaskTwo(1));
     }

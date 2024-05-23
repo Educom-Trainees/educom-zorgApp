@@ -19,11 +19,12 @@ public class AppointmentDetailDTO extends AppointmentDTO {
     public AppointmentDetailDTO() {
     }
 
-    public AppointmentDetailDTO(int id, LocalDate date, LocalTime start_time, LocalTime end_time, String name, String location,
-                                int customer_id, int employee_id,
+    public AppointmentDetailDTO(int id, LocalDate date, LocalTime start_time, LocalTime end_time,
+                                LocalTime register_time, LocalTime logout_time,
+                                String name, String location, int customer_id, int employee_id,
                                 String employee_name, String employee_address,
                                 List<CustomerTasks> customer_tasks, List<AppointmentTasks> appointment_tasks) {
-        super(id, date, start_time, end_time, name, location);
+        super(id, date, start_time, end_time, register_time, logout_time, name, location);
         this.customer_id = customer_id;
         this.employee_id = employee_id;
         this.employee_name = employee_name;

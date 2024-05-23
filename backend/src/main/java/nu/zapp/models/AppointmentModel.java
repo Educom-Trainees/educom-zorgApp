@@ -1,11 +1,9 @@
 package nu.zapp.models;
 
-import nu.zapp.DTO.AppointmentDTO;
-import nu.zapp.DTO.AppointmentDetailDTO;
 import nu.zapp.entities.Appointment;
-import nu.zapp.entities.Customer;
-import nu.zapp.entities.Employee;
+import nu.zapp.entities.AppointmentTasks;
 import nu.zapp.repositories.AppointmentRepository;
+import nu.zapp.repositories.AppointmentTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +15,9 @@ public class AppointmentModel {
 
     @Autowired
     private AppointmentRepository aRepository;
+    @Autowired
+    private AppointmentTaskRepository atRepository;
+
     @Autowired
     private CustomerModel mModel;
     @Autowired
@@ -36,8 +37,20 @@ public class AppointmentModel {
     }
 
     public Appointment createAppointment(Appointment newAppointment){
+        List<AppointmentTasks> newAppointmentTasks = newAppointment.getAppointmentTasks();
+        // Remove AppointmentTasks from newAppointment
+        newAppointment.setAppointmentTasks(null);
+        Appointment savedAppointment = aRepository.save(newAppointment);
 
-        return aRepository.save(newAppointment);
+        for (AppointmentTasks task : newAppointmentTasks) {
+            task.setAppointment(savedAppointment);
+        }
+
+        List<AppointmentTasks> savedAppointmentTasks = (List<AppointmentTasks>) atRepository.saveAll(newAppointmentTasks);
+
+        savedAppointment.setAppointmentTasks(savedAppointmentTasks);
+
+        return savedAppointment;
     }
 
     public List<Appointment> findEmployeeAppointments(int id, LocalDate date) {

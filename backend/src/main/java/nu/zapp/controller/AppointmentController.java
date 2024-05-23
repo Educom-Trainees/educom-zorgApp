@@ -59,11 +59,10 @@ public class AppointmentController {
 
     @CrossOrigin()
     @PostMapping("")
-    void createAppointment(@RequestBody AppointmentDetailDTO newAppointment){
+    AppointmentDetailDTO createAppointment(@RequestBody AppointmentDetailDTO newAppointment){
         //Customer Employee doesn't get converted yet
         Appointment appointment = dMapper.destinationToSource(newAppointment, cModel, eModel);
-
-        aModel.createAppointment(appointment);
+        return dMapper.sourceToDestination( aModel.createAppointment(appointment));
     }
 
 }
