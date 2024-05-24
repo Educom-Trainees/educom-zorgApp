@@ -2,17 +2,10 @@ package nu.zapp.DTO;
 
 import java.util.List;
 
-public class EmployeeDTO {
-    private int id;
-    private String name;
-    private String address;
-    private boolean active;
+public class EmployeeDTO extends PersonDTO {
 
-    private List<String> days;
 
-    public EmployeeDTO() {
+    public EmployeeDTO(int id, String name, String address, Boolean active) {
+        super(id, name, address, active);
     }
-
-
-
 }
