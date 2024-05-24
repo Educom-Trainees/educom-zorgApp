@@ -1,6 +1,7 @@
 package nu.zapp.controller;
 
 import nu.zapp.entities.Employee;
+import nu.zapp.mappers.EmployeeDetailMapper;
 import nu.zapp.mappers.EmployeeMapper;
 import nu.zapp.models.EmployeeModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,14 @@ public class EmployeeController {
     private EmployeeModel eModel;
     @Autowired
     private EmployeeMapper mapper;
+    @Autowired
+    private EmployeeDetailMapper dMapper;
 
     @CrossOrigin()
     @GetMapping("")
     Object getEmployees(@RequestParam(value="id", required = false)Integer id){
         if (id != null){
-            return eModel.findById(id);
+            return dMapper.sourceToDestination(eModel.findById(id));
         }
         return mapper.sourceToDestination(eModel.findAll());
     }

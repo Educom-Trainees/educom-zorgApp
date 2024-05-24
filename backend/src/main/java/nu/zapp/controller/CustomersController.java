@@ -20,6 +20,7 @@ public class CustomersController {
     private CustomerMapper mapper;
     @Autowired
     private CustomerDetailMapper dMapper;
+
     @CrossOrigin()
     @GetMapping("")
     Object getCustomers(@RequestParam(value="id", required = false) Integer id){
