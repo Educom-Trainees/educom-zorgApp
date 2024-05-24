@@ -36,7 +36,6 @@ erDiagram
 
   Appointment }|--|| Customer : Visited
   Appointment }|--|o appointmentTasks : complete
-  Appointment o|..|o customerSetTasks : Copies
   Appointment{
   int id pk
   int customerId fk
@@ -47,11 +46,12 @@ erDiagram
   time logoutTime
   }
 
+  appointmentTasks o|..|o customerSetTasks : Copies
   appointmentTasks{
   int id pk
   int appointmentId fk
   varchar task
-  varchar note
+  varchar additionalInfo
   boolean taskCompleted
   varchar noteEmployee
   boolean noteRead
@@ -82,7 +82,7 @@ erDiagram
   int id pk
   int customerId fk
   varchar task
-  varchar note
+  varchar additionalInfo
   time start_time
   time end_time
   boolean active
