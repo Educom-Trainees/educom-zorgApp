@@ -51,7 +51,7 @@ erDiagram
   int id pk
   int appointmentId fk
   varchar task
-  varchar note
+  varchar additionalInfo
   boolean taskCompleted
   varchar noteEmployee
   boolean noteRead
