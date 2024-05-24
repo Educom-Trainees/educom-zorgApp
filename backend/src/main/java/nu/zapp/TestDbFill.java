@@ -133,6 +133,7 @@ public class TestDbFill {
         one.setDate(Date.valueOf(LocalDate.of(2024, 5, 24)).toLocalDate());
         one.setStartTime(LocalTime.of(16, 0));
         one.setEndTime(LocalTime.of(17, 0));
+        one.setRegisterTime(LocalTime.of(16, 6));
         one.setAppointmentTasks(makeAppointmentTasks());
         return one;
     }
