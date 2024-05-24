@@ -4,17 +4,10 @@ import nu.zapp.entities.CustomerTasks;
 import java.util.List;
 
 public class CustomerDetailDTO extends CustomerDTO{
-
     private String last_name;
-
     private String postalcode;
-
     private String residence;
-
     private List<CustomerTasks> tasks;
-
-    public CustomerDetailDTO() {
-    }
 
     public CustomerDetailDTO(int id, String name, String address, Boolean active, String last_name,
                              String postalcode, String residence, List<CustomerTasks> tasks) {
