@@ -15,7 +15,7 @@ public class AppointmentTasks {
 
     private String task;
 
-    private String note;
+    private String additionalInfo;
 
     private boolean completed;
 
@@ -26,11 +26,11 @@ public class AppointmentTasks {
     public AppointmentTasks() {
     }
 
-    public AppointmentTasks(int id, Appointment appointment, String task, String note, boolean completed, String noteEmployee, boolean noteRead) {
+    public AppointmentTasks(int id, Appointment appointment, String task, String additionalInfo, boolean completed, String noteEmployee, boolean noteRead) {
         this.id = id;
         this.appointment = appointment;
         this.task = task;
-        this.note = note;
+        this.additionalInfo = additionalInfo;
         this.completed = completed;
         this.noteEmployee = noteEmployee;
         this.noteRead = noteRead;
@@ -61,12 +61,12 @@ public class AppointmentTasks {
         this.task = task;
     }
 
-    public String getNote() {
-        return note;
+    public String getAdditionalInfo() {
+        return additionalInfo;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setAdditionalInfo(String additionalInfo) {
+        this.additionalInfo = additionalInfo;
     }
 
     public boolean isCompleted() {

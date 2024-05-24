@@ -160,7 +160,7 @@ public class TestDbFill {
         CustomerTasks one = new CustomerTasks();
         one.setCustomer(cModel.findById(id));
         one.setTask("Koffie");
-        one.setNote("Twee klontjes suiker");
+        one.setAdditionalInfo("Twee klontjes suiker");
         return one;
     }
 
@@ -168,7 +168,7 @@ public class TestDbFill {
         CustomerTasks two = new CustomerTasks();
         two.setCustomer(cModel.findById(id));
         two.setTask("Koffie (s'avonds)");
-        two.setNote("Een klontje suiken");
+        two.setAdditionalInfo("Een klontje suiken");
         two.setStartTime(LocalTime.parse("19:00"));
         two.setEndTime(LocalTime.parse("20:00"));
         return two;

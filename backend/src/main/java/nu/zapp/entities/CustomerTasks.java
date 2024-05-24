@@ -30,19 +30,19 @@ public class CustomerTasks {
     @JoinColumn(name = "customer_id")
     @JsonBackReference
     private Customer customer;
-    private String note;
+    private String additionalInfo;
 
     public CustomerTasks() {
     }
 
-    public CustomerTasks(int id, String task, boolean active, LocalTime startTime, LocalTime endTime, Customer customer, String note) {
+    public CustomerTasks(int id, String task, boolean active, LocalTime startTime, LocalTime endTime, Customer customer, String additionalInfo) {
         this.id = id;
         this.task = task;
         this.active = active;
         this.startTime = startTime;
         this.endTime = endTime;
         this.customer = customer;
-        this.note = note;
+        this.additionalInfo = additionalInfo;
     }
 
     public int getId() {
@@ -93,11 +93,11 @@ public class CustomerTasks {
         this.customer = customer;
     }
 
-    public String getNote() {
-        return note;
+    public String getAdditionalInfo() {
+        return additionalInfo;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setAdditionalInfo(String additionalInfo) {
+        this.additionalInfo = additionalInfo;
     }
 }
