@@ -1,7 +1,5 @@
 package nu.zapp.controller;
 
-import nu.zapp.DTO.CustomerDTO;
-import nu.zapp.DTO.CustomerDetailDTO;
 import nu.zapp.entities.Customer;
 import nu.zapp.mappers.CustomerDetailMapper;
 import nu.zapp.mappers.CustomerMapper;
@@ -18,23 +16,17 @@ import java.util.List;
 public class CustomersController {
     @Autowired
     private CustomerModel cModel;
-
     @Autowired
     private CustomerMapper mapper;
-
     @Autowired
     private CustomerDetailMapper dMapper;
-
     @CrossOrigin()
     @GetMapping("")
-    List<CustomerDTO> getCustomers(){
+    Object getCustomers(@RequestParam(value="id", required = false) Integer id){
+        if (id!= null){
+            return dMapper.sourceToDestination(cModel.findById(id));
+        }
         return mapper.sourceToDestination(cModel.findAll());
-    }
-
-    @CrossOrigin()
-    @GetMapping("/{id}")
-    CustomerDetailDTO getCustomer(@PathVariable int id){
-        return dMapper.sourceToDestination(cModel.findById(id));
     }
 
     @CrossOrigin()

@@ -1,12 +1,12 @@
 package nu.zapp.controller;
 
 import nu.zapp.entities.Employee;
+import nu.zapp.mappers.EmployeeMapper;
 import nu.zapp.models.EmployeeModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @SpringBootApplication
 @RestController
@@ -15,24 +15,17 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeModel eModel;
+    @Autowired
+    private EmployeeMapper mapper;
+
     @CrossOrigin()
     @GetMapping("")
-    List<Employee> getEmployees(){
-        return eModel.findAll();
+    Object getEmployees(@RequestParam(value="id", required = false)Integer id){
+        if (id != null){
+            return eModel.findById(id);
+        }
+        return mapper.sourceToDestination(eModel.findAll());
     }
-
-    @CrossOrigin()
-    @GetMapping("/{id}")
-    Employee getEmployee(@PathVariable int id){
-        return eModel.findById(id);
-    }
-
-    @CrossOrigin()
-    @GetMapping("/by-username/{username}")
-    Employee getEmployee(@PathVariable String username){
-        return eModel.findByUserName(username);
-    }
-
 
     @CrossOrigin()
     @PostMapping("")

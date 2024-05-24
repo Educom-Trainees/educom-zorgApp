@@ -32,7 +32,7 @@ public class AppointmentController {
 
     @CrossOrigin()
     @GetMapping("")
-    public Object getAppointments(@RequestParam(value = "employee_id", required = false) Integer employee_id,
+    Object getAppointments(@RequestParam(value = "employee_id", required = false) Integer employee_id,
                                                 @RequestParam(value = "date", required = false) LocalDate date,
                                                 @RequestParam(value = "count", required = false, defaultValue = "0") int count,
                                                 @RequestParam(value = "id", required = false) Integer id) {
