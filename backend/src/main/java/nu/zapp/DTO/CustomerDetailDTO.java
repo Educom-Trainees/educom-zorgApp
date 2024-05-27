@@ -4,26 +4,26 @@ import nu.zapp.entities.CustomerTasks;
 import java.util.List;
 
 public class CustomerDetailDTO extends CustomerDTO{
-    private String last_name;
+    private String lastName;
     private String postalcode;
     private String residence;
     private List<CustomerTasks> tasks;
 
-    public CustomerDetailDTO(int id, String name, String address, Boolean active, String last_name,
+    public CustomerDetailDTO(int id, String name, String address, Boolean active, String lastName,
                              String postalcode, String residence, List<CustomerTasks> tasks) {
         super(id, name, address, active);
-        this.last_name = last_name;
+        this.lastName = lastName;
         this.postalcode = postalcode;
         this.residence = residence;
         this.tasks = tasks;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPostalcode() {

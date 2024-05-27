@@ -14,7 +14,6 @@ public interface CustomerDetailMapper extends BaseMapper{
     Customer destinationToSource(CustomerDetailDTO destination);
 
     @Mapping(target="name", expression="java(source.getFirstName())")
-    @Mapping(target="last_name", expression="java(source.getLastName())")
     @Mapping(target = "tasks", expression = "java(source.getCustomerTasks())")
     CustomerDetailDTO sourceToDestination(Customer source);
 
