@@ -7,11 +7,8 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface AppointmentTasksMapper {
-    @Mapping(target = "startTime", source = "start_time")
-    @Mapping(target = "endTime", source = "end_time")
+
     AppointmentTasks destinationToSource(AppointmentTasksDTO dto);
 
-    @Mapping(target = "start_time", source = "startTime")
-    @Mapping(target = "end_time", source = "endTime")
     AppointmentTasksDTO sourceToDestination(AppointmentTasks entity);
 }

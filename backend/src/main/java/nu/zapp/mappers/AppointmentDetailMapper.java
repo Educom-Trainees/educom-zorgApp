@@ -26,7 +26,6 @@ public interface AppointmentDetailMapper extends BaseMapper {
     @Mapping(target = "employeeId", source = "employee.id")
     @Mapping(target = "customerTasks", expression = "java(source.getCustomer().getCustomerTasks())")
     @Mapping(target = "appointmentTasks", expression = "java(source.getAppointmentTasks())")
-
     AppointmentDetailDTO sourceToDestination(Appointment source);
 
 }

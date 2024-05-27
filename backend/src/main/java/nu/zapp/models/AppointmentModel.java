@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Component
@@ -41,23 +42,54 @@ public class AppointmentModel {
     }
 
     public Appointment createAppointment(Appointment newAppointment){
-        //TODO automate start/end time based on tasks
         List<AppointmentTasks> newAppointmentTasks = newAppointment.getAppointmentTasks();
-        // Remove AppointmentTasks from newAppointment
         newAppointment.setAppointmentTasks(null);
         Appointment savedAppointment = aRepository.save(newAppointment);
-        LocalDate startTime = null;
-        LocalDate endTime = null;
-        for (AppointmentTasks task : newAppointmentTasks) {
-            task.setAppointment(savedAppointment);
-        }
-        List<AppointmentTasks> savedAppointmentTasks = (List<AppointmentTasks>) atRepository.saveAll(newAppointmentTasks);
-        savedAppointment.setAppointmentTasks(savedAppointmentTasks);
-        return savedAppointment;
+        savedAppointment.setAppointmentTasks(setAppointmentTaskIds(savedAppointment, newAppointmentTasks));
+        savedAppointment.setStartTime(calculateStartTime(savedAppointment.getStartTime(),
+                savedAppointment.getAppointmentTasks()));
+        savedAppointment.setEndTime(calculateEndTime(savedAppointment.getEndTime(),
+                savedAppointment.getAppointmentTasks()));
+        return aRepository.save(savedAppointment);
     }
 
     public Appointment updateAppointment(Appointment updatedAppointment){
+        LocalTime startTime = calculateStartTime(updatedAppointment.getStartTime(), updatedAppointment.getAppointmentTasks());
+        LocalTime endTime = calculateEndTime(updatedAppointment.getEndTime(), updatedAppointment.getAppointmentTasks());
+        updatedAppointment.setStartTime(startTime);
+        updatedAppointment.setEndTime(endTime);
         return null;
+    }
+
+    private LocalTime calculateStartTime(LocalTime startTime, List<AppointmentTasks> taskList) {
+        for (AppointmentTasks task : taskList) {
+            LocalTime startTimeTask = task.getStartTime();
+            if (startTimeTask != null) {
+                if (startTimeTask.isBefore(startTime)) {
+                    startTime = startTimeTask;
+                }
+            }
+        }
+        return startTime;
+    }
+
+    private LocalTime calculateEndTime(LocalTime endTime, List<AppointmentTasks> taskList) {
+        for (AppointmentTasks task : taskList) {
+            LocalTime endTimeTask = task.getEndTime();
+            if (endTimeTask != null) {
+                if (endTimeTask.isAfter(endTime)) {
+                    endTime = endTimeTask;
+                }
+            }
+        }
+        return endTime;
+    }
+
+    private List<AppointmentTasks> setAppointmentTaskIds(Appointment appointment, List<AppointmentTasks> taskList){
+        for (AppointmentTasks task : taskList) {
+            task.setAppointment(appointment);
+        }
+        return taskList;
     }
 
 }
