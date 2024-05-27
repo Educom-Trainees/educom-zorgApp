@@ -4,23 +4,23 @@ import java.time.LocalTime;
 
 public class AppointmentTasksDTO {
     private String task;
-    private String additional_info;
+    private String additionalInfo;
     private boolean completed;
-    private String note_employee;
-    private boolean note_read;
-    private LocalTime start_time;
-    private LocalTime end_time;
+    private String noteEmployee;
+    private boolean noteRead;
+    private LocalTime startTime;
+    private LocalTime endTime;
 
-    public AppointmentTasksDTO(String task, String additional_info,
-                               boolean completed, String note_employee, boolean note_read,
-                               LocalTime start_time, LocalTime end_time) {
+    public AppointmentTasksDTO(String task, String additionalInfo, boolean completed,
+                               String noteEmployee, boolean noteRead,
+                               LocalTime startTime, LocalTime endTime) {
         this.task = task;
-        this.additional_info = additional_info;
+        this.additionalInfo = additionalInfo;
         this.completed = completed;
-        this.note_employee = note_employee;
-        this.note_read = note_read;
-        this.start_time = start_time;
-        this.end_time = end_time;
+        this.noteEmployee = noteEmployee;
+        this.noteRead = noteRead;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public String getTask() {
@@ -31,12 +31,12 @@ public class AppointmentTasksDTO {
         this.task = task;
     }
 
-    public String getAdditional_info() {
-        return additional_info;
+    public String getAdditionalInfo() {
+        return additionalInfo;
     }
 
-    public void setAdditional_info(String additional_info) {
-        this.additional_info = additional_info;
+    public void setAdditionalInfo(String additionalInfo) {
+        this.additionalInfo = additionalInfo;
     }
 
     public boolean isCompleted() {
@@ -47,35 +47,35 @@ public class AppointmentTasksDTO {
         this.completed = completed;
     }
 
-    public String getNote_employee() {
-        return note_employee;
+    public String getNoteEmployee() {
+        return noteEmployee;
     }
 
-    public void setNote_employee(String note_employee) {
-        this.note_employee = note_employee;
+    public void setNoteEmployee(String noteEmployee) {
+        this.noteEmployee = noteEmployee;
     }
 
-    public boolean isNote_read() {
-        return note_read;
+    public boolean isNoteRead() {
+        return noteRead;
     }
 
-    public void setNote_read(boolean note_read) {
-        this.note_read = note_read;
+    public void setNoteRead(boolean noteRead) {
+        this.noteRead = noteRead;
     }
 
-    public LocalTime getStart_time() {
-        return start_time;
+    public LocalTime getStartTime() {
+        return startTime;
     }
 
-    public void setStart_time(LocalTime start_time) {
-        this.start_time = start_time;
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
     }
 
-    public LocalTime getEnd_time() {
-        return end_time;
+    public LocalTime getEndTime() {
+        return endTime;
     }
 
-    public void setEnd_time(LocalTime end_time) {
-        this.end_time = end_time;
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
     }
 }
