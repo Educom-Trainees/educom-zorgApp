@@ -25,7 +25,6 @@ public class CustomerTasks {
     @Column()
     private LocalTime endTime;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     @JsonBackReference

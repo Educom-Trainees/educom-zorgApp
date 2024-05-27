@@ -110,17 +110,19 @@ public class TestDbFill {
 
     private static Generaltasks makeTaskOne(){
         Generaltasks one = new Generaltasks();
-        //one.setId(101);
         one.setTask("Opstaan uit bed");
         one.setActive(true);
+        one.setStartTime(LocalTime.parse("14:00"));
+        one.setEndTime(LocalTime.parse("15:00"));
         return one;
     }
 
     private static Generaltasks makeTaskTwo(){
         Generaltasks two = new Generaltasks();
-        //two.setId(102);
         two.setTask("Naar bed brengen");
         two.setActive(true);
+        two.setStartTime(LocalTime.parse("14:00"));
+        two.setEndTime(LocalTime.parse("15:00"));
         return two;
     }
 
