@@ -10,7 +10,7 @@ import java.util.List;
 public interface EmployeeDetailMapper extends BaseMapper {
 
     @Mapping(target="name", expression="java(source.getFirstName())")
-    @Mapping(target="last_name", expression="java(source.getLastName())")
+    @Mapping(target="lastName", expression="java(source.getLastName())")
     EmployeeDetailDTO sourceToDestination(Employee source);
 
 }
