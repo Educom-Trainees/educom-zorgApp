@@ -51,6 +51,7 @@ public class AppointmentController {
     @CrossOrigin()
     @PostMapping("")
     AppointmentDetailDTO createAppointment(@RequestBody AppointmentDetailDTO newAppointment){
+        //TODO additional DTO to convert appointmentTasks
         Appointment appointment = dMapper.destinationToSource(newAppointment, cModel, eModel);
         return dMapper.sourceToDestination( aModel.createAppointment(appointment));
     }

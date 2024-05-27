@@ -6,27 +6,29 @@ import java.time.LocalTime;
 public class AppointmentDTO {
     private int id;
     private LocalDate date;
-    private LocalTime start_time;
-    private LocalTime end_time;
-    private LocalTime register_time;
-    private LocalTime logout_time;
+    private LocalTime startTime;
+    private LocalTime endTime;
+    private LocalTime registerTime;
+    private LocalTime logoutTime;
     private String name;
     private String location;
 
     public AppointmentDTO() {
     }
 
-    public AppointmentDTO(int id, LocalDate date, LocalTime start_time, LocalTime end_time,
-                          LocalTime register_time, LocalTime logout_time, String name, String location) {
+    public AppointmentDTO(int id, LocalDate date, LocalTime startTime, LocalTime endTime,
+                          LocalTime registerTime, LocalTime logoutTime,
+                          String name, String location) {
         this.id = id;
         this.date = date;
-        this.start_time = start_time;
-        this.end_time = end_time;
-        this.register_time = register_time;
-        this.logout_time = logout_time;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.registerTime = registerTime;
+        this.logoutTime = logoutTime;
         this.name = name;
         this.location = location;
     }
+
 
     public int getId() {
         return id;
@@ -44,20 +46,36 @@ public class AppointmentDTO {
         this.date = date;
     }
 
-    public LocalTime getStart_time() {
-        return start_time;
+    public LocalTime getStartTime() {
+        return startTime;
     }
 
-    public void setStart_time(LocalTime start_time) {
-        this.start_time = start_time;
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
     }
 
-    public LocalTime getEnd_time() {
-        return end_time;
+    public LocalTime getEndTime() {
+        return endTime;
     }
 
-    public void setEnd_time(LocalTime end_time) {
-        this.end_time = end_time;
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public LocalTime getRegisterTime() {
+        return registerTime;
+    }
+
+    public void setRegisterTime(LocalTime registerTime) {
+        this.registerTime = registerTime;
+    }
+
+    public LocalTime getLogoutTime() {
+        return logoutTime;
+    }
+
+    public void setLogoutTime(LocalTime logoutTime) {
+        this.logoutTime = logoutTime;
     }
 
     public String getName() {
@@ -74,21 +92,5 @@ public class AppointmentDTO {
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public LocalTime getRegister_time() {
-        return register_time;
-    }
-
-    public void setRegister_time(LocalTime register_time) {
-        this.register_time = register_time;
-    }
-
-    public LocalTime getLogout_time() {
-        return logout_time;
-    }
-
-    public void setLogout_time(LocalTime logout_time) {
-        this.logout_time = logout_time;
     }
 }

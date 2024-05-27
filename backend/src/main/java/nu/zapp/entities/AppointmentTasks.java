@@ -3,6 +3,8 @@ package nu.zapp.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
+import java.time.LocalTime;
+
 @Entity
 public class AppointmentTasks {
     @Id
@@ -15,6 +17,12 @@ public class AppointmentTasks {
 
     private String task;
 
+    @Column()
+    private LocalTime startTime;
+
+    @Column()
+    private LocalTime endTime;
+
     private String additionalInfo;
 
     private boolean completed;
@@ -26,16 +34,18 @@ public class AppointmentTasks {
     public AppointmentTasks() {
     }
 
-    public AppointmentTasks(int id, Appointment appointment, String task, String additionalInfo, boolean completed, String noteEmployee, boolean noteRead) {
+    public AppointmentTasks(int id, Appointment appointment, String task, LocalTime startTime, LocalTime endTime,
+                            String additionalInfo, boolean completed, String noteEmployee, boolean noteRead) {
         this.id = id;
         this.appointment = appointment;
         this.task = task;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.additionalInfo = additionalInfo;
         this.completed = completed;
         this.noteEmployee = noteEmployee;
         this.noteRead = noteRead;
     }
-
 
     public int getId() {
         return id;
@@ -59,6 +69,22 @@ public class AppointmentTasks {
 
     public void setTask(String task) {
         this.task = task;
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
     }
 
     public String getAdditionalInfo() {

@@ -46,6 +46,8 @@ public class AppointmentModel {
         // Remove AppointmentTasks from newAppointment
         newAppointment.setAppointmentTasks(null);
         Appointment savedAppointment = aRepository.save(newAppointment);
+        LocalDate startTime = null;
+        LocalDate endTime = null;
         for (AppointmentTasks task : newAppointmentTasks) {
             task.setAppointment(savedAppointment);
         }
