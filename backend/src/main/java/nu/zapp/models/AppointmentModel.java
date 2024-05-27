@@ -3,7 +3,6 @@ package nu.zapp.models;
 import nu.zapp.entities.Appointment;
 import nu.zapp.entities.AppointmentTasks;
 import nu.zapp.repositories.AppointmentRepository;
-import nu.zapp.repositories.AppointmentTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,13 +15,6 @@ public class AppointmentModel {
 
     @Autowired
     private AppointmentRepository aRepository;
-    @Autowired
-    private AppointmentTaskRepository atRepository;
-
-    @Autowired
-    private CustomerModel mModel;
-    @Autowired
-    private EmployeeModel eModel;
 
     public List<Appointment> findAll() {
         return aRepository.findAll();
@@ -54,11 +46,10 @@ public class AppointmentModel {
     }
 
     public Appointment updateAppointment(Appointment updatedAppointment){
-        LocalTime startTime = calculateStartTime(updatedAppointment.getStartTime(), updatedAppointment.getAppointmentTasks());
-        LocalTime endTime = calculateEndTime(updatedAppointment.getEndTime(), updatedAppointment.getAppointmentTasks());
-        updatedAppointment.setStartTime(startTime);
-        updatedAppointment.setEndTime(endTime);
-        return null;
+        updatedAppointment.setAppointmentTasks(setAppointmentTaskIds(updatedAppointment, updatedAppointment.getAppointmentTasks()));
+        updatedAppointment.setStartTime(calculateStartTime(updatedAppointment.getStartTime(), updatedAppointment.getAppointmentTasks()));
+        updatedAppointment.setEndTime(calculateEndTime(updatedAppointment.getEndTime(), updatedAppointment.getAppointmentTasks()));
+        return aRepository.save(updatedAppointment);
     }
 
     private LocalTime calculateStartTime(LocalTime startTime, List<AppointmentTasks> taskList) {
