@@ -24,7 +24,6 @@ public class Generaltasks {
     @Column()
     private LocalTime endTime;
 
-
     public Generaltasks() {
     }
 

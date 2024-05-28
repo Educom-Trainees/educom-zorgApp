@@ -67,4 +67,9 @@ public class TaskModel {
             }
         }
     }
+
+    public void deleteTask(int id) {
+        Generaltasks toDeleteTask = tRepository.findById(id);
+        tRepository.delete(toDeleteTask);
+    }
 }
