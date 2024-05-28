@@ -112,8 +112,8 @@ public class TestDbFill {
         Generaltasks one = new Generaltasks();
         one.setTask("Opstaan uit bed");
         one.setActive(true);
-        one.setStartTime(LocalTime.parse("8:00"));
-        one.setEndTime(LocalTime.parse("9:00"));
+        one.setStartTime(LocalTime.parse("08:00"));
+        one.setEndTime(LocalTime.parse("09:00"));
         return one;
     }
 

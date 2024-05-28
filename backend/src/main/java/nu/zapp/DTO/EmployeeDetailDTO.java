@@ -18,4 +18,36 @@ public class EmployeeDetailDTO extends EmployeeDTO{
         this.residence = residence;
         this.schedule = schedule;
     }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPostalcode() {
+        return postalcode;
+    }
+
+    public void setPostalcode(String postalcode) {
+        this.postalcode = postalcode;
+    }
+
+    public String getResidence() {
+        return residence;
+    }
+
+    public void setResidence(String residence) {
+        this.residence = residence;
+    }
+
+    public List<WorkSchedule> getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(List<WorkSchedule> schedule) {
+        this.schedule = schedule;
+    }
 }
