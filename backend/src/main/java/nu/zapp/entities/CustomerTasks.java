@@ -31,10 +31,13 @@ public class CustomerTasks {
     private Customer customer;
     private String additionalInfo;
 
+    private int duration;
+
     public CustomerTasks() {
     }
 
-    public CustomerTasks(int id, String task, boolean active, LocalTime startTime, LocalTime endTime, Customer customer, String additionalInfo) {
+    public CustomerTasks(int id, String task, boolean active, LocalTime startTime, LocalTime endTime,
+                         Customer customer, String additionalInfo, int duration) {
         this.id = id;
         this.task = task;
         this.active = active;
@@ -42,6 +45,7 @@ public class CustomerTasks {
         this.endTime = endTime;
         this.customer = customer;
         this.additionalInfo = additionalInfo;
+        this.duration = duration;
     }
 
     public int getId() {
@@ -98,5 +102,13 @@ public class CustomerTasks {
 
     public void setAdditionalInfo(String additionalInfo) {
         this.additionalInfo = additionalInfo;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }

@@ -114,6 +114,7 @@ public class TestDbFill {
         one.setActive(true);
         one.setStartTime(LocalTime.parse("08:00"));
         one.setEndTime(LocalTime.parse("09:00"));
+        one.setDuration(15);
         return one;
     }
 
@@ -121,8 +122,8 @@ public class TestDbFill {
         Generaltasks two = new Generaltasks();
         two.setTask("Naar bed brengen");
         two.setActive(true);
-        two.setStartTime(LocalTime.parse("14:00"));
-        two.setEndTime(LocalTime.parse("15:00"));
+        two.setStartTime(LocalTime.parse("22:00"));
+        two.setEndTime(LocalTime.parse("23:00"));
         return two;
     }
 
@@ -156,6 +157,7 @@ public class TestDbFill {
         AppointmentTasks taskTwo = new AppointmentTasks();
         taskOne.setTask("Koffie");
         taskTwo.setTask("Medicatie");
+        taskTwo.setDuration(10);
         return List.of(taskOne, taskTwo);
     }
 
@@ -172,8 +174,9 @@ public class TestDbFill {
         two.setCustomer(cModel.findById(id));
         two.setTask("Koffie (s'avonds)");
         two.setAdditionalInfo("Een klontje suiken");
-        two.setStartTime(LocalTime.parse("19:00"));
-        two.setEndTime(LocalTime.parse("20:00"));
+        two.setStartTime(LocalTime.of(16, 0));
+        two.setEndTime(LocalTime.of(17, 0));
+        two.setDuration(5);
         return two;
     }
 }
