@@ -44,9 +44,8 @@ public class TestDbFill {
         ctModel.createTasks(makeCustomerTaskTwo(1));
     }
 
-    private static Employee makeEmployeeOne(){
+    private Employee makeEmployeeOne(){
         Employee one=new Employee();
-        //one.setId(101);
         one.setUsername("Spongebob");
         one.setFirstName("Bob");
         one.setLastName("Sponse");
@@ -55,12 +54,12 @@ public class TestDbFill {
         one.setAddress("Ananas 1");
         one.setPostalcode("1234BB");
         one.setResidence("Bikinibroek");
+        one.setWorkSchedule(makeWorkScheduleOne());
         return one;
     }
 
-    private static Employee makeEmployeeTwo(){
+    private Employee makeEmployeeTwo(){
         Employee two=new Employee();
-        //two.setId(102);
         two.setUsername("PatrickSter");
         two.setFirstName("Patrick");
         two.setLastName("Ster");
@@ -69,12 +68,12 @@ public class TestDbFill {
         two.setAddress("Steen 1");
         two.setPostalcode("1234BB");
         two.setResidence("Bikinibroek");
+        two.setWorkSchedule(null);
         return two;
     }
 
     private static Customer makeCustomerOne(){
         Customer one = new Customer();
-        //one.setId(101);
         one.setFirstName("Matthew");
         one.setLastName("Mercer");
         one.setAddress("Dorei 1");
@@ -178,5 +177,17 @@ public class TestDbFill {
         two.setEndTime(LocalTime.of(17, 0));
         two.setDuration(5);
         return two;
+    }
+
+    private List<WorkSchedule> makeWorkScheduleOne(){
+        WorkSchedule one = new WorkSchedule();
+        one.setDay("Monday");
+        one.setStart_shift(LocalTime.of(10, 0));
+        one.setEnd_shift(LocalTime.of(16, 0));
+        WorkSchedule two = new WorkSchedule();
+        two.setDay("Wednesday");
+        two.setStart_shift(LocalTime.of(9, 0));
+        two.setEnd_shift(LocalTime.of(17, 30));
+        return List.of(one, two);
     }
 }

@@ -67,4 +67,19 @@ public class Employee extends Person {
         this.role = role;
     }
 
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
+    }
+
+    public List<WorkSchedule> getWorkSchedule() {
+        return workSchedule;
+    }
+
+    public void setWorkSchedule(List<WorkSchedule> workSchedule) {
+        this.workSchedule = workSchedule;
+    }
 }
