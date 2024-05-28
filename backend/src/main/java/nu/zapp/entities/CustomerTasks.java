@@ -13,7 +13,7 @@ public class CustomerTasks {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String task;
 
     @Column(nullable = false, columnDefinition = "boolean default true")

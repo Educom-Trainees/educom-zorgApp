@@ -1,5 +1,6 @@
 package nu.zapp.controller;
 
+import nu.zapp.DTO.CustomerDetailDTO;
 import nu.zapp.entities.Customer;
 import nu.zapp.mappers.CustomerDetailMapper;
 import nu.zapp.mappers.CustomerMapper;
@@ -7,8 +8,6 @@ import nu.zapp.models.CustomerModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @SpringBootApplication
 @RestController
@@ -32,12 +31,15 @@ public class CustomersController {
 
     @CrossOrigin()
     @PostMapping("")
-    Customer postCustomer(@RequestBody Customer newCustomer){
-        return cModel.createCustomer(newCustomer);
+    Customer postCustomer(@RequestBody CustomerDetailDTO newCustomer){
+        Customer customer = dMapper.destinationToSource(newCustomer);
+        return cModel.createCustomer(customer);
     }
 
     @CrossOrigin()
     @PutMapping("")
-    Customer putCustomer(@RequestBody Customer updateCustomer) { return cModel.updateCustomer(updateCustomer); }
+    Customer putCustomer(@RequestBody CustomerDetailDTO updateCustomer) {
+        Customer customer = dMapper.destinationToSource(updateCustomer);
+        return cModel.updateCustomer(customer); }
 
 }

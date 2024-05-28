@@ -44,4 +44,13 @@ public class CustomerTaskModel {
         }
         return task;
     }
+
+
+    public void deleteByCustomerId(int id) {
+        cRepository.deleteAll(findByCustomerId(id));
+    }
+
+    private List<CustomerTasks> findByCustomerId(int id) {
+        return cRepository.findByCustomerId(id);
+    }
 }
