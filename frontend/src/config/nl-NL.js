@@ -10,9 +10,13 @@ const translations = {
 	task: "Taak",
 	a_task: "Een taak",
 	tasks: "Taken",
+	appointment: "Afspraak",
+	appointments: "Afspraken",
+	an_appointment: "Een afspraak",
 	add_task: "Taak Toevoegen",
 	add_employee: "Medewerker Toevoegen",
 	add_customer: "Klant Toevoegen",
+	add_appointment: "Afspraak Toevoegen",
 	userName: "Gebruikersnaam",
 	password: "Wachtwoord",
 	login_button : "Inloggen",
@@ -34,7 +38,13 @@ const translations = {
 	saturday: "Zaterdag",
 	sunday: "Zondag",
 	save: "Opslaan",
-
+	signed_in: "Aangemeld",
+	signed_out: "Afgemeld",
+	customer_tasks: "Klant taken",
+	standard_tasks: "Standaard taken",
+	additionalInfo: "Additionele Informatie",
+	time: "Tijd",
+	confirmation: "Bevestiging",
 }
 
 export default translations;
