@@ -3,7 +3,14 @@
     import { useRoute } from 'vue-router'
     import { getCollection, getIndividual, putIndividual } from '../../api/collections'
     import InputForm from '../../components/InputForm.vue'
-    import { ref, watch } from 'vue'
+    import CustomerSelector from './CustomerSelector.vue'
+    import EmployeeSelector from './EmployeeSelector.vue'
+    import TaskList from '../../components/TaskList.vue'
+    import AppointmentErrors from './AppointmentErrors.vue'
+    import AppModal from '../../components/AppModal.vue'
+
+
+    import { computed, ref, watch } from 'vue'
     import translations from '../../config/nl-NL'
 
     const APPOINTMENTS = 'appointments'
@@ -15,7 +22,7 @@
     const queryClient = useQueryClient();
     const { isLoading: appointmentLoading, data: appointmentData} = useQuery({
         queryKey: [APPOINTMENTS, id],
-        queryFn: () => getIndividual(APPOINTMENTS, id), //might want to move customers to route meta info
+        queryFn: () => getIndividual(APPOINTMENTS, id),//getIndividual(APPOINTMENTS, id), //might want to move customers to route meta info
         placeholderData: () => {
             // Use the smaller/list version of the customer from the CUSTOMERS
             // query as the placeholder data for this customer query
@@ -33,7 +40,7 @@
             // query as the placeholder data for this customer query
             const placeholder = queryClient
                 .getQueryData([CUSTOMERS])
-            return placeholder
+            return placeholder ?? []
         }
     })
     const { isLoading: employeesLoading, data: employeesData } = useQuery({
@@ -44,7 +51,7 @@
             // query as the placeholder data for this customer query
             const placeholder = queryClient
                 .getQueryData([EMPLOYEES])
-            return placeholder
+            return placeholder ?? [];
         }
     })
 
@@ -52,14 +59,25 @@
     const customers = ref([])
     const employees = ref([])
 
+    //variables to track changes
+    const customerRef = ref(0)
+    const employeeRef = ref(0)
+    const dateRef = ref(new Date())
+
     function updateAppointment(value) {
-        appointment.value = { ...value }
+        appointment.value = JSON.parse(JSON.stringify(value))
+        customerRef.value = appointment.value.customerId
+        employeeRef.value = appointment.value.employeeId
+
+        var d = new Date(appointment.value.date)
+        d.setMinutes(d.getMinutes() + d.getTimezoneOffset())
+        dateRef.value = d
     }
     function updateCustomers(value) {
-        customers.value = { ...value }
+        customers.value = [...value]
     }
     function updateEmployees(value) {
-        employees.value = { ...value }
+        employees.value = [ ...value ]
     }
 
     if (!appointmentLoading.value && appointmentData.value) {
@@ -92,11 +110,28 @@
     })
 
     const postIfValid = () => {
-        //console.log(firstName, lastName, address, postalCode, residence)
+        appointment.value.date = dateRef.value.toISOString().split('T')[0]
+        appointment.value.employeeId = employeeRef.value
+        console.log(JSON.stringify(appointment.value))
         mutate({ type: APPOINTMENTS, id: id, body: JSON.stringify(appointment.value) })
     }
 
+    const errors = computed(() => {
+        const errors = []
+        if (false) {
+            errors.push({ message: 'Too many tasks planned in a short timeframe' })
+        }
+        if (false) {
+            errors.push({ message: 'Very long appointment time with very few tasks' })
+        }
+        if (false) {
+            errors.push({ message: 'appointment time longer than employee\'s remaining working hours' })
+        }
+        return errors
+    })
+
     const isLoading = [appointmentLoading, customersLoading, employeesLoading].some(ref => !!ref.value);
+    const data = [appointmentData, customersData, employeesData].every(ref => !!ref);
 </script>
 
 <template>
@@ -104,17 +139,25 @@
         <div>Loading...</div>
     </template>
     <template v-else>
-        <div class="row">
-            <form class="offset-1 col-10" @submit.prevent="postIfValid">
-                <InputForm type="text" :label="translations.firstName" v-model="appointment.firstName" id="firstName" />
-                <InputForm type="text" :label="translations.lastName" v-model="appointment.lastName" id="lastName" />
-                <InputForm type="text" :label="translations.address" v-model="appointment.address" id="address" />
-                <div class="row">
-                    <InputForm class="col-6" type="text" :label="translations.postalCode" v-model="appointment.postalCode" id="postalCode" />
-                    <InputForm class="col-6" type="text" :label="translations.residence" v-model="appointment.residence" id="residence" />
+        <div class="mt-3 mx-2">
+            <div class="row">
+                <div class="col-12 offset-lg-1 col-lg-3 p-0">
+                    <VueDatePicker v-model="dateRef" inline auto-apply no-today locale="nl" :enable-time-picker="false" week-start="0" month-name-format="long" />
                 </div>
-                <button type="submit" class="position-bottom-right default-button mb-4 me-4">{{translations.save}}</button>
-            </form>
+                <div class="col-12 col-lg-3">
+                    <CustomerSelector id="customerSelect" :options="customers" v-model="customerRef" />
+                </div>
+                <div class="col-12 offset-lg-1 col-lg-3">
+                    <EmployeeSelector id="employeeSelect" :options="employees" :signInTime="appointment.registerTime" :signOutTime="appointment.logoutTime" v-model="employeeRef" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 offset-lg-1 col-lg-10">
+                    <TaskList v-model="appointment.appointmentTasks" :defaultOptions="appointment.customerTasks" />
+                </div>
+            </div>
+            <AppModal :title="translations.confirmation" :buttonText="translations.save" buttonClass="position-bottom-right default-button mb-4 me-4" :bodyComponent="AppointmentErrors" :properties="{errors: errors, onConfirm: postIfValid}" />
+
         </div>
     </template>
 </template>

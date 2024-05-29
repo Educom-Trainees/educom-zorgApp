@@ -15,10 +15,10 @@
 
     const customer = ref({
         id: 0,
-        firstName: '',
+        name: '',
         lastName: '',
         address: '',
-        postalCode: '',
+        postalcode: '',
         residence: '',
         active: true,
     })
@@ -46,11 +46,11 @@
 <template>
     <div class="row">
         <form class="offset-1 col-10" @submit.prevent="postIfValid">
-            <InputForm type="text" :label="translations.firstName" v-model="customer.firstName" id="firstName" />
+            <InputForm type="text" :label="translations.firstName" v-model="customer.name" id="name" />
             <InputForm type="text" :label="translations.lastName" v-model="customer.lastName" id="lastName" />
             <InputForm type="text" :label="translations.address" v-model="customer.address" id="address" />
             <div class="row">
-                <InputForm class="col-12 col-md-6" type="text" :label="translations.postalCode" v-model="customer.postalCode" id="postalCode" />
+                <InputForm class="col-12 col-md-6" type="text" :label="translations.postalCode" v-model="customer.postalcode" id="postalcode" />
                 <InputForm class="col-12 col-md-6" type="text" :label="translations.residence" v-model="customer.residence" id="residence" />
             </div>
         </form>

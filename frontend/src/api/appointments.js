@@ -1,5 +1,5 @@
-export function getAppointments(day) {
-    //return fetch('http://localhost:8080/appointments').then(response => response.json())
+export function getAppointment(id) {
+    return fetch('http://localhost:8080/appointments?id=' + id).then(response => response.json())
 }
 
 export function getAppointmentsForAWeek(startingDay) {

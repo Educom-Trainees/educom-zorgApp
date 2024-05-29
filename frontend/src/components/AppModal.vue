@@ -6,6 +6,7 @@
         buttonText: String,
         bodyComponent: Object,
         buttonClass: String,
+        properties: Object,
     })
 
     const childRef = ref(null);
@@ -32,7 +33,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <component :is="bodyComponent" ref="childRef"></component>
+                    <component :is="bodyComponent" v-bind="props.properties" ref="childRef"></component>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" ref="closeButtonRef">Close</button>
