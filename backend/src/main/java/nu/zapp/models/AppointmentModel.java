@@ -60,26 +60,29 @@ public class AppointmentModel {
     }
 
     private LocalTime calculateStartTime(LocalTime startTime, List<AppointmentTasks> taskList) {
-        for (AppointmentTasks task : taskList) {
-            LocalTime startTimeTask = task.getStartTime();
-            if (startTimeTask != null) {
-                if (startTimeTask.isBefore(startTime)) {
-                    startTime = startTimeTask;
-                }
-            }
-        }
+//        for (AppointmentTasks task : taskList) {
+//            LocalTime startTimeTask = task.getStartTime();
+//
+//            if (startTimeTask != null) {
+//                if (startTime == null){
+//                    startTime = startTimeTask;
+//                } else if (startTimeTask.isBefore(startTime)) {
+//                    startTime = startTimeTask;
+//                }
+//            }
+//        }
         return startTime;
     }
 
     private LocalTime calculateEndTime(LocalTime endTime, List<AppointmentTasks> taskList) {
-        for (AppointmentTasks task : taskList) {
-            LocalTime endTimeTask = task.getEndTime();
-            if (endTimeTask != null) {
-                if (endTimeTask.isAfter(endTime)) {
-                    endTime = endTimeTask;
-                }
-            }
-        }
+//        for (AppointmentTasks task : taskList) {
+//            LocalTime endTimeTask = task.getEndTime();
+//            if (endTimeTask != null) {
+//                if (endTimeTask.isAfter(endTime)) {
+//                    endTime = endTimeTask;
+//                }
+//            }
+//        }
         return endTime;
     }
 
