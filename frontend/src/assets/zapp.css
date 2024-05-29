@@ -1,6 +1,8 @@
 :root {
     --zapp-light: #005fab;
     --zapp-dark: #0158a4;
+    --light-red: #BA1212;
+    --dark-red: #981212;
     --navbar-height: calc(1rem + 50px);
     --page-height: calc(100vh - var(--navbar-height));
 }
@@ -61,6 +63,22 @@ a:link {
 
 .default-button:focus, .default-button:hover {
     background: var(--zapp-dark);
+}
+
+.red-button {
+    background: var(--light-red);
+    border: none;
+    border-radius: 0.9rem;
+    padding-bottom: 0.375rem;
+    padding-top: 0.375rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    color: white;
+    font-size: large;
+}
+
+.red-button:focus, .red-button:hover {
+    background: var(--dark-red);
 }
 
 .forgot-password-button {
