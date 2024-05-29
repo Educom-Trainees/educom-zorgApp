@@ -45,6 +45,8 @@ const translations = {
 	additionalInfo: "Additionele Informatie",
 	time: "Tijd",
 	confirmation: "Bevestiging",
+	close: "Sluiten",
+	duration: "Tijdsduur (min.)",
 }
 
 export default translations;
