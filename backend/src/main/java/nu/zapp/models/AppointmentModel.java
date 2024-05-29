@@ -3,8 +3,10 @@ package nu.zapp.models;
 import nu.zapp.entities.Appointment;
 import nu.zapp.entities.AppointmentTasks;
 import nu.zapp.repositories.AppointmentRepository;
+import nu.zapp.repositories.AppointmentTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,6 +17,9 @@ public class AppointmentModel {
 
     @Autowired
     private AppointmentRepository aRepository;
+
+    @Autowired
+    private AppointmentTaskRepository aTaskRepository;
 
     public List<Appointment> findAll() {
         return aRepository.findAll();
@@ -45,7 +50,9 @@ public class AppointmentModel {
         return aRepository.save(savedAppointment);
     }
 
+    @Transactional
     public Appointment updateAppointment(Appointment updatedAppointment){
+        deleteOldAppointmentTasks(updatedAppointment.getId());
         updatedAppointment.setAppointmentTasks(setAppointmentTaskIds(updatedAppointment, updatedAppointment.getAppointmentTasks()));
         updatedAppointment.setStartTime(calculateStartTime(updatedAppointment.getStartTime(), updatedAppointment.getAppointmentTasks()));
         updatedAppointment.setEndTime(calculateEndTime(updatedAppointment.getEndTime(), updatedAppointment.getAppointmentTasks()));
@@ -79,8 +86,17 @@ public class AppointmentModel {
     private List<AppointmentTasks> setAppointmentTaskIds(Appointment appointment, List<AppointmentTasks> taskList){
         for (AppointmentTasks task : taskList) {
             task.setAppointment(appointment);
+            task.setId(0);
         }
         return taskList;
     }
 
+    private void deleteOldAppointmentTasks(int appointmentId) {
+        List<AppointmentTasks> oldTasks = aTaskRepository.findByAppointmentId(appointmentId);
+        aTaskRepository.deleteAll(oldTasks);
+    }
+
+    public void deleteAppointment(int id) {
+        aRepository.delete(aRepository.findById(id));
+    }
 }
