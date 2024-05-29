@@ -17,8 +17,9 @@
                     <div class="mb-3">
                         <input class="form-control" type="password" :placeholder="translations.password" tabindex="2" />
                     </div>
-                    <button class="forgot-password-button w-50" tabindex="4" >{{translations.forgot_password}}?</button>
-                    <button class="login-button w-50" type="submit" tabindex="3" >{{translations.login_button}}</button>
+                    <button class="forgot-password-button w-50" tabindex="4">{{translations.forgot_password}}?</button>
+                    <RouterLink to="/"><button class="login-button w-50" type="submit" tabindex="3">{{translations.login_button}}</button></RouterLink>
+                    
                 </form>
             </div>
         </div>
