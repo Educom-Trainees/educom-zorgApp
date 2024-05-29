@@ -5,6 +5,16 @@
     --page-height: calc(100vh - var(--navbar-height));
 }
 
+#app {
+    height: 100vh;
+}
+
+main {
+    height: var(--page-height);
+    display: flex;
+    flex-direction: column;
+}
+
 a:link {
     text-decoration: none !important;
 }
@@ -228,4 +238,18 @@ td a {
 
 .dp__active_date {
     background-color: var(--zapp-dark) !important;
+}
+
+.dp-start-input {
+    border-bottom-right-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 4px !important;
+    border-top-left-radius: 4px !important;
+}
+
+.dp-end-input {
+    border-bottom-right-radius: 4px !important;
+    border-top-right-radius: 4px !important;
+    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
 }
