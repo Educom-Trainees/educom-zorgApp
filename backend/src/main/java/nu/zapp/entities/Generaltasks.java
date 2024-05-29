@@ -24,16 +24,18 @@ public class Generaltasks {
     @Column()
     private LocalTime endTime;
 
+    private int duration;
 
     public Generaltasks() {
     }
 
-    public Generaltasks(int id, String task, boolean active, LocalTime startTime, LocalTime endTime) {
+    public Generaltasks(int id, String task, boolean active, LocalTime startTime, LocalTime endTime, int duration) {
         this.id = id;
         this.task = task;
         this.active = active;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.duration = duration;
     }
 
     public int getId() {
@@ -74,5 +76,13 @@ public class Generaltasks {
 
     public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }

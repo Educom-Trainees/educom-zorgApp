@@ -52,6 +52,7 @@ erDiagram
   int appointmentId fk
   varchar task
   varchar additionalInfo
+  int duration
   boolean taskCompleted
   varchar noteEmployee
   boolean noteRead
@@ -72,6 +73,7 @@ erDiagram
   generalTasks{
   int id pk
   varchar task
+  int duration
   time start_time
   time end_time
   boolean active
@@ -83,6 +85,7 @@ erDiagram
   int customerId fk
   varchar task
   varchar additionalInfo
+  int duration
   time start_time
   time end_time
   boolean active

@@ -12,5 +12,7 @@ public interface CustomerTaskRepository extends CrudRepository<CustomerTasks, In
 
     CustomerTasks findById(int id);
 
+    List<CustomerTasks> findByCustomerId(int id);
+
     CustomerTasks save(CustomerTasks newtask);
 }

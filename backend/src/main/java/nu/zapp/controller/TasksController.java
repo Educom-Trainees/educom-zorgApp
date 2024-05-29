@@ -37,4 +37,10 @@ public class TasksController {
     Generaltasks updateTasks(@RequestBody Generaltasks updateTask){
         return tModel.updateTasks(updateTask);
     }
+
+    @CrossOrigin()
+    @DeleteMapping("")
+    void deleteTask(@RequestBody int id){
+        tModel.deleteTask(id);
+    }
 }

@@ -59,12 +59,15 @@ public class TaskModel {
             if (startTime.isAfter(endTime)) {
                 throw new ExceptionInvalidInput("start tijd");
             }
-        } else {
-            if (startTime == null) {
+        } else if (startTime == null && endTime != null) {
                 throw new ExceptionMissingInput("start tijd");
-            } else {
-                throw new ExceptionMissingInput("eind tijd");
-            }
+        } else if (startTime != null){
+            throw new ExceptionMissingInput("end tijd");
         }
+    }
+
+    public void deleteTask(int id) {
+        Generaltasks toDeleteTask = tRepository.findById(id);
+        tRepository.delete(toDeleteTask);
     }
 }

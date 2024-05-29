@@ -1,5 +1,6 @@
 package nu.zapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.LocalTime;
@@ -12,6 +13,7 @@ public class WorkSchedule {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
+    @JsonBackReference
     private Employee employee;
 
     @Column(length=9)
@@ -23,4 +25,54 @@ public class WorkSchedule {
     @Column()
     private LocalTime end_shift;
 
+    public WorkSchedule() {
+    }
+
+    public WorkSchedule(int id, Employee employee, String day, LocalTime start_shift, LocalTime end_shift) {
+        this.id = id;
+        this.employee = employee;
+        this.day = day;
+        this.start_shift = start_shift;
+        this.end_shift = end_shift;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public LocalTime getStart_shift() {
+        return start_shift;
+    }
+
+    public void setStart_shift(LocalTime start_shift) {
+        this.start_shift = start_shift;
+    }
+
+    public LocalTime getEnd_shift() {
+        return end_shift;
+    }
+
+    public void setEnd_shift(LocalTime end_shift) {
+        this.end_shift = end_shift;
+    }
 }

@@ -18,6 +18,7 @@ public interface EmployeeMapper extends BaseMapper {
     @Mapping(target = "name", expression = "java(combineName(source.getFirstName(), source.getLastName()))")
     @Mapping(target = "address", expression = "java(combineLocation(source.getAddress(), source.getPostalcode(), source.getResidence()))")
     @Mapping(target = "active", expression = "java(source.isActive())")
+    @Mapping(target = "workSchedule", expression = "java(source.getWorkSchedule())")
     EmployeeDTO sourceToDestination(Employee source);
 
     List<EmployeeDTO> sourceToDestination(List<Employee> source);

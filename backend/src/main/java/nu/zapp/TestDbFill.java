@@ -5,10 +5,11 @@ import nu.zapp.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 @Component
 public class TestDbFill {
@@ -36,17 +37,65 @@ public class TestDbFill {
         cModel.createCustomer(makeCustomerOne());
         cModel.createCustomer(makeCustomerTwo());
         cModel.createCustomer(makeCustomerThree());
-        tModel.createTasks(makeTaskOne());
-        tModel.createTasks(makeTaskTwo());
-        aModel.createAppointment(makeAppointmentOne(1));
-        aModel.createAppointment(makeAppointmentTwo(2));
+        makeTasks();
+        makeAppointments();
         ctModel.createTasks(makeCustomerTask(1));
         ctModel.createTasks(makeCustomerTaskTwo(1));
     }
 
-    private static Employee makeEmployeeOne(){
+    private void makeTasks(){
+        List<String> tasks = Arrays.asList(
+                "opstaan uit bed",
+                "naar bed brengen",
+                "hulp bij douchen",
+                "hulp bij aankleden",
+                "hulp bij uitkleden",
+                "hulp bij eten of drinken",
+                "medische taken",
+                "medicatie geven",
+                "toezicht op nemen medicatie",
+                "verzorging van een wond",
+                "stomazorg",
+                "injecties geven",
+                "insuline injecteren",
+                "hulp bezoek huisarts",
+                "oefenen zinnen spreken (logopedie)",
+                "hulp bij de administratie",
+                "leren om het huishouden zelf te doen",
+                "samen een maaltijd bereiden",
+                "samen werken aan meer sociale contacten",
+                "wandeling maken",
+                "(duo) fietsen",
+                "afwassen/vaatwasser inruimen",
+                "schoonmaken",
+                "ramen zemen",
+                "stofzuigen",
+                "dweilen",
+                "opruimen",
+                "koken",
+                "de was doen",
+                "strijken",
+                "koffie zetten",
+                "hond(en) uitlaten",
+                "boodschap(pen) doen"
+        );
+        for (String task : tasks) {
+            Generaltasks newTask = new Generaltasks();
+            newTask.setTask(task);
+            newTask.setActive(true);
+            newTask.setDuration(randomPicker(Arrays.asList(0, 5, 10, 15, 30, 45, 60)));
+            tModel.createTasks(newTask);
+        }
+    }
+
+    private Integer randomPicker(List<Integer> elements){
+            Random random = new Random();
+            int randomIndex = random.nextInt(elements.size());
+        return elements.get(randomIndex);
+    }
+
+    private Employee makeEmployeeOne(){
         Employee one=new Employee();
-        //one.setId(101);
         one.setUsername("Spongebob");
         one.setFirstName("Bob");
         one.setLastName("Sponse");
@@ -55,12 +104,12 @@ public class TestDbFill {
         one.setAddress("Ananas 1");
         one.setPostalcode("1234BB");
         one.setResidence("Bikinibroek");
+        one.setWorkSchedule(makeWorkScheduleOne());
         return one;
     }
 
-    private static Employee makeEmployeeTwo(){
+    private Employee makeEmployeeTwo(){
         Employee two=new Employee();
-        //two.setId(102);
         two.setUsername("PatrickSter");
         two.setFirstName("Patrick");
         two.setLastName("Ster");
@@ -69,12 +118,12 @@ public class TestDbFill {
         two.setAddress("Steen 1");
         two.setPostalcode("1234BB");
         two.setResidence("Bikinibroek");
+        two.setWorkSchedule(null);
         return two;
     }
 
     private static Customer makeCustomerOne(){
         Customer one = new Customer();
-        //one.setId(101);
         one.setFirstName("Matthew");
         one.setLastName("Mercer");
         one.setAddress("Dorei 1");
@@ -86,7 +135,6 @@ public class TestDbFill {
 
     private static Customer makeCustomerTwo(){
         Customer two = new Customer();
-        //two.setId(102);
         two.setFirstName("Laura");
         two.setLastName("Bailey");
         two.setAddress("Dorai 2");
@@ -108,45 +156,38 @@ public class TestDbFill {
         return three;
     }
 
-    private static Generaltasks makeTaskOne(){
-        Generaltasks one = new Generaltasks();
-        one.setTask("Opstaan uit bed");
-        one.setActive(true);
-        one.setStartTime(LocalTime.parse("8:00"));
-        one.setEndTime(LocalTime.parse("9:00"));
-        return one;
+    private void makeAppointments(){
+        LocalDate startDate1 = LocalDate.of(2024, 5, 24);
+        LocalDate endDate1 = LocalDate.of(2024, 5, 29);
+        for (LocalDate date = startDate1; !date.isAfter(endDate1); date = date.plusDays(1)) {
+            aModel.createAppointment(makeAppointmentOne(1, date));
+            aModel.createAppointment(makeAppointmentTwo(2, date));
+        }
+        LocalDate startDate2 = LocalDate.of(2024, 6, 1);
+        LocalDate endDate2 = LocalDate.of(2024, 6, 30);
+        for (LocalDate date = startDate2; !date.isAfter(endDate2); date = date.plusDays(1)) {
+            aModel.createAppointment(makeAppointmentOne(1, date));
+            aModel.createAppointment(makeAppointmentTwo(2, date));
+        }
+
     }
 
-    private static Generaltasks makeTaskTwo(){
-        Generaltasks two = new Generaltasks();
-        two.setTask("Naar bed brengen");
-        two.setActive(true);
-        two.setStartTime(LocalTime.parse("14:00"));
-        two.setEndTime(LocalTime.parse("15:00"));
-        return two;
-    }
-
-    private Appointment makeAppointmentOne(int id){
+    private Appointment makeAppointmentOne(int id, LocalDate date){
         Appointment one = new Appointment();
         Customer customer = cModel.findById(id);
         Employee employee = eModel.findById(id);
         one.setEmployee(employee);
         one.setCustomer(customer);
-        one.setDate(Date.valueOf(LocalDate.of(2024, 5, 24)).toLocalDate());
-        one.setStartTime(LocalTime.of(16, 0));
-        one.setEndTime(LocalTime.of(17, 0));
-        one.setRegisterTime(LocalTime.of(16, 6));
+        one.setDate(date);
         one.setAppointmentTasks(makeAppointmentTasks());
         return one;
     }
 
-    private Appointment makeAppointmentTwo(int id){
+    private Appointment makeAppointmentTwo(int id, LocalDate date){
         Appointment two = new Appointment();
         Customer customer = cModel.findById(id);
         two.setCustomer(customer);
-        two.setStartTime(LocalTime.of(16, 0));
-        two.setEndTime(LocalTime.of(17, 0));
-        two.setDate(Date.valueOf(LocalDate.of(2024, 5, 22)).toLocalDate());
+        two.setDate(date);
         two.setAppointmentTasks(makeAppointmentTasks());
         return two;
     }
@@ -156,6 +197,7 @@ public class TestDbFill {
         AppointmentTasks taskTwo = new AppointmentTasks();
         taskOne.setTask("Koffie");
         taskTwo.setTask("Medicatie");
+        taskTwo.setDuration(10);
         return List.of(taskOne, taskTwo);
     }
 
@@ -172,8 +214,21 @@ public class TestDbFill {
         two.setCustomer(cModel.findById(id));
         two.setTask("Koffie (s'avonds)");
         two.setAdditionalInfo("Een klontje suiken");
-        two.setStartTime(LocalTime.parse("19:00"));
-        two.setEndTime(LocalTime.parse("20:00"));
+        two.setStartTime(LocalTime.of(16, 0));
+        two.setEndTime(LocalTime.of(17, 0));
+        two.setDuration(5);
         return two;
+    }
+
+    private List<WorkSchedule> makeWorkScheduleOne(){
+        WorkSchedule one = new WorkSchedule();
+        one.setDay("Monday");
+        one.setStart_shift(LocalTime.of(10, 0));
+        one.setEnd_shift(LocalTime.of(16, 0));
+        WorkSchedule two = new WorkSchedule();
+        two.setDay("Wednesday");
+        two.setStart_shift(LocalTime.of(9, 0));
+        two.setEnd_shift(LocalTime.of(17, 30));
+        return List.of(one, two);
     }
 }

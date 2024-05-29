@@ -31,11 +31,14 @@ public class AppointmentTasks {
 
     private boolean noteRead;
 
+    private int duration;
+
     public AppointmentTasks() {
     }
 
     public AppointmentTasks(int id, Appointment appointment, String task, LocalTime startTime, LocalTime endTime,
-                            String additionalInfo, boolean completed, String noteEmployee, boolean noteRead) {
+                            String additionalInfo, boolean completed, String noteEmployee,
+                            boolean noteRead, int duration) {
         this.id = id;
         this.appointment = appointment;
         this.task = task;
@@ -45,6 +48,7 @@ public class AppointmentTasks {
         this.completed = completed;
         this.noteEmployee = noteEmployee;
         this.noteRead = noteRead;
+        this.duration = duration;
     }
 
     public int getId() {
@@ -117,5 +121,13 @@ public class AppointmentTasks {
 
     public void setNoteRead(boolean noteRead) {
         this.noteRead = noteRead;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }

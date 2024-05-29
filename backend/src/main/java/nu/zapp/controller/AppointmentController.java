@@ -1,6 +1,7 @@
 package nu.zapp.controller;
 
 
+import nu.zapp.DTO.AppointmentDTO;
 import nu.zapp.DTO.AppointmentDetailDTO;
 import nu.zapp.entities.Appointment;
 import nu.zapp.mappers.AppointmentDetailMapper;
@@ -28,7 +29,6 @@ public class AppointmentController {
     private AppointmentMapper mapper;
     @Autowired
     private AppointmentDetailMapper dMapper;
-
 
     @CrossOrigin()
     @GetMapping("")
@@ -62,6 +62,11 @@ public class AppointmentController {
         return dMapper.sourceToDestination( aModel.updateAppointment(appointment));
     }
 
-
+    @CrossOrigin()
+    @DeleteMapping("")
+    void deleteAppointment(@RequestBody AppointmentDTO appointmentDTO){
+        int id = appointmentDTO.getId();
+        aModel.deleteAppointment(id);
+    }
 
 }
