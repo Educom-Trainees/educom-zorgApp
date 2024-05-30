@@ -1,6 +1,7 @@
 <script setup>
     import translations from '../config/nl-NL'
     import TaskListAdd from './TaskListAdd.vue'
+    import InputForm from './InputForm.vue'
     import { ref, computed, toRef } from "vue";
     import { parseTime, compareTime } from '../utils/Time';
 
@@ -20,7 +21,7 @@
         defaultOptions: Array,
     })
 
-    const headers = ['task', 'additionalInfo', 'time', 'duration'];
+    const headers = ['task', 'additionalInfo', 'expected_time', 'duration'];
     if (props.appointmentStarted) {
         headers.push('completed')
         headers.push('noteEmployee')
@@ -89,12 +90,20 @@
         <tbody>
             <tr v-for="(item, index) in props.modelValue">
                 <td v-for="key in headers">
-                    <div v-if="key == 'time'">
+                    <div v-if="key == 'expected_time'">
                         <form class="form-inline">
                             <div class="input-group">
-                                <VueDatePicker class="form-control time-picker" input-class-name="dp-start-input" v-model="item.startTime" time-picker text-input @update:model-value="(modelData) => updateTime(modelData, index, 'start')" />
+                                <VueDatePicker class="form-control time-picker" input-class-name="dp-start-input" v-model="item.startTime" time-picker text-input @update:model-value="(modelData) => updateTime(modelData, index, 'start')">
+                                    <template #input-icon>
+                                        <img class="input-slot-image" src="../assets/clock-icon.png" />
+                                    </template>
+                                </VueDatePicker>
                                 <div class="input-group-text">&nbsp;-&nbsp;</div>
-                                <VueDatePicker class="form-control time-picker" input-class-name="dp-end-input" v-model="item.endTime" time-picker @change="updateTime($event, index, 'end')" />
+                                <VueDatePicker class="form-control time-picker" input-class-name="dp-end-input" v-model="item.endTime" time-picker @change="updateTime($event, index, 'end')">
+                                    <template #input-icon>
+                                        <img class="input-slot-image" src="../assets/clock-icon.png" />
+                                    </template>
+                                </VueDatePicker>
                             </div>
                         </form>
                     </div>
@@ -102,10 +111,10 @@
                         <button class="red-button px-3 py-1 bi bi-trash" @click="removeTask(index)"></button>
                     </div>
                     <div v-else-if="key == 'duration'">
-                        <input type="number" min="0" class="form-control" v-model="item[key]" />
+                        <InputForm type="number" min="0" v-model="item[key]" />
                     </div>
                     <div v-else>
-                        <input class="form-control" v-model="item[key]" />
+                        <InputForm type="text" v-model="item[key]" />
                     </div>
                 </td>
             </tr>
@@ -122,5 +131,12 @@
     .time-picker {
         padding: 0;
         border: none;
+    }
+
+    .input-slot-image {
+        height: 16px;
+        width: auto;
+        margin-bottom: 4px;
+        margin-left: 8px;
     }
 </style>
