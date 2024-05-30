@@ -3,7 +3,6 @@ export function parseTime(timeString) {
     if (typeof(timeString) != 'string') return null
     const values = timeString.split(':')
     const timeObj = { hours: +values[0], minutes: +values[1], seconds: +values[2] }
-    console.log(timeObj)
 
     return timeObj
 }
