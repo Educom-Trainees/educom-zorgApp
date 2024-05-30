@@ -2,22 +2,23 @@ package nu.zapp.models;
 
 import nu.zapp.ExceptionHandler.ExceptionItemExists;
 import nu.zapp.ExceptionHandler.ExceptionNumId;
-import nu.zapp.entities.AppointmentTasks;
 import nu.zapp.entities.Employee;
 import nu.zapp.entities.WorkSchedule;
 import nu.zapp.repositories.EmployeeRepository;
+import nu.zapp.repositories.WorkScheduleRepository;
 import nu.zapp.services.UserPasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
-import java.util.Objects;
 
 @Component
 public class EmployeeModel {
 
     @Autowired
     private EmployeeRepository eRepository;
+    @Autowired
+    private WorkScheduleRepository wsRepository;
 
     @Autowired
     private UserPasswordService passwordService;
@@ -44,9 +45,10 @@ public class EmployeeModel {
         }
         return employee;
     }
-
+    @Transactional
     public Employee createEmployee(Employee newEmployee){
         newEmployee.setId(0);
+        newEmployee.setPassword("SummerSpring");
         List<WorkSchedule> newWorkSchedule = newEmployee.getWorkSchedule();
         newEmployee.setWorkSchedule(null);
         userNameCheck(newEmployee.getUsername());
@@ -69,13 +71,28 @@ public class EmployeeModel {
         return newWorkSchedule;
     }
 
+    @Transactional
     public Employee updateEmployee(Employee updatedEmployee){
         Employee oldEmployee = findById(updatedEmployee.getId());
-        if (!Objects.equals(oldEmployee.getUsername(), updatedEmployee.getUsername())){
-            userNameCheck(updatedEmployee.getUsername());
-        }
+        List<WorkSchedule> oldWorkSchedule = oldEmployee.getWorkSchedule();
+        List<WorkSchedule> updatedWorkSchedule = updatedEmployee.getWorkSchedule();
+        updatedEmployee.setWorkSchedule(null);
+        deleteOldWorkScheme(oldWorkSchedule);
+        // Changing username should go to a seperate place
+//        if (!Objects.equals(oldEmployee.getUsername(), updatedEmployee.getUsername())){
+//            userNameCheck(updatedEmployee.getUsername());
+//        }
+        updatedEmployee.setWorkSchedule(setWorkScheduleIds(updatedEmployee, updatedWorkSchedule));
+        updatedEmployee.setUsername(oldEmployee.getUsername());
+        updatedEmployee.setPassword(oldEmployee.getPassword());
         updatedEmployee.setPostalcode(personModel.postalCodeCheck(updatedEmployee.getPostalcode()));
         return eRepository.save(updatedEmployee);
+    }
+
+    private void deleteOldWorkScheme(List<WorkSchedule> schedule){
+        for (WorkSchedule oldSchedule : schedule) {
+            wsRepository.delete(oldSchedule);
+        }
     }
 
     private void userNameCheck(String username){
