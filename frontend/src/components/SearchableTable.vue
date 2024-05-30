@@ -16,7 +16,7 @@
         page.value = 1;
     }
 
-    const excludeList = ['id', 'active', 'startTime', 'endTime', 'workSchedules']
+    const excludeList = ['id', 'active', 'startTime', 'endTime', 'workSchedule']
 
     const filterList = () => {
         if (searchval.value.length == 0) {
