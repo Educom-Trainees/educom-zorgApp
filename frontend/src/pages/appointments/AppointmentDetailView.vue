@@ -2,13 +2,13 @@
     import { useMutation, useQuery, useQueryClient } from 'vue-query'
     import { useRoute } from 'vue-router'
     import { getCollection, getIndividual, putIndividual } from '../../api/collections'
+    import { parseTime, stringifyTime } from '../../utils/Time';
     import InputForm from '../../components/InputForm.vue'
     import CustomerSelector from './CustomerSelector.vue'
     import EmployeeSelector from './EmployeeSelector.vue'
     import TaskList from '../../components/TaskList.vue'
     import AppointmentErrors from './AppointmentErrors.vue'
     import AppModal from '../../components/AppModal.vue'
-
 
     import { computed, ref, watch } from 'vue'
     import translations from '../../config/nl-NL'
@@ -62,12 +62,21 @@
     //variables to track changes
     const customerRef = ref(0)
     const employeeRef = ref(0)
+    const appointmentTasksRef = ref([])
     const dateRef = ref(new Date())
 
     function updateAppointment(value) {
         appointment.value = JSON.parse(JSON.stringify(value))
         customerRef.value = appointment.value.customerId
         employeeRef.value = appointment.value.employeeId
+
+        var atr = appointment.value.appointmentTasks
+        atr = atr.map((task) => {
+            task.startTime = parseTime(task.startTime)
+            task.endTime = parseTime(task.endTime)
+            return task
+        })
+        appointmentTasksRef.value = atr
 
         var d = new Date(appointment.value.date)
         d.setMinutes(d.getMinutes() + d.getTimezoneOffset())
@@ -109,9 +118,19 @@
         }
     })
 
+    function fixTimes(tasks) {
+        return tasks.map((task) => {
+            console.log(task)
+            task.startTime = stringifyTime(task.startTime)
+            task.endTime = stringifyTime(task.endTime)
+            return task
+        })
+    }
+
     const postIfValid = () => {
         appointment.value.date = dateRef.value.toISOString().split('T')[0]
         appointment.value.employeeId = employeeRef.value
+        appointment.value.appointmentTasks = fixTimes(appointment.value.appointmentTasks)
         console.log(JSON.stringify(appointment.value))
         mutate({ type: APPOINTMENTS, id: id, body: JSON.stringify(appointment.value) })
     }
@@ -156,7 +175,7 @@
                     <TaskList v-model="appointment.appointmentTasks" :defaultOptions="appointment.customerTasks" />
                 </div>
             </div>
-            <AppModal :title="translations.confirmation" :buttonText="translations.save" buttonClass="position-bottom-right default-button mb-4 me-4" :bodyComponent="AppointmentErrors" :properties="{errors: errors, onConfirm: postIfValid}" />
+            <AppModal :title="translations.confirmation" :buttonText="translations.save" buttonClass="position-bottom-right default-button mb-4 me-4" :bodyComponent="AppointmentErrors" :properties="{errors: errors, onConfirm: postIfValid}" :accept="translations.save" />
 
         </div>
     </template>
