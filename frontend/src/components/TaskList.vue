@@ -101,6 +101,9 @@
                     <div v-else-if="key == ' '">
                         <button class="red-button px-3 py-1 bi bi-trash" @click="removeTask(index)"></button>
                     </div>
+                    <div v-else-if="key == 'duration'">
+                        <input type="number" min="0" class="form-control" v-model="item[key]" />
+                    </div>
                     <div v-else>
                         <input class="form-control" v-model="item[key]" />
                     </div>
