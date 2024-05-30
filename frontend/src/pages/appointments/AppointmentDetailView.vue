@@ -175,7 +175,7 @@
                     <TaskList v-model="appointment.appointmentTasks" :defaultOptions="appointment.customerTasks" />
                 </div>
             </div>
-            <AppModal :title="translations.confirmation" :buttonText="translations.save" buttonClass="position-bottom-right default-button mb-4 me-4" :bodyComponent="AppointmentErrors" :properties="{errors: errors, onConfirm: postIfValid}" :accept="translations.save" />
+            <AppModal :title="translations.confirmation" :buttonText="translations.save" buttonClass="position-bottom-right default-button border-white mb-4 me-4" :bodyComponent="AppointmentErrors" :properties="{errors: errors, onConfirm: postIfValid}" :accept="translations.save" />
 
         </div>
     </template>
