@@ -20,7 +20,7 @@
     var route = useRoute();
     const id = route.params.id;
     const queryClient = useQueryClient();
-    const { isLoading: appointmentLoading, data: appointmentData} = useQuery({
+    const { isLoading: appointmentLoading, data: appointmentData } = useQuery({
         queryKey: [APPOINTMENTS, id],
         queryFn: () => getIndividual(APPOINTMENTS, id),//getIndividual(APPOINTMENTS, id), //might want to move customers to route meta info
         placeholderData: () => {
@@ -128,11 +128,13 @@
     }
 
     const postIfValid = () => {
-        appointment.value.date = dateRef.value.toISOString().split('T')[0]
-        appointment.value.employeeId = employeeRef.value
-        appointment.value.appointmentTasks = fixTimes(appointment.value.appointmentTasks)
-        console.log(JSON.stringify(appointment.value))
-        mutate({ type: APPOINTMENTS, id: id, body: JSON.stringify(appointment.value) })
+        var postAppointment = JSON.parse(JSON.stringify(appointment.value))
+        postAppointment.date = dateRef.value.toISOString().split('T')[0]
+        postAppointment.employeeId = employeeRef.value
+        postAppointment.appointmentTasks = fixTimes(appointment.value.appointmentTasks)
+        console.log(JSON.stringify(postAppointment))
+        mutate({ type: APPOINTMENTS, id: id, body: JSON.stringify(postAppointment) })
+        updateAppointment(postAppointment)
     }
 
     const errors = computed(() => {
@@ -172,7 +174,7 @@
             </div>
             <div class="row">
                 <div class="col-12 offset-lg-1 col-lg-10">
-                    <TaskList v-model="appointment.appointmentTasks" :defaultOptions="appointment.customerTasks" />
+                    <TaskList v-model="appointment.appointmentTasks" :defaultOptions="appointment.customerTasks"/>
                 </div>
             </div>
             <AppModal :title="translations.confirmation" :buttonText="translations.save" buttonClass="position-bottom-right default-button border-white mb-4 me-4" :bodyComponent="AppointmentErrors" :properties="{errors: errors, onConfirm: postIfValid}" :accept="translations.save" />
