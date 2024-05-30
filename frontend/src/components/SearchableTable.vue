@@ -48,7 +48,7 @@
     <div class="d-flex justify-content-center align-items-center table-container">
         <button class="prev-button me-5" @click="prevPage" :disabled="page == 1"></button>
 
-        <div v-if="validData.length == 0" class="text-center w-75">{{translations.no_results}}</div>
+        <div v-if="validData.length == 0" class="text-center w-75 fs-4">{{translations.no_results}}</div>
         <template v-else>
             <table class="table table-hover w-75 align-self-start">
                 <thead>
