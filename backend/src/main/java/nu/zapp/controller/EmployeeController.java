@@ -1,5 +1,6 @@
 package nu.zapp.controller;
 
+import nu.zapp.DTO.EmployeeDetailDTO;
 import nu.zapp.entities.Employee;
 import nu.zapp.mappers.EmployeeDetailMapper;
 import nu.zapp.mappers.EmployeeMapper;
@@ -32,13 +33,15 @@ public class EmployeeController {
 
     @CrossOrigin()
     @PostMapping("")
-    Employee postEmployee(@RequestBody Employee newEmployee){
-        return eModel.createEmployee(newEmployee);
+    Employee postEmployee(@RequestBody EmployeeDetailDTO newEmployee){
+        Employee employee = dMapper.destinationToSource(newEmployee);
+        return eModel.createEmployee(employee);
     }
 
     @CrossOrigin()
     @PutMapping("")
-    Employee updateEmployee(@RequestBody Employee updatedEmployee){
-        return eModel.updateEmployee(updatedEmployee);
+    EmployeeDetailDTO updateEmployee(@RequestBody EmployeeDetailDTO updatedEmployee){
+        Employee employee = dMapper.destinationToSource(updatedEmployee);
+        return dMapper.sourceToDestination(eModel.updateEmployee(employee));
     }
 }
