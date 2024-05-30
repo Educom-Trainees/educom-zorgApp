@@ -13,7 +13,7 @@ public class EmployeeDTO extends PersonDTO {
         this.workSchedule = workSchedule;
     }
 
-    public List<WorkSchedule> getWorkSchedules() {
+    public List<WorkSchedule> getWorkSchedule() {
         return workSchedule;
     }
 
