@@ -45,7 +45,7 @@ public class EmployeeModel {
         }
         return employee;
     }
-    @Transactional
+
     public Employee createEmployee(Employee newEmployee){
         newEmployee.setId(0);
         newEmployee.setPassword("SummerSpring");
