@@ -1,5 +1,6 @@
 <script setup>
     import { ref } from 'vue'
+    import translations from '../config/nl-NL'
 
     const props = defineProps({
         title: String,
@@ -7,6 +8,7 @@
         bodyComponent: Object,
         buttonClass: String,
         properties: Object,
+        accept: String,
     })
 
     const childRef = ref(null);
@@ -36,8 +38,8 @@
                     <component :is="bodyComponent" v-bind="props.properties" ref="childRef"></component>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" ref="closeButtonRef">Close</button>
-                    <button type="button" class="btn btn-primary" @click="clickConfirm">Save changes</button>
+                    <button type="button" class="red-button" data-bs-dismiss="modal" ref="closeButtonRef">{{translations.close}}</button>
+                    <button type="button" class="default-button" @click="clickConfirm">{{props.accept}}</button>
                 </div>
             </div>
         </div>

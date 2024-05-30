@@ -44,7 +44,10 @@ const translations = {
 	standard_tasks: "Standaard taken",
 	additionalInfo: "Additionele Informatie",
 	time: "Tijd",
+	expected_time: "Verwachte Tijd",
 	confirmation: "Bevestiging",
+	close: "Sluiten",
+	duration: "Tijdsduur (min.)",
 }
 
 export default translations;

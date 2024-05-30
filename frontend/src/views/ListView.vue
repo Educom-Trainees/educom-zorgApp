@@ -32,7 +32,7 @@
         </template>
         <template v-else class="h-100">
             <SearchableTable :list="toRaw(data)" :listType="route.meta.listType" :singular="route.meta.singular" :key="listType + dataUpdatedAt" />
-            <AppModal :title="route.meta.addButtonText" :buttonText="route.meta.addButtonText" buttonClass="position-bottom-right default-button mb-4 me-4" :bodyComponent="route.meta.newComponent"/>
+            <AppModal :title="route.meta.addButtonText" :buttonText="route.meta.addButtonText" buttonClass="position-bottom-right default-button mb-4 me-4" :bodyComponent="route.meta.newComponent" :accept="route.meta.addButtonText"/>
         </template>
     </main>
 </template>

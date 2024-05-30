@@ -78,10 +78,12 @@
             const [taskType, taskId] = currentId.value.split('_')
             switch (taskType) {
                 case 'default':
-                    props.addTask(data.value.find(o => o.id == taskId))
+                    const newDTask = data.value.find(o => o.id == taskId)
+                    props.addTask(JSON.parse(JSON.stringify(newDTask)))
                     break;
                 case 'customer':
-                    props.addTask(props.options.find(o => o.id == taskId))
+                    const newCTask = props.options.find(o => o.id == taskId)
+                    props.addTask(JSON.parse(JSON.stringify(newCTask)))
                     break;
             }
             //props.addTask(props.options.find(o => o.id == currentId.value))
@@ -99,7 +101,7 @@
 </script>
 
 <template>
-    <td colspan="3">
+    <td colspan="4">
         <div class="input-group">
             <input class="form-control" v-model="taskDescription" :placeholder="translations.add_task" @input="resetTask($event.target.value)" @keyup.enter="sendTask">
             <select class="form-select bg-light"
@@ -118,5 +120,5 @@
             </select>
         </div>
     </td>
-    <td><button class="btn btn-primary bi bi-plus" @click="sendTask"></button></td>
+    <td><button class="default-button px-3 py-1 bi bi-plus" @click="sendTask"></button></td>
 </template>

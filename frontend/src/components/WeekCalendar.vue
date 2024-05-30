@@ -37,7 +37,7 @@
         queryKey: [APPOINTMENTS, firstDayOfCurrentWeek],
         queryFn: () => getCollection(APPOINTMENTS, [
             { param: 'date', value: firstDayOfCurrentWeek.value.toISOString().split('T')[0] },
-            { param: 'count', value: 7 }
+            { param: 'count', value: 6 }
         ]), //might want to move customers to route meta info
         placeholderData: () => {
             // Use the smaller/list version of the customer from the CUSTOMERS

@@ -12,7 +12,7 @@
 </script>
 
 <template>
-    <div> weet u zeker dat u wil opslaan?</div>
+    <div> weet u zeker dat u op wilt slaan?</div>
     <div v-for="error in props.errors">
         {{error.message}}
     </div>
