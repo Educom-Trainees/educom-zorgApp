@@ -50,7 +50,6 @@ public class AppointmentModel {
         return aRepository.save(savedAppointment);
     }
 
-    @Transactional
     public Appointment updateAppointment(Appointment updatedAppointment){
         deleteOldAppointmentTasks(updatedAppointment.getId());
         updatedAppointment.setAppointmentTasks(setAppointmentTaskIds(updatedAppointment, updatedAppointment.getAppointmentTasks()));

@@ -31,15 +31,15 @@ public class CustomersController {
 
     @CrossOrigin()
     @PostMapping("")
-    Customer postCustomer(@RequestBody CustomerDetailDTO newCustomer){
+    CustomerDetailDTO postCustomer(@RequestBody CustomerDetailDTO newCustomer){
         Customer customer = dMapper.destinationToSource(newCustomer);
-        return cModel.createCustomer(customer);
+        return dMapper.sourceToDestination(cModel.createCustomer(customer));
     }
 
     @CrossOrigin()
     @PutMapping("")
-    Customer putCustomer(@RequestBody CustomerDetailDTO updateCustomer) {
+    CustomerDetailDTO putCustomer(@RequestBody CustomerDetailDTO updateCustomer) {
         Customer customer = dMapper.destinationToSource(updateCustomer);
-        return cModel.updateCustomer(customer); }
+        return dMapper.sourceToDestination(cModel.updateCustomer(customer)); }
 
 }
