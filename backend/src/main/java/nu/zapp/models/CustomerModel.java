@@ -38,7 +38,6 @@ public class CustomerModel {
         return cRepository.save(newCustomer);
     }
 
-    @Transactional
     public Customer updateCustomer(Customer updatedCustomer){
         deleteOldCustomerTasks(updatedCustomer.getId());
         updatedCustomer.setPostalcode(personModel.postalCodeCheck(updatedCustomer.getPostalcode()));
@@ -52,6 +51,7 @@ public class CustomerModel {
 
     private List<CustomerTasks> setCustomerTaskIds(Customer customer ){
         List<CustomerTasks> taskList = customer.getCustomerTasks();
+        customer.setCustomerTasks(null);
         for (CustomerTasks task : taskList) {
             task.setCustomer(customer);
             task.setId(0);
