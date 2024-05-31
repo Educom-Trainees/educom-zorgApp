@@ -18,13 +18,12 @@ public class TasksController {
 
     @CrossOrigin()
     @GetMapping("")
-    List<Generaltasks> getTasks(){
+    Object getTasks(@RequestParam(value="id", required = false)Integer id){
+        if (id != null){
+            return tModel.findById(id);
+        }
         return tModel.findAll();
     }
-
-    @CrossOrigin()
-    @GetMapping("/{id}")
-    Generaltasks getTask(@PathVariable int id) { return tModel.findById(id);}
 
     @CrossOrigin()
     @PostMapping("")
