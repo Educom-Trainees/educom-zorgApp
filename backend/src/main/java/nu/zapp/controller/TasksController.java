@@ -1,6 +1,5 @@
 package nu.zapp.controller;
 
-
 import nu.zapp.entities.Generaltasks;
 import nu.zapp.models.TaskModel;
 import org.springframework.beans.factory.annotation.Autowired;

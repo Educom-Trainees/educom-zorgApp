@@ -1,6 +1,5 @@
 package nu.zapp.controller;
 
-
 import nu.zapp.DTO.AppointmentDTO;
 import nu.zapp.DTO.AppointmentDetailDTO;
 import nu.zapp.entities.Appointment;
