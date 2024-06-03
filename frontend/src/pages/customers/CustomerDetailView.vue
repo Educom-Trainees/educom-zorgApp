@@ -3,8 +3,10 @@
     import { useRoute } from 'vue-router'
     import { getIndividual, putIndividual } from '../../api/collections'
     import InputForm from '../../components/InputForm.vue'
+    import TaskList from '../../components/TaskList.vue'
     import { ref, toRaw, toRef, watch } from 'vue'
     import translations from '../../config/nl-NL'
+    import { parseTime, stringifyTime } from '../../utils/Time'
 
     const CUSTOMERS = 'customers'
 
@@ -25,8 +27,18 @@
     })
 
     const customer = ref('')
+    const tasksRef = ref([])
     function updateCustomer(value) {
         customer.value = { ...value }
+
+        var tasks = JSON.parse(JSON.stringify(value?.tasks ?? []))
+        tasks = tasks.map((task) => {
+            task.startTime = parseTime(task.startTime)
+            task.endTime = parseTime(task.endTime)
+            return task
+        })
+        tasksRef.value = tasks
+
     }
 
     if (!isLoading.value && data.value) {
@@ -48,9 +60,22 @@
         }
     })
 
+    function fixTimes(tasks) {
+        return tasks.map((task) => {
+            console.log(task)
+            task.startTime = stringifyTime(task.startTime)
+            task.endTime = stringifyTime(task.endTime)
+            return task
+        })
+    }
+
     const postIfValid = () => {
+        var postCustomer = JSON.parse(JSON.stringify(customer.value))
+        postCustomer.tasks = fixTimes(tasksRef.value)
+        console.log(JSON.stringify(postCustomer))
         //console.log(firstName, lastName, address, postalCode, residence)
-        mutate({ type: CUSTOMERS, id: id, body: JSON.stringify(customer.value) })
+        mutate({ type: CUSTOMERS, id: id, body: JSON.stringify(postCustomer) })
+        updateCustomer(postCustomer)
     }
 
 </script>
@@ -64,7 +89,7 @@
     </template>
     <template v-else>
         <div class="row">
-            <form class="offset-1 col-10" @submit.prevent="postIfValid">
+            <div class="offset-1 col-10">
                 <InputForm type="text" :label="translations.firstName" v-model="customer.name" id="name" />
                 <InputForm type="text" :label="translations.lastName" v-model="customer.lastName" id="lastName" />
                 <InputForm type="text" :label="translations.address" v-model="customer.address" id="address" />
@@ -72,8 +97,14 @@
                     <InputForm class="col-6" type="text" :label="translations.postalCode" v-model="customer.postalcode" id="postalcode" />
                     <InputForm class="col-6" type="text" :label="translations.residence" v-model="customer.residence" id="residence" />
                 </div>
-                <button type="submit" class="position-bottom-right default-button mb-4 me-4">{{translations.save}}</button>
-            </form>
+                <div class="col-12">
+                    <TaskList v-model="tasksRef" :defaultOptions="[]" />
+                </div>
+                <div class="position-bottom-right mb-4 me-4">
+                    <button type="button" :class="'toggle-button me-2' + (customer.active ? ' active' : '')" data-bs-toggle="button" aria-pressed="true" @click="() => customer.active = !customer.active">{{customer.active ? translations.deactivate : translations.activate}}</button>
+                    <button type="submit" class="default-button" @click="postIfValid">{{translations.save}}</button>
+                </div>
+            </div>
         </div>
     </template>
 </template>

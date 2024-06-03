@@ -63,12 +63,28 @@ a:link {
     font-size: large;
 }
 
-.border-white {
-    border: 3px solid white;
-}
-
 .default-button:focus, .default-button:hover {
     background: var(--zapp-dark);
+}
+
+.toggle-button {
+    background: var(--zapp-light);
+    border: none;
+    border-radius: 0.9rem;
+    padding-bottom: 0.375rem;
+    padding-top: 0.375rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    color: white;
+    font-size: large;
+}
+
+.toggle-button.active {
+    background: var(--light-red);
+}
+
+.border-white {
+    border: 3px solid white;
 }
 
 .red-button {
@@ -282,4 +298,16 @@ td a {
 
 .form-bg {
     background-color: rgba(var(--zapp-light-rgb), 0.05) !important;
+}
+
+.time-picker {
+    padding: 0 !important;
+    border: none !important;
+}
+
+.input-slot-image {
+    height: 16px;
+    width: auto;
+    margin-bottom: 4px;
+    margin-left: 8px;
 }
