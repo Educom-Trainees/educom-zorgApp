@@ -1,18 +1,21 @@
 <script setup>
-    import { computed } from "vue";
+    import { computed } from "vue"
+    //icon imports
     import checkmark from '../assets/checkmark.png'
     import ellipsis from '../assets/ellipsis.png'
     import broom from '../assets/broom.png'
     import blank from '../assets/blank.png'
 
+    //property definitions (all of type String, could be explicitly defined)
     const props = defineProps(['initials', 'name', 'address', 'taskprogress'])
-    
+
+    //picks which icon to use based on taskprogress prop
     const img_src = (props['taskprogress'] == "done" ? checkmark : (props['taskprogress'] == "in_progress" ? broom : ellipsis));
 
 </script>
 
 <template>
-    <RouterLink to="../custdetail">
+    <RouterLink to="../custdetail"> <!-- router link not linked to anything yet -->
         <div class="row mb-2 justify-content-center pr-0">
             <div class="row align-items-center">
                 <div class="col-2 h-100 ps-1">

@@ -1,7 +1,7 @@
 import ListView from '../../views/ListView.vue'
 import TaskDetailView from './TaskDetailView.vue'
-import translations from '../../config/nl-NL'
 import NewTask from './NewTask.vue'
+import translations from '../../config/nl-NL'
 
 export const taskRoutes = [
     {

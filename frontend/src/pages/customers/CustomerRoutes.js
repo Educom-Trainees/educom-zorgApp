@@ -1,7 +1,7 @@
 import ListView from '../../views/ListView.vue'
 import CustomerDetailView from './CustomerDetailView.vue'
-import translations from '../../config/nl-NL'
 import NewCustomer from './NewCustomer.vue'
+import translations from '../../config/nl-NL'
 
 export const customerRoutes = [
     {

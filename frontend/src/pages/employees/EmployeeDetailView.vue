@@ -12,14 +12,14 @@
     const EMPLOYEES = 'employees'
 
     var route = useRoute();
-    const id = route.params.id;
+    const id = route.params.id; //get id from route params
     const queryClient = useQueryClient();
+
+    //vue-query to GET employee by id
     const { isLoading, isError, data, error, isFetching, dataUpdatedAt } = useQuery({
         queryKey: [EMPLOYEES, id],
-        queryFn: () => getIndividual(EMPLOYEES, id), //might want to move customers to route meta info
+        queryFn: () => getIndividual(EMPLOYEES, id),
         placeholderData: () => {
-            // Use the smaller/list version of the customer from the CUSTOMERS
-            // query as the placeholder data for this customer query
             const placeholder = queryClient
                 .getQueryData([EMPLOYEES])
                 ?.find(e => e.id == id)
@@ -27,27 +27,37 @@
         }
     })
 
+    //refs to store data from queries
     const employee = ref('')
     const scheduleRef = ref([])
+
+    /**
+    * function to update refs
+    * @param {Object} value customer from vue-query data 
+    */
     function updateEmployee(value) {
         employee.value = { ...value }
 
+        //fill schedule with any times that employee has
         const weekdays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
         scheduleRef.value = weekdays.map((day) => {
             const daySchedule = value.workSchedule.find((d) => ciEquals(d.day, day))
             return { day: day, start_shift: daySchedule ? parseTime(daySchedule.start_shift) : null, end_shift: daySchedule ? parseTime(daySchedule.end_shift) : null }
         })
-        console.log(scheduleRef.value)
     }
 
+    //if data had already been fetched sets refs
     if (!isLoading.value && data.value) {
         updateEmployee(data.value)
     }
+
+    //when data changes update refs
     watch(data, (value) => updateEmployee(value));
 
+    //vue-query to PUT employee
     const { isSuccess, mutate } = useMutation({
         mutationFn: putIndividual,
-        onSuccess: (result) => {
+        onSuccess: (result) => { //fixes cached data when update is successful
             queryClient.invalidateQueries([EMPLOYEES, id])
             queryClient.cancelQueries([EMPLOYEES])
             const prevList = queryClient.getQueryData([EMPLOYEES])
@@ -59,7 +69,11 @@
         }
     })
 
-
+    /**
+    * function to convert times back to string format
+    * @param {Array} schedule
+    * @returns {Array} schedule with updated time values
+    */
     function fixSchedule(schedule) {
         return schedule.map((day) => {
             day.start_shift = stringifyTime(day.start_shift)
@@ -68,14 +82,15 @@
         }).filter(d => d.start_shift)
     }
 
-    const postIfValid = () => {
+    /**
+    * function to send PUT request (error checking not implemented yet)
+    */
+    function putIfValid() {
         var postEmployee = JSON.parse(JSON.stringify(employee.value))
         postEmployee.workSchedule = fixSchedule(scheduleRef.value)
-        console.log(JSON.stringify(postEmployee))
         mutate({ type: EMPLOYEES, id: id, body: JSON.stringify(postEmployee) })
         updateEmployee(postEmployee)
     }
-
 </script>
 
 <template>
@@ -102,7 +117,7 @@
 
                 <div class="position-bottom-right mb-4 me-4">
                     <button type="button" :class="'toggle-button me-2' + (employee.active ? ' active' : '')" data-bs-toggle="button" aria-pressed="true" @click="() => employee.active = !employee.active">{{employee.active ? translations.deactivate : translations.activate}}</button>
-                    <button type="submit" class="default-button" @click="postIfValid">{{translations.save}}</button>
+                    <button type="submit" class="default-button" @click="putIfValid">{{translations.save}}</button>
                 </div>
             </div>
         </div>

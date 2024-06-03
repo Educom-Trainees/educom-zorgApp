@@ -38,7 +38,6 @@
         border: 1px solid white;
         border-top: none;
         border-right: none;
-
     }
 
     .user-icon {

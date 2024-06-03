@@ -1,16 +1,22 @@
 <script setup>
+    import { ciEquals } from '../../utils/StringComparison'
+    import { compareTime } from '../../utils/Time'
     import translations from '../../config/nl-NL'
-import { ciEquals } from '../../utils/StringComparison'
-import { compareTime } from '../../utils/Time'
 
     const props = defineProps({
-        modelValue: {
+        modelValue: { //binds to v-model
             type: Array,
             default: [],
         },
     })
 
-    const updateTime = (newTime, day, time) => {
+    /**
+    * function to update times based on input
+    * @param {Object} newTime value of new time. format: {hours: 0, minutes: 0, seconds: 0}
+    * @param {String} day day index
+    * @param {String} [time='start' | 'end'] specifies which time is being updated
+    */
+    function updateTime(newTime, day, time) {
         console.log(newTime, time)
         const daySchedule = props.modelValue.find((d) => ciEquals(d.day, day))
         if (!newTime) { // newTime null means values are cleared
@@ -20,22 +26,21 @@ import { compareTime } from '../../utils/Time'
         }
         switch (time) {
             case 'start':
+                //sets start time, not letting it go past end time
                 daySchedule.start_shift = (daySchedule.end_shift && compareTime(newTime, daySchedule.end_shift) > 0 ? daySchedule.end_shift : newTime)
-                if (!daySchedule.end_shift) {
+                if (!daySchedule.end_shift) { // if end time is not set, end time is set to same value as start
                     daySchedule.end_shift = newTime
                 }
                 break;
             case 'end':
+                //sets end time, not letting it go past start time
                 daySchedule.end_shift = (daySchedule.start_shift && compareTime(daySchedule.start_shift, newTime) > 0 ? daySchedule.start_shift : newTime)
-                if (!daySchedule.start_shift) {
+                if (!daySchedule.start_shift) { // if start time is not set, start time is set to same value as end
                     daySchedule.start_shift = newTime
                 }
                 break;
         }
     }
-
-    const weekdays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
-
 </script>
 
 <template>

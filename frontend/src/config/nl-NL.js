@@ -1,3 +1,4 @@
+//translation to dutch to allow for code to not be sprinkled with a different language
 const translations = {
 	name: "Naam",
 	email: "E-mail",

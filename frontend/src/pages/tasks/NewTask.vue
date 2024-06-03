@@ -1,24 +1,26 @@
 <script setup>
+    import { ref } from 'vue'
     import { useMutation, useQueryClient } from 'vue-query'
     import { useRoute } from 'vue-router'
     import { postIndividual } from '../../api/collections'
     import InputForm from '../../components/InputForm.vue'
-    import { ref } from 'vue'
     import translations from '../../config/nl-NL'
 
     const TASKS = 'tasks'
 
     var route = useRoute();
-    const id = route.params.id;
+    const id = route.params.id; //get id from route params
 
     const queryClient = useQueryClient();
 
+    //ref for new task
     const task = ref({
         id: 0,
         task: '',
         active: true,
     })
 
+    //vue-query to POST task
     const { isSuccess, mutate } = useMutation({
         mutationFn: postIndividual,
         onSuccess: (result) => {
@@ -26,16 +28,21 @@
         }
     })
 
-    const postIfValid = () => {
-        //console.log(firstName, lastName, address, postalCode, residence)
+    /**
+    * function to send POST request (error checking not implemented yet)
+    */
+    function postIfValid() {
         mutate({ type: TASKS, body: JSON.stringify(task.value) })
     }
 
+    /**
+    * wrapper function to be used by parent components
+    */
     function onConfirm() {
         postIfValid();
     }
 
-    defineExpose({ onConfirm })
+    defineExpose({ onConfirm }) //expose function so it can be used by parent components
 
 </script>
 

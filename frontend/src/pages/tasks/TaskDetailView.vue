@@ -1,23 +1,23 @@
 <script setup>
+    import { ref, watch } from 'vue'
     import { useMutation, useQuery, useQueryClient } from 'vue-query'
     import { useRoute } from 'vue-router'
     import { getIndividual, putIndividual } from '../../api/collections'
-    import InputForm from '../../components/InputForm.vue'
-    import { ref, toRaw, toRef, watch } from 'vue'
-    import translations from '../../config/nl-NL'
     import { compareTime, parseTime, stringifyTime } from '../../utils/Time'
+    import InputForm from '../../components/InputForm.vue'
+    import translations from '../../config/nl-NL'
 
     const TASKS = 'tasks'
 
     var route = useRoute();
-    const id = route.params.id;
+    const id = route.params.id; //get id from route params
     const queryClient = useQueryClient();
+
+    //vue-query to GET task by id
     const { isLoading, isError, data, error, isFetching, dataUpdatedAt } = useQuery({
         queryKey: [TASKS, id],
-        queryFn: () => getIndividual(TASKS, id), //might want to move customers to route meta info
+        queryFn: () => getIndividual(TASKS, id),
         placeholderData: () => {
-            // Use the smaller/list version of the customer from the CUSTOMERS
-            // query as the placeholder data for this customer query
             const placeholder = queryClient
                 .getQueryData([TASKS])
                 ?.find(t => t.id == id)
@@ -25,23 +25,33 @@
         }
     })
 
+    //refs to store data from queries
     const task = ref('')
     const startRef = ref(parseTime('00:00'))
     const endRef = ref(parseTime('00:00'))
+
+    /**
+    * function to update refs
+    * @param {Object} value customer from vue-query data 
+    */
     function updateTask(value) {
         task.value = { ...value }
         startRef.value = parseTime(value.startTime)
         endRef.value = parseTime(value.endTime)
     }
 
+    //if data had already been fetched sets refs
     if (!isLoading.value && data.value) {
         updateTask(data.value)
     }
+
+    //when data changes update refs
     watch(data, (value) => updateTask(value));
 
+    //vue-query to PUT task
     const { isSuccess, mutate } = useMutation({
         mutationFn: putIndividual,
-        onSuccess: (result) => {
+        onSuccess: (result) => { //fixes cached data when update is successful
             queryClient.invalidateQueries([TASKS, id])
             queryClient.cancelQueries([TASKS])
             const prevList = queryClient.getQueryData([TASKS])
@@ -53,8 +63,12 @@
         }
     })
 
+    /**
+    * function to update times based on input
+    * @param {Object} newTime value of new time. format: {hours: 0, minutes: 0, seconds: 0}
+    * @param {String} [time='start' | 'end'] specifies which time is being updated
+    */
     const updateTime = (newTime, time) => {
-        console.log(newTime, time, task)
         if (!newTime) { // newTime null means values are cleared
             startRef.value = null
             endRef.value = null
@@ -62,28 +76,32 @@
         }
         switch (time) {
             case 'start':
+                //sets start time, not letting it go past end time
                 startRef.value = (endRef.value && compareTime(newTime, endRef.value) > 0 ? endRef.value : newTime)
-                if (!endRef.value) {
+                if (!endRef.value) { // if end time is not set, end time is set to same value as start
                     endRef.value = newTime
                 }
                 break;
             case 'end':
+                //sets end time, not letting it go past start time
                 endRef.value = (startRef.value && compareTime(startRef.value, newTime) > 0 ? startRef.value : newTime)
-                if (!startRef.value) {
+                if (!startRef.value) { // if start time is not set, start time is set to same value as end
                     startRef.value = newTime
                 }
                 break;
         }
     }
 
-    const postIfValid = () => {
+    /**
+    * function to send PUT request (error checking not implemented yet)
+    */
+    function putIfValid() {
         var postTask = JSON.parse(JSON.stringify(task.value))
         postTask.startTime = stringifyTime(startRef.value)
         postTask.endTime = stringifyTime(endRef.value)
         mutate({ type: TASKS, id: id, body: JSON.stringify(postTask) })
         updateTask(postTask)
     }
-
 </script>
 
 <template>
@@ -117,7 +135,7 @@
 
                 <div class="position-bottom-right mb-4 me-4">
                     <button type="button" :class="'toggle-button me-2' + (task.active ? ' active' : '')" data-bs-toggle="button" aria-pressed="true" @click="() => task.active = !task.active">{{task.active ? translations.deactivate : translations.activate}}</button>
-                    <button type="submit" class="default-button" @click="postIfValid">{{translations.save}}</button>
+                    <button type="submit" class="default-button" @click="putIfValid">{{translations.save}}</button>
                 </div>
             </div>
         </div>

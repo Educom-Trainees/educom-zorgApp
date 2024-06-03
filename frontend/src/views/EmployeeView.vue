@@ -1,7 +1,7 @@
 <script setup>
     import { ref, watch } from "vue"
-    import translations from '../config/nl-NL';
     import CustomerItem from '../components/CustomerItem.vue'
+    import translations from '../config/nl-NL'
 
     const props = defineProps(['list'])
 

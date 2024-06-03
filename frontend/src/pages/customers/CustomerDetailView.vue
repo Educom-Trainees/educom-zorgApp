@@ -1,24 +1,24 @@
 <script setup>
+    import { ref, watch } from 'vue'
     import { useMutation, useQuery, useQueryClient } from 'vue-query'
     import { useRoute } from 'vue-router'
     import { getIndividual, putIndividual } from '../../api/collections'
+    import { parseTime, stringifyTime } from '../../utils/Time'
     import InputForm from '../../components/InputForm.vue'
     import TaskList from '../../components/TaskList.vue'
-    import { ref, toRaw, toRef, watch } from 'vue'
     import translations from '../../config/nl-NL'
-    import { parseTime, stringifyTime } from '../../utils/Time'
 
     const CUSTOMERS = 'customers'
 
     var route = useRoute();
-    const id = route.params.id;
+    const id = route.params.id; //get id from route params
     const queryClient = useQueryClient();
+
+    //vue-query to GET customer by id
     const { isLoading, isError, data, error, isFetching, dataUpdatedAt } = useQuery({
         queryKey: [CUSTOMERS, id],
-        queryFn: () => getIndividual(CUSTOMERS, id), //might want to move customers to route meta info
+        queryFn: () => getIndividual(CUSTOMERS, id),
         placeholderData: () => {
-            // Use the smaller/list version of the customer from the CUSTOMERS
-            // query as the placeholder data for this customer query
             const placeholder = queryClient
                 .getQueryData([CUSTOMERS])
                 ?.find(cust => cust.id == id)
@@ -26,8 +26,14 @@
         }
     })
 
+    //refs to store data from queries
     const customer = ref('')
     const tasksRef = ref([])
+
+    /**
+    * function to update refs
+    * @param {Object} value customer from vue-query data 
+    */
     function updateCustomer(value) {
         customer.value = { ...value }
 
@@ -38,17 +44,20 @@
             return task
         })
         tasksRef.value = tasks
-
     }
 
+    //if data had already been fetched sets refs
     if (!isLoading.value && data.value) {
         updateCustomer(data.value)
     }
+
+    //when data changes update refs
     watch(data, (value) => updateCustomer(value));
 
+    //vue-query to PUT customer
     const {isSuccess, mutate } = useMutation({
         mutationFn: putIndividual,
-        onSuccess: (result) => {
+        onSuccess: (result) => { //fixes cached data when update is successful
             queryClient.invalidateQueries([CUSTOMERS, id])
             queryClient.cancelQueries([CUSTOMERS])
             const prevList = queryClient.getQueryData([CUSTOMERS])
@@ -60,6 +69,11 @@
         }
     })
 
+    /**
+    * function to convert times back to string format
+    * @param {Array} tasks
+    * @returns {Array} array with updated time values
+    */
     function fixTimes(tasks) {
         return tasks.map((task) => {
             console.log(task)
@@ -69,15 +83,15 @@
         })
     }
 
-    const postIfValid = () => {
+    /**
+    * function to send PUT request (error checking not implemented yet)
+    */
+    function putIfValid() {
         var postCustomer = JSON.parse(JSON.stringify(customer.value))
         postCustomer.tasks = fixTimes(tasksRef.value)
-        console.log(JSON.stringify(postCustomer))
-        //console.log(firstName, lastName, address, postalCode, residence)
         mutate({ type: CUSTOMERS, id: id, body: JSON.stringify(postCustomer) })
         updateCustomer(postCustomer)
     }
-
 </script>
 
 <template>
@@ -102,7 +116,7 @@
                 </div>
                 <div class="position-bottom-right mb-4 me-4">
                     <button type="button" :class="'toggle-button me-2' + (customer.active ? ' active' : '')" data-bs-toggle="button" aria-pressed="true" @click="() => customer.active = !customer.active">{{customer.active ? translations.deactivate : translations.activate}}</button>
-                    <button type="submit" class="default-button" @click="postIfValid">{{translations.save}}</button>
+                    <button type="submit" class="default-button" @click="putIfValid">{{translations.save}}</button>
                 </div>
             </div>
         </div>

@@ -3,15 +3,16 @@
     import translations from '../../config/nl-NL'
 
     const props = defineProps({
-        modelValue: {
+        modelValue: { //binds to v-model
             type: [Number],
-            default: '',
+            default: 1,
         },
         label: String,
         id: String,
         options: Array,
     })
 
+    //computed customer value used to display values above selector
     const customer = computed(() => props.options.find(o => o.id == props.modelValue))
 </script>
 

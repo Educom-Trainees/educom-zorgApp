@@ -3,7 +3,7 @@
     import translations from '../../config/nl-NL'
 
     const props = defineProps({
-        modelValue: {
+        modelValue: { //binds to v-model
             type: [Number],
             default: '',
         },
@@ -14,6 +14,7 @@
         signOutTime: String,
     })
 
+    //computed values used to display values above selector
     const signInString = computed(() => props.signInTime ? props.signInTime.substring(0,5) : '--:--')
     const signOutString = computed(() => props.signOutTime ? props.signOutTime.substring(0, 5) : '--:--')
 
