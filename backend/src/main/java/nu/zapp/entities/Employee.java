@@ -27,15 +27,23 @@ public class Employee extends Person {
     @JsonManagedReference
     private List<WorkSchedule> workSchedule;
 
+    @Column(nullable = false, columnDefinition = "boolean default true")
+    private boolean active;
+
     public Employee() {
     }
 
-    public Employee(int id, String username, String password, LocalDateTime passwordExpiration, String firstName, String lastName, String role, String address, String postalcode, String residence, boolean active) {
-        super(id, firstName, lastName, address, postalcode, residence, active);
+    public Employee(int id, String firstName, String lastName, String address, String postalcode, String residence,
+                    String username, String password, LocalDateTime passwordExpiration,
+                    String role, List<Appointment> appointments, List<WorkSchedule> workSchedule, boolean active) {
+        super(id, firstName, lastName, address, postalcode, residence);
         this.username = username;
         this.password = password;
         this.passwordExpiration = passwordExpiration;
         this.role = role;
+        this.appointments = appointments;
+        this.workSchedule = workSchedule;
+        this.active = active;
     }
 
     public String getUsername() {
@@ -84,5 +92,13 @@ public class Employee extends Person {
 
     public void setWorkSchedule(List<WorkSchedule> workSchedule) {
         this.workSchedule = workSchedule;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

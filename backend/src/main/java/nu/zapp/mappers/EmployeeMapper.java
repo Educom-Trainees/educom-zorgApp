@@ -11,7 +11,6 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = BaseMapper.class)
 public interface EmployeeMapper extends BaseMapper {
 
-
     Employee destinationToSource(EmployeeDTO destintation);
 
     List<Employee> destinationToSource(List<EmployeeDTO> destintation);

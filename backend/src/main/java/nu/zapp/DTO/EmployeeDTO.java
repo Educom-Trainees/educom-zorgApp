@@ -8,8 +8,10 @@ public class EmployeeDTO extends PersonDTO {
 
     private List<WorkSchedule> workSchedule;
 
+    private boolean active;
+
     public EmployeeDTO(int id, String name, String address, Boolean active, List<WorkSchedule> workSchedule) {
-        super(id, name, address, active);
+        super(id, name, address);
         this.workSchedule = workSchedule;
     }
 
@@ -19,5 +21,13 @@ public class EmployeeDTO extends PersonDTO {
 
     public void setWorkSchedule(List<WorkSchedule> workSchedule) {
         this.workSchedule = workSchedule;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
