@@ -165,14 +165,14 @@
                 <div class="col-12 offset-lg-1 col-lg-3 p-0">
                     <VueDatePicker v-model="dateRef" inline auto-apply no-today locale="nl" :enable-time-picker="false" week-start="0" month-name-format="long" />
                 </div>
-                <div class="col-12 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-3">
                     <CustomerSelector id="customerSelect" :options="customers" v-model="customerRef" />
                 </div>
-                <div class="col-12 offset-lg-1 col-lg-3">
+                <div class="col-12 col-sm-6 offset-lg-1 col-lg-3">
                     <EmployeeSelector id="employeeSelect" :options="employees" :signInTime="appointment.registerTime" :signOutTime="appointment.logoutTime" v-model="employeeRef" />
                 </div>
             </div>
-            <div class="row">
+            <div class="row mt-3">
                 <div class="col-12 offset-lg-1 col-lg-10">
                     <TaskList v-model="appointment.appointmentTasks" :defaultOptions="appointment.customerTasks"/>
                 </div>

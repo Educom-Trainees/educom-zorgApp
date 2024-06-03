@@ -42,8 +42,6 @@
         props.modelValue.splice(task_index, 1)
     }
 
-    const tempref = ref('')
-
     const updateTime = (newTime, index, time) => {
         console.log(newTime, index, time)
         const appointment = props.modelValue.at(index)
@@ -76,8 +74,6 @@
         }
     }
 
-    
-
 </script>
 
 <template>
@@ -93,13 +89,13 @@
                     <div v-if="key == 'expected_time'">
                         <form class="form-inline">
                             <div class="input-group">
-                                <VueDatePicker class="form-control time-picker" input-class-name="dp-start-input" v-model="item.startTime" time-picker text-input @update:model-value="(modelData) => updateTime(modelData, index, 'start')">
+                                <VueDatePicker class="form-control time-picker" input-class-name="dp-start-input" v-model="item.startTime" time-picker @update:model-value="(modelData) => updateTime(modelData, index, 'start')">
                                     <template #input-icon>
                                         <img class="input-slot-image" src="../assets/clock-icon.png" />
                                     </template>
                                 </VueDatePicker>
                                 <div class="input-group-text">&nbsp;-&nbsp;</div>
-                                <VueDatePicker class="form-control time-picker" input-class-name="dp-end-input" v-model="item.endTime" time-picker @change="updateTime($event, index, 'end')">
+                                <VueDatePicker class="form-control time-picker" input-class-name="dp-end-input" v-model="item.endTime" time-picker @update:model-value="(modelData) => updateTime(modelData, index, 'end')">
                                     <template #input-icon>
                                         <img class="input-slot-image" src="../assets/clock-icon.png" />
                                     </template>
@@ -126,17 +122,3 @@
     </table>
     <div v-if="!appointmentStarted" class="mt-5 mb-5 pt-5"></div>
 </template>
-
-<style scoped>
-    .time-picker {
-        padding: 0;
-        border: none;
-    }
-
-    .input-slot-image {
-        height: 16px;
-        width: auto;
-        margin-bottom: 4px;
-        margin-left: 8px;
-    }
-</style>

@@ -107,7 +107,7 @@
             <select class="form-select bg-light"
                     :value="currentId"
                     @input="updateTask($event.target.value)">
-                <optgroup :label="translations.customer_tasks">
+                <optgroup v-if="options && options.length > 0" :label="translations.customer_tasks">
                     <option v-for="option in options" :value="'customer_'+option.id">
                         {{ option.task }}
                     </option>
