@@ -9,8 +9,6 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring", uses = BaseMapper.class)
 public interface CustomerDetailMapper extends BaseMapper{
 
-    CustomerDetailMapper INSTANCE = Mappers.getMapper(CustomerDetailMapper.class);
-
     @Mapping(target="firstName", source = "name")
     @Mapping(target="customerTasks", source="tasks")
     Customer destinationToSource(CustomerDetailDTO destination);

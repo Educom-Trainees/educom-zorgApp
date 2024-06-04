@@ -20,6 +20,7 @@ public class CustomersController {
     @Autowired
     private CustomerDetailMapper dMapper;
 
+    //Object is unspecified, depends on @RequestParams  (commented 2024-06-03)
     @CrossOrigin()
     @GetMapping("")
     Object getCustomers(@RequestParam(value="id", required = false) Integer id){

@@ -7,11 +7,11 @@ import nu.zapp.models.EmployeeModel;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring", uses = {BaseMapper.class, AppointmentTasksMapper.class})
 public interface AppointmentDetailMapper extends BaseMapper {
-    AppointmentDetailMapper INSTANCE = Mappers.getMapper(AppointmentDetailMapper.class);
+
+    //Models are passed along as reference point for mapping (commented: 03/06/2024
     @Mapping(target = "customer", expression = "java(customerIdToCustomer(destination.getCustomerId(), customerModel))")
     @Mapping(target = "employee", expression = "java(employeeIdToEmployee(destination.getEmployeeId(), employeeModel))")
     Appointment destinationToSource(AppointmentDetailDTO destination, @Context CustomerModel customerModel, @Context EmployeeModel employeeModel);

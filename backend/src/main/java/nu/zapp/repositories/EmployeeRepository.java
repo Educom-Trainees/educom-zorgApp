@@ -2,6 +2,8 @@ package nu.zapp.repositories;
 
 import nu.zapp.entities.Employee;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.lang.NonNullApi;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,6 +16,5 @@ public interface EmployeeRepository extends CrudRepository<Employee, Integer> {
     Employee findById(int id);
 
     List<Employee> findAll();
-    Employee save(Employee employee);
 
 }

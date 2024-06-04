@@ -1,6 +1,5 @@
 package nu.zapp.controller;
 
-
 import nu.zapp.DTO.AppointmentDTO;
 import nu.zapp.DTO.AppointmentDetailDTO;
 import nu.zapp.entities.Appointment;
@@ -30,6 +29,7 @@ public class AppointmentController {
     @Autowired
     private AppointmentDetailMapper dMapper;
 
+    //Object is unspecified, depends on @RequestParams (commented 2024-06-03)
     @CrossOrigin()
     @GetMapping("")
     Object getAppointments(@RequestParam(value = "employee_id", required = false) Integer employee_id,

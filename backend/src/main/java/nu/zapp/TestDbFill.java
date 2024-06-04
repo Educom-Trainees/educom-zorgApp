@@ -129,7 +129,7 @@ public class TestDbFill {
         one.setAddress("Dorei 1");
         one.setPostalcode("1234TD");
         one.setResidence("Taldorei");
-        one.setActive(true);
+        one.setInactivationDate(null);
         return one;
     }
 
@@ -140,7 +140,7 @@ public class TestDbFill {
         two.setAddress("Dorai 2");
         two.setPostalcode("1234TD");
         two.setResidence("Taldorei");
-        two.setActive(true);
+        two.setInactivationDate(null);
         return two;
     }
 
@@ -152,7 +152,7 @@ public class TestDbFill {
         three.setAddress("Mount 3");
         three.setPostalcode("1234WD");
         three.setResidence("Wildmount");
-        three.setActive(false);
+        three.setInactivationDate(LocalDate.of(2024, 6, 8));
         return three;
     }
 

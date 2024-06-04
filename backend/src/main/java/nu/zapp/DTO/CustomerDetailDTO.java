@@ -1,6 +1,8 @@
 package nu.zapp.DTO;
 
 import nu.zapp.entities.CustomerTasks;
+
+import java.time.LocalDate;
 import java.util.List;
 
 public class CustomerDetailDTO extends CustomerDTO{
@@ -9,9 +11,10 @@ public class CustomerDetailDTO extends CustomerDTO{
     private String residence;
     private List<CustomerTasks> tasks;
 
-    public CustomerDetailDTO(int id, String name, String address, Boolean active, String lastName,
+    public CustomerDetailDTO(int id, String name, String address,
+                             LocalDate inactivationDate, String lastName,
                              String postalcode, String residence, List<CustomerTasks> tasks) {
-        super(id, name, address, active);
+        super(id, name, address, inactivationDate);
         this.lastName = lastName;
         this.postalcode = postalcode;
         this.residence = residence;

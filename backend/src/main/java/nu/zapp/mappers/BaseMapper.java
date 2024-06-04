@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public interface BaseMapper {
 
 
+    //Easier to display data in front end if it comes in one variable (commented 03/06/2024)
     default String combineName(String firstName, String lastName) {
         return firstName + " " + lastName;
     }

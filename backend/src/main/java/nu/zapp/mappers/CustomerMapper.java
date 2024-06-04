@@ -11,14 +11,13 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", uses = BaseMapper.class)
 public interface CustomerMapper extends BaseMapper {
-    CustomerMapper INSTANCE = Mappers.getMapper(CustomerMapper.class);
 
     Customer destinationToSource(CustomerDTO destination);
     List<Customer> destinationToSource(List<CustomerDTO> destination);
 
     @Mapping(target = "name", expression = "java(combineName(source.getFirstName(), source.getLastName()))")
     @Mapping(target = "address", expression = "java(combineLocation(source.getAddress(), source.getPostalcode(), source.getResidence()))")
-    @Mapping(target = "active", expression="java(source.isActive())")
+    @Mapping(target = "inactivationDate", expression="java(source.getInactivationDate())")
     CustomerDTO sourceToDestination(Customer source);
     List<CustomerDTO> sourceToDestination(List<Customer> source);
 }

@@ -9,8 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface AppointmentRepository extends CrudRepository<Appointment, Integer> {
-
-    @Query("SELECT a FROM Appointment a JOIN FETCH a.customer c")
+    
     List<Appointment> findAll();
 
     @Query("SELECT a FROM Appointment a JOIN FETCH a.customer c WHERE a.date BETWEEN :startDate and :endDate")
@@ -29,7 +28,5 @@ public interface AppointmentRepository extends CrudRepository<Appointment, Integ
             "LEFT JOIN  a.appointmentTasks e " +
             "WHERE a.id = :id")
     Appointment findById(@Param("id") int id);
-
-    public Appointment save(Appointment newAppointment);
 
 }

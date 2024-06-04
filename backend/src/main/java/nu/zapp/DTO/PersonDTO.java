@@ -4,13 +4,13 @@ public class PersonDTO {
     private int id;
     private String name;
     private String address;
-    private boolean active;
+//    private boolean active;
 
-    public PersonDTO(int id, String name, String address, Boolean active) {
+    public PersonDTO(int id, String name, String address) {
         this.id = id;
         this.name = name;
         this.address = address;
-        this.active = active;
+//        this.active = active;
     }
 
     public int getId() {
@@ -37,11 +37,11 @@ public class PersonDTO {
         this.address = address;
     }
 
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
+//    public Boolean getActive() {
+//        return active;
+//    }
+//
+//    public void setActive(Boolean active) {
+//        this.active = active;
+//    }
 }

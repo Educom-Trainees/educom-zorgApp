@@ -38,27 +38,38 @@ public class AppointmentModel {
         return aRepository.findEmployeeAppointments(id, date);
     }
 
+    // Start section
+    /* All functions between start and end are dedicated to creating and updating appointments
+    Both need the setAppointmentTasksIds as in both cases the tasks are created from scratch
+    For update this is to accommodate the removal of tasks from an appointment
+    Comment last updated: 03/06/2024
+     */
     public Appointment createAppointment(Appointment newAppointment){
+        newAppointment.setId(0);
         List<AppointmentTasks> newAppointmentTasks = newAppointment.getAppointmentTasks();
         newAppointment.setAppointmentTasks(null);
         Appointment savedAppointment = aRepository.save(newAppointment);
         savedAppointment.setAppointmentTasks(setAppointmentTaskIds(savedAppointment, newAppointmentTasks));
-        savedAppointment.setStartTime(calculateStartTime(savedAppointment.getStartTime(),
-                savedAppointment.getAppointmentTasks()));
-        savedAppointment.setEndTime(calculateEndTime(savedAppointment.getEndTime(),
-                savedAppointment.getAppointmentTasks()));
+//        savedAppointment.setStartTime(calculateStartTime(savedAppointment.getStartTime(),
+//                savedAppointment.getAppointmentTasks()));
+//        savedAppointment.setEndTime(calculateEndTime(savedAppointment.getEndTime(),
+//                savedAppointment.getAppointmentTasks()));
         return aRepository.save(savedAppointment);
     }
 
     public Appointment updateAppointment(Appointment updatedAppointment){
         deleteOldAppointmentTasks(updatedAppointment.getId());
         updatedAppointment.setAppointmentTasks(setAppointmentTaskIds(updatedAppointment, updatedAppointment.getAppointmentTasks()));
-        updatedAppointment.setStartTime(calculateStartTime(updatedAppointment.getStartTime(), updatedAppointment.getAppointmentTasks()));
-        updatedAppointment.setEndTime(calculateEndTime(updatedAppointment.getEndTime(), updatedAppointment.getAppointmentTasks()));
+//        updatedAppointment.setStartTime(calculateStartTime(updatedAppointment.getStartTime(), updatedAppointment.getAppointmentTasks()));
+//        updatedAppointment.setEndTime(calculateEndTime(updatedAppointment.getEndTime(), updatedAppointment.getAppointmentTasks()));
         return aRepository.save(updatedAppointment);
     }
 
-    private LocalTime calculateStartTime(LocalTime startTime, List<AppointmentTasks> taskList) {
+    /*
+    Originally these two functions existed with the assumption a start and end time was set beforehand
+    that is currently not always the case + the calculations are being handled in the front end
+     */
+//    private LocalTime calculateStartTime(LocalTime startTime, List<AppointmentTasks> taskList) {
 //        for (AppointmentTasks task : taskList) {
 //            LocalTime startTimeTask = task.getStartTime();
 //
@@ -70,10 +81,10 @@ public class AppointmentModel {
 //                }
 //            }
 //        }
-        return startTime;
-    }
-
-    private LocalTime calculateEndTime(LocalTime endTime, List<AppointmentTasks> taskList) {
+//        return startTime;
+//    }
+//
+//    private LocalTime calculateEndTime(LocalTime endTime, List<AppointmentTasks> taskList) {
 //        for (AppointmentTasks task : taskList) {
 //            LocalTime endTimeTask = task.getEndTime();
 //            if (endTimeTask != null) {
@@ -82,8 +93,8 @@ public class AppointmentModel {
 //                }
 //            }
 //        }
-        return endTime;
-    }
+//        return endTime;
+//    }
 
     private List<AppointmentTasks> setAppointmentTaskIds(Appointment appointment, List<AppointmentTasks> taskList){
         for (AppointmentTasks task : taskList) {
@@ -92,6 +103,8 @@ public class AppointmentModel {
         }
         return taskList;
     }
+
+    // end section
 
     private void deleteOldAppointmentTasks(int appointmentId) {
         List<AppointmentTasks> oldTasks = aTaskRepository.findByAppointmentId(appointmentId);

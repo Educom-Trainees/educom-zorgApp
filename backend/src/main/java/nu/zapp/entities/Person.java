@@ -23,20 +23,20 @@ public abstract class Person {
     @Column(length = 50, nullable = false)
     private String residence;
 
-    @Column(nullable = false, columnDefinition = "boolean default true")
-    private boolean active;
+//    @Column(nullable = false, columnDefinition = "boolean default true")
+//    private boolean active;
 
     public Person() {
     }
 
-    public Person(int id, String firstName, String lastName, String address, String postalcode, String residence, boolean active) {
+    public Person(int id, String firstName, String lastName, String address, String postalcode, String residence) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.postalcode = postalcode;
         this.residence = residence;
-        this.active = active;
+//        this.active = active;
     }
 
     public int getId() {
@@ -87,11 +87,11 @@ public abstract class Person {
         this.residence = residence;
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
+//    public boolean isActive() {
+//        return active;
+//    }
+//
+//    public void setActive(boolean active) {
+//        this.active = active;
+//    }
 }

@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
-
 @SpringBootApplication
 @RestController
 @RequestMapping("/employees")
@@ -22,6 +21,7 @@ public class EmployeeController {
     @Autowired
     private EmployeeDetailMapper dMapper;
 
+    //Object is unspecified, depends on @RequestParams (commented 2024-06-03)
     @CrossOrigin()
     @GetMapping("")
     Object getEmployees(@RequestParam(value="id", required = false)Integer id){
