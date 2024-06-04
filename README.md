@@ -4,103 +4,66 @@ Dit is een private repository voor Educom trainees om een groepsopdracht te doen
 /
 Hierbij wordt een zorg applicatie gebouwd gebaseerd op [deze opdracht](https://e-learning.educom.nu/cases/ZAPP/intro)
 
-## Goal
-The goal of this project is to create an application which can be used by employees (healthcare workers), planners, and admins. Planners and admins need a webpage where they can see and manage appointments, customers, employees, and tasks. The healthcare workers need a mobile-friendly page, where they can view their appointments and check off any tasks they need to complete.
+## Installatie Backend
 
-## 1. Scope
-This project consists of two major parts, the backend database, and the frontend web application.
+1. Install java JDK (version 18 and up)
+- Download the latest version JDK from https://www.oracle.com/java/technologies/downloads/
+- Check if everything is working by typing ```java --version``` in cmd
+- Open the [Environment variabeles](https://e-learning.educom.nu/elaborations/advanced-programming/environments#environments)
+  (searching "environment" in the home screen should work for Windows)
+- Find "JAVA_HOME" in system variables (not user variables) and click Edit _-or-_ create a new variabele and call it "JAVA_HOME"
+- Set the value to the folder of the installed java, for example ```C:\Program Files\Java\jdk-22```
 
-### 1.1 Frontend
-The website is a Single Page Application (SPA) made with Vue 3 Composition API and Vite. URL routing is achieved with vue-router and queries are managed using vue-query.
+2. Download Maven - https://maven.apache.org/download.cgi
 
-### 1.2 Backend
-The backend is built in Java. It uses Spring boot for database connections and Maven as a dependency manager.
+3. Unzip Maven into an appropriate folder (e.g. ```C:\Program Files```)
 
-## 2. Software Maintenance Resources
+4. Add Maven path to Environment variables
+- Edit [Environment variabeles](https://e-learning.educom.nu/elaborations/advanced-programming/environments#environments) 
+  (searching "environment" in the home screen should work for Windows)
+- Find "Path" in system variables (not user variables) and click Edit
+- Click New to add variable to Path (e.g. ```C:\Program Files\apache-maven-3.9.6\bin```)
+- check if everything is working by typing ```mvn --version``` in *new* cmd window
 
-### 2.1 Frontend
+5. Add the Database user
+- In phpmyadmin create a new user called "zapp-admin" and give it a strong password and the following rights: 
+  * `Data.*`, 
+  * `Structuur.*` 
+  * `SHOW_DATABASE` 
+  * `LOCK_TABLES` 
+- Create a new [Environment variabele](https://e-learning.educom.nu/elaborations/advanced-programming/environments#environments), give it as name `MYSQL_USER` and as value "zapp-admin"
+- Create another environment variable with name `MYSQL_PASSWORD` and as value the password given to the database user in the previous step.
 
-#### Structure
-All files are contained in the ```/src``` folder.
+- In phpmyadmin create another new user called "zapp-user" and give it a strong password and the following rights: 
+  * `Data.*` 
+- Create a new Environment variabele, give it as name `ZAPP_USER` and as value "zapp-user"
+- Create another environment variable with name `ZAPP_PASSWORD` and as value the password given to the database user in the previous step.
+6. In a **new** cmd (or in VS cmd or Power Shell) go to the backend folder (command ```cd backend```) and run command ```mvn install``` \
+This should let Maven install all requirements and put everything into a .JAR file
 
-##### api directory
-Contains js file for functions handling fetch requests
+7. To create the database and give it a test fill run ```java -jar .\target\zapp-1.jar TestDbMaker```
 
-##### assets directory
-Contains images, icons, fonts, and CSS files. Anything to do with styling.
+8. Test the installation bij running the Jar file to start Springboot \
+e.g. ```java -jar .\target\zapp-1.jar```
+- Go to http://localhost:8080 to see "Hello Wereld"
+- Go to http://localhost:8080/customers to see the customers
 
-##### components directory
-Contains all generic components which could be used in multiple pages/views.
+## Installatie Frontend
 
-##### config directory
-Contains translation file so all non-english words are contained there. Allows all other files to stay more readable.
+1. Install `nodejs` (version 20.12 or up) from this site https://nodejs.org/en/download
+2. Install `VITE` with the command ```npm install -g vite```
+3. In cmd (or in VS cmd or Power Shell) go to the frontend folder command ```cd frontend``` 
+4. Run command ```npm update```
+5. Test de installation bij running ```npm run dev``` en kijk of de applicatie start op http://localhost:5174/ of enter ```o``` in de cmd
 
-##### pages directory
-Contains directories for multiple components with a similar goal (i.e. Employees). Any components used exclusively by these views can also be placed in these folders (e.g. WorkSchedule.vue is located in the ```pages/employees``` folder).
+## Runnen van de Backend
 
-##### router directory
-Contains the ```index.js``` file which defines routes used by vue-router.
+1. In cmd (or in VS cmd or Power Shell) go to the backend folder: command ```cd backend``` 
+2. Run command ```java -jar .\target\zapp-1.jar```
 
-##### utils directory
-Contains any js files with functions used by multiple Vue files.
+## Runnen van de Frontend
 
-##### views directory
-Contains any Vue files for top-level pages (e.g. LoginView, HomeView).
+1. In cmd (or in VS cmd or Power Shell) go to the frontend folder: command ```cd frontend``` 
+2. Run command ```npm run dev```
+3. go to http://localhost:5174/ of enter ```o``` in de cmd
 
-#### Tools/Packages
-The frontend application is written in Vue 3 using the composition API, meaning most vue files will have the following layout:
-```
-<script setup>
-  ...
-</setup>
-
-<template>
-  ...
-</template>
-```
-The setup script runs once when the component is (re)loaded, and the template is used to add html to the page.
-
-Vue Router is used to manage URL routing. Routes are defined in the ```src/router/index.js``` file. Routes specific to certain pages, are placed in their own folder, and then imported to the main ```index.js``` file.
-
-Vue Query (TanStackQuery) is used to manage queries to the database. Vue query automatically caches responses, and will use any cached data when possible. This allows for quicker load times.
-
-The vue-datepicker package is used for both calendar and time inputs. Calendar inputs use the built-in Date object. Time inputs require an object with the following format:
-```
-{
-  hours: 10,
-  minutes: 14,
-  seconds: 53,
-}
-```
-Most functions relating to these time objects can be found in the ```utils/time.js``` file
-
-### 2.2 Backend
-
-For more detail on each catagory, refer to the readme.md of the map.
-
-#### Structure
-All files are contained in the ```/src``` folder.
-
-##### Controller directory
-Contains controllers for receiving API calls.
-
-##### DTO directory
-Contains data transferance objects for formatting data send from front to back and back to front.
-
-##### Entities directory
-Contains entities used for the database
-
-##### ExceptionHandlers
-Contains java files for handling errors in fetch requests
-
-##### Mappers
-Contains files for converting entities to DTOs and DTOs to entities
-
-##### Models
-Contains files responsible for processing entities to prepare them for uploading to database
-
-##### Repository
-Contains files for connecting to database
-
-##### Services
-Contains files for automated processes database
