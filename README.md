@@ -7,18 +7,18 @@ Hierbij wordt een zorg applicatie gebouwd gebaseerd op [deze opdracht](https://e
 ## Goal
 The goal of this project is to create an application which can be used by employees (healthcare workers), planners, and admins. Planners and admins need a webpage where they can see and manage appointments, customers, employees, and tasks. The healthcare workers need a mobile-friendly page, where they can view their appointments and check off any tasks they need to complete.
 
-## Scope
+## 1. Scope
 This project consists of two major parts, the backend database, and the frontend web application.
 
-### Frontend
+### 1.1 Frontend
 The website is a Single Page Application (SPA) made with Vue 3 Composition API and Vite. URL routing is achieved with vue-router and queries are managed using vue-query.
 
-### Backend
+### 1.2 Backend
 Springboot and Maven
 
-## Software Maintenance Resources
+## 2. Software Maintenance Resources
 
-### Frontend
+### 2.1 Frontend
 
 #### Structure
 All files are contained in the ```/src``` folder.
@@ -73,4 +73,4 @@ The vue-datepicker package is used for both calendar and time inputs. Calendar i
 ```
 Most functions relating to these time objects can be found in the ```utils/time.js``` file
 
-### Backend
+### 2.2 Backend
