@@ -3,17 +3,22 @@
     import translations from '../config/nl-NL'
 
     const props = defineProps({
-        title: String,
-        buttonText: String,
-        bodyComponent: Object,
-        buttonClass: String,
-        properties: Object,
-        accept: String,
+        title: String, //title used by modal
+        buttonText: String, //text displayed on button
+        buttonClass: String, //class for button which triggers the modal for css
+        bodyComponent: Object, //component rendered in body of modal
+        properties: Object, //properties passed to bodyComponent
+        accept: String, //text displayed on the button to confirm action from modal
     })
 
+    //refs used in the confirm function
     const childRef = ref(null);
     const closeButtonRef = ref(null);
 
+    /**
+    * function which calls the child function 'onConfirm' if it exists
+    * then closes the modal
+    */
     function clickConfirm() {
         childRef.value.onConfirm();
         closeButtonRef.value.click();
@@ -21,12 +26,10 @@
 </script>
 
 <template>
-    <!-- Button trigger modal -->
-    <button type="button" :class="buttonClass" data-bs-toggle="modal" data-bs-target="#appModal">
+    <button type="button" :class="props.buttonClass" data-bs-toggle="modal" data-bs-target="#appModal">
         {{props.buttonText}}
     </button>
 
-    <!-- Modal -->
     <div class="modal fade" id="appModal" tabindex="-1" aria-labelledby="appModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">

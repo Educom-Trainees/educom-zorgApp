@@ -1,6 +1,11 @@
 import { computed, onMounted, onUnmounted, ref } from "vue"
 
-export const useBreakpoints = () => {
+/**
+* calculates viewport width and returns it along with bootstrap size (type)
+* @returns {Number} width
+* @returns {String} type
+*/
+export function useBreakpoints() {
   let windowWidth = ref(window.innerWidth)
 
   const onWidthChange = () => windowWidth.value = window.innerWidth

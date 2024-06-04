@@ -3,12 +3,14 @@
         errors: Array,
         onConfirm: Function,
     })
-
+    /**
+    * wrapper function to use passed in onConfirm function, used by AppModal
+    */
     function onConfirm() {
         props.onConfirm()
     }
 
-    defineExpose({ onConfirm })
+    defineExpose({ onConfirm }) //expose function so it can be used by parent component
 </script>
 
 <template>

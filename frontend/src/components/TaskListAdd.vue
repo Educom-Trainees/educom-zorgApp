@@ -1,9 +1,9 @@
 <script setup>
-    import { ref, watch } from "vue";
-    import { getCollection } from '../api/collections'
+    import { ref, watch } from "vue"
     import { useQuery, useQueryClient } from 'vue-query'
+    import { getCollection } from '../api/collections'
+    import { ciEquals } from "../utils/StringComparison"
     import translations from '../config/nl-NL'
-    import { ciEquals } from "../utils/StringComparison";
 
     const props = defineProps({
         options: Array,
@@ -14,35 +14,45 @@
 
     const queryClient = useQueryClient();
 
+    //vue-query to GET tasks
     const { isLoading, data } = useQuery({
         queryKey: [TASKS],
-        queryFn: () => getCollection(TASKS), //might want to move customers to route meta info
+        queryFn: () => getCollection(TASKS),
         placeholderData: () => {
-            // Use the smaller/list version of the customer from the CUSTOMERS
-            // query as the placeholder data for this customer query
             const placeholder = queryClient
                 .getQueryData([TASKS])
             return placeholder ?? []
         }
     })
 
+    //ref to store standard tasks
     const standardTasks = ref([])
 
+    /**
+    * function to update standardTasks ref
+    * @param {Array} value list of tasks returned from tasks query
+    */
     function updateTasks(value) {
         standardTasks.value = [...value]
     }
 
+    //if data had already been fetched sets tasks ref
     if (!isLoading.value && data.value) {
         updateTasks(data.value)
     }
 
+    //when data changes update tasks ref
     watch(data, (value) => updateTasks(value));
 
+    //refs to track updates to new task
     const taskDescription = ref('')
-
     const currentId = ref('')
 
-    const updateTask = (value) => {
+    /**
+    * function to update refs to the new task
+    * @param {Number} value id of the task. format: default_0 | customer_0
+    */
+    function updateTask(value) {
         currentId.value = value
         const [taskType, taskId] = currentId.value.split('_')
         var task;
@@ -54,28 +64,34 @@
                 task = props.options.find(o => o.id == taskId)
                 break;
         }
-        console.log(typeof (props.options), props.options, task)
         taskDescription.value = task.task ?? '';
     }
 
-    const resetTask = (value) => {
+    /**
+    * function to reset task refs
+    * @param {String} value value in input form typed by user
+    */
+    function resetTask(value) {
         currentId.value = ''
         taskDescription.value = value
         // checks if task with same name exists
-        var task = props.options.find(o => ciEquals(o.task, value))
+        var task = props.options.find(o => ciEquals(o.task, value)) //checks for customer specific tasks first
         if (task) {
             currentId.value = 'customer_' + task.id
         } else {
-            task = data.value.find(o => ciEquals(o.task, value))
+            task = data.value.find(o => ciEquals(o.task, value)) //then checks for default tasks
             if (task) {
                 currentId.value = 'default_' + task.id
             }
         }
     }
-    const sendTask = () => {
-        console.log('sending')
-        if (currentId.value) {
-            const [taskType, taskId] = currentId.value.split('_')
+
+    /**
+    * function to send task to parent (TaskList.vue)
+    */
+    function sendTask() {
+        if (currentId.value) { //if task exists, send that task
+            const [taskType, taskId] = currentId.value.split('_') //split type and id
             switch (taskType) {
                 case 'default':
                     const newDTask = data.value.find(o => o.id == taskId)
@@ -86,9 +102,8 @@
                     props.addTask(JSON.parse(JSON.stringify(newCTask)))
                     break;
             }
-            //props.addTask(props.options.find(o => o.id == currentId.value))
-        } else if (taskDescription.value) {
-            props.addTask({
+        } else if (taskDescription.value) { //check if description is not empty
+            props.addTask({ // add new task with specified description
                 task: taskDescription.value,
                 additional_info: '',
                 completed: false,
@@ -107,7 +122,7 @@
             <select class="form-select bg-light"
                     :value="currentId"
                     @input="updateTask($event.target.value)">
-                <optgroup :label="translations.customer_tasks">
+                <optgroup v-if="options && options.length > 0" :label="translations.customer_tasks">
                     <option v-for="option in options" :value="'customer_'+option.id">
                         {{ option.task }}
                     </option>

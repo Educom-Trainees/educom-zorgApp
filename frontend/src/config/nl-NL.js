@@ -1,3 +1,4 @@
+//translation to dutch to allow for code to not be sprinkled with a different language
 const translations = {
 	name: "Naam",
 	email: "E-mail",
@@ -48,6 +49,10 @@ const translations = {
 	confirmation: "Bevestiging",
 	close: "Sluiten",
 	duration: "Tijdsduur (min.)",
+	activate: "Activeer",
+	deactivate: "Deactiveer",
+	starttime_and_endtime: "Begin- en Eindtijd",
+	workSchedule: "Werkschema",
 }
 
 export default translations;

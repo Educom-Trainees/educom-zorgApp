@@ -1,7 +1,7 @@
 import ListView from '../../views/ListView.vue'
 import EmployeeDetailView from './EmployeeDetailView.vue'
-import translations from '../../config/nl-NL'
 import NewEmployee from './NewEmployee.vue'
+import translations from '../../config/nl-NL'
 
 export const employeeRoutes = [
     {

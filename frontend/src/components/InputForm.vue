@@ -1,6 +1,7 @@
 <script setup>
+    //input form properties
     const props = defineProps({
-        modelValue: {
+        modelValue: { //modelValue binds to v-model
             type: [String, Number],
             default: '',
         },

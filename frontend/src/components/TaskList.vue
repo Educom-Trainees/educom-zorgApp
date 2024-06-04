@@ -1,12 +1,11 @@
 <script setup>
-    import translations from '../config/nl-NL'
-    import TaskListAdd from './TaskListAdd.vue'
+    import { parseTime, compareTime } from '../utils/Time'
     import InputForm from './InputForm.vue'
-    import { ref, computed, toRef } from "vue";
-    import { parseTime, compareTime } from '../utils/Time';
+    import TaskListAdd from './TaskListAdd.vue'
+    import translations from '../config/nl-NL'
 
     const props = defineProps({
-        modelValue: {
+        modelValue: { //modelValue binds to v-model
             type: Array,
             default: [],
         },
@@ -21,31 +20,41 @@
         defaultOptions: Array,
     })
 
+    //headers for task list (different depending on whether appointment has started or not)
     const headers = ['task', 'additionalInfo', 'expected_time', 'duration'];
     if (props.appointmentStarted) {
         headers.push('completed')
         headers.push('noteEmployee')
     } else {
-        headers.push(' ')
+        headers.push(' ') //empty header used for delete and add buttons
     }
 
-    const addTask = (task) => {
-        console.log('receiving')
-        console.log(task)
+    /**
+    * function to add a task to list (used in TaskListAdd.vue)
+    * @param {Object} task
+    */
+    function addTask(task) {
         task.startTime = parseTime(task.startTime)
         task.endTime = parseTime(task.endTime)
 
         props.modelValue.push(task)
     }
 
-    const removeTask = (task_index) => {
+    /**
+    * function to remove a task from list
+    * @param {Number} task_index
+    */
+    function removeTask(task_index) {
         props.modelValue.splice(task_index, 1)
     }
 
-    const tempref = ref('')
-
+    /**
+    * function to update times based on input
+    * @param {Object} newTime value of new time. format: {hours: 0, minutes: 0, seconds: 0}
+    * @param {Number} index task index
+    * @param {String} [time='start' | 'end'] specifies which time is being updated
+    */
     const updateTime = (newTime, index, time) => {
-        console.log(newTime, index, time)
         const appointment = props.modelValue.at(index)
         if (!newTime) { // newTime null means values are cleared
             appointment.startTime = null
@@ -54,30 +63,21 @@
         }
         switch (time) {
             case 'start':
+                //sets start time, not letting it go past end time
                 appointment.startTime = (appointment.endTime && compareTime(newTime, appointment.endTime) > 0 ? appointment.endTime : newTime)
-                if (!appointment.endTime) {
+                if (!appointment.endTime) { // if end time is not set, end time is set to same value as start
                     appointment.endTime = appointment.startTime
                 }
-                //console.log(appointment.startTime)
-                //if (currentTimeslot) { // not functional, might not want it to be
-                //    console.log(currentTimeslot.value)
-                //    appointment.startTime = (appointment.startTime > currentTimeslot.value.start ? appointment.startTime : currentTimeslot.value.start)
-                //}
                 break;
             case 'end':
+                //sets end time, not letting it go past start time
                 appointment.endTime = (appointment.startTime && compareTime(appointment.startTime, newTime) > 0 ? appointment.startTime : newTime)
-                if (!appointment.startTime) {
+                if (!appointment.startTime) { // if start time is not set, start time is set to same value as end
                     appointment.startTime = appointment.endTime
                 }
-                //if (currentTimeslot) {
-                //    appointment.endTime = (appointment.endTime < currentTimeslot.value.end ? appointment.endTime : currentTimeslot.value.end)
-                //}
                 break;
         }
     }
-
-    
-
 </script>
 
 <template>
@@ -93,13 +93,13 @@
                     <div v-if="key == 'expected_time'">
                         <form class="form-inline">
                             <div class="input-group">
-                                <VueDatePicker class="form-control time-picker" input-class-name="dp-start-input" v-model="item.startTime" time-picker text-input @update:model-value="(modelData) => updateTime(modelData, index, 'start')">
+                                <VueDatePicker class="form-control time-picker" input-class-name="dp-start-input" v-model="item.startTime" time-picker @update:model-value="(modelData) => updateTime(modelData, index, 'start')">
                                     <template #input-icon>
                                         <img class="input-slot-image" src="../assets/clock-icon.png" />
                                     </template>
                                 </VueDatePicker>
                                 <div class="input-group-text">&nbsp;-&nbsp;</div>
-                                <VueDatePicker class="form-control time-picker" input-class-name="dp-end-input" v-model="item.endTime" time-picker @change="updateTime($event, index, 'end')">
+                                <VueDatePicker class="form-control time-picker" input-class-name="dp-end-input" v-model="item.endTime" time-picker @update:model-value="(modelData) => updateTime(modelData, index, 'end')">
                                     <template #input-icon>
                                         <img class="input-slot-image" src="../assets/clock-icon.png" />
                                     </template>
@@ -126,17 +126,3 @@
     </table>
     <div v-if="!appointmentStarted" class="mt-5 mb-5 pt-5"></div>
 </template>
-
-<style scoped>
-    .time-picker {
-        padding: 0;
-        border: none;
-    }
-
-    .input-slot-image {
-        height: 16px;
-        width: auto;
-        margin-bottom: 4px;
-        margin-left: 8px;
-    }
-</style>

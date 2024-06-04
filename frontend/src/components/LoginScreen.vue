@@ -1,7 +1,5 @@
 <script setup>
     import translations from '../config/nl-NL'
-
-
 </script>
 
 <template class="m-0">
