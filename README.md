@@ -14,7 +14,7 @@ This project consists of two major parts, the backend database, and the frontend
 The website is a Single Page Application (SPA) made with Vue 3 Composition API and Vite. URL routing is achieved with vue-router and queries are managed using vue-query.
 
 ### 1.2 Backend
-Springboot and Maven
+The backend is built in Java. It uses Spring boot for database connections and Maven as a dependency manager.
 
 ## 2. Software Maintenance Resources
 
@@ -74,3 +74,32 @@ The vue-datepicker package is used for both calendar and time inputs. Calendar i
 Most functions relating to these time objects can be found in the ```utils/time.js``` file
 
 ### 2.2 Backend
+
+For more detail on each catagory, refer to the readme.md of the map.
+
+#### Structure
+All files are contained in the ```/src``` folder.
+
+##### Controller directory
+Contains controllers for receiving API calls.
+
+##### DTO directory
+Contains data transferance objects for formatting data send from front to back and back to front.
+
+##### Entities directory
+Contains entities used for the database
+
+##### ExceptionHandlers
+Contains java files for handling errors in fetch requests
+
+##### Mappers
+Contains files for converting entities to DTOs and DTOs to entities
+
+##### Models
+Contains files responsible for processing entities to prepare them for uploading to database
+
+##### Repository
+Contains files for connecting to database
+
+##### Services
+Contains files for automated processes database
