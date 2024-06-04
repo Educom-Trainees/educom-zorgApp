@@ -82,6 +82,9 @@
         }).filter(d => d.start_shift)
     }
 
+    //ref to toggle popup visibility
+    const showPopup = ref(false)
+
     /**
     * function to send PUT request (error checking not implemented yet)
     */
@@ -90,6 +93,10 @@
         postEmployee.workSchedule = fixSchedule(scheduleRef.value)
         mutate({ type: EMPLOYEES, id: id, body: JSON.stringify(postEmployee) })
         updateEmployee(postEmployee)
+
+        //show confirmation
+        showPopup.value = true
+        setTimeout(() => showPopup.value = false, 2500);
     }
 </script>
 
@@ -121,5 +128,7 @@
                 </div>
             </div>
         </div>
+
+        <div id="popup" :class="showPopup ? 'saved-pop-up' : 'invisible'">{{translations.employee + ' ' + translations.saved + '!'}}</div>
     </template>
 </template>

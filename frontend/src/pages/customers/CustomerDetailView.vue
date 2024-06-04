@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, watch } from 'vue'
+    import { h, ref, watch } from 'vue'
     import { useMutation, useQuery, useQueryClient } from 'vue-query'
     import { useRoute } from 'vue-router'
     import { getIndividual, putIndividual } from '../../api/collections'
@@ -83,6 +83,9 @@
         })
     }
 
+    //ref to toggle popup visibility
+    const showPopup = ref(false)
+
     /**
     * function to send PUT request (error checking not implemented yet)
     */
@@ -91,6 +94,10 @@
         postCustomer.tasks = fixTimes(tasksRef.value)
         mutate({ type: CUSTOMERS, id: id, body: JSON.stringify(postCustomer) })
         updateCustomer(postCustomer)
+
+        //show confirmation
+        showPopup.value = true
+        setTimeout(() => showPopup.value = false, 2500);
     }
 </script>
 
@@ -120,5 +127,7 @@
                 </div>
             </div>
         </div>
+
+        <div id="popup" :class="showPopup ? 'saved-pop-up' : 'invisible'">{{translations.customer + ' ' + translations.saved + '!'}}</div>
     </template>
 </template>
