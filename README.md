@@ -58,6 +58,7 @@ The frontend application is written in Vue 3 using the composition API, meaning 
   ...
 </template>
 ```
+The setup script runs once when the component is (re)loaded, and the template is used to add html to the page.
 
 Vue Router is used to manage URL routing. Routes are defined in the ```src/router/index.js``` file. Routes specific to certain pages, are placed in their own folder, and then imported to the main ```index.js``` file.
 
