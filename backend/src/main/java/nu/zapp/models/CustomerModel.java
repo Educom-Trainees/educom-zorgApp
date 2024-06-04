@@ -41,6 +41,7 @@ public class CustomerModel {
      */
     public Customer createCustomer(Customer newCustomer){
         newCustomer.setId(0);
+        newCustomer.setCustomerTasks(setCustomerTaskIds(newCustomer));
         newCustomer.setPostalcode(personModel.postalCodeCheck(newCustomer.getPostalcode()));
         return cRepository.save(newCustomer);
     }
