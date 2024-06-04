@@ -92,6 +92,9 @@
         }
     }
 
+    //ref to toggle popup visibility
+    const showPopup = ref(false)
+
     /**
     * function to send PUT request (error checking not implemented yet)
     */
@@ -101,6 +104,10 @@
         postTask.endTime = stringifyTime(endRef.value)
         mutate({ type: TASKS, id: id, body: JSON.stringify(postTask) })
         updateTask(postTask)
+
+        //show confirmation
+        showPopup.value = true
+        setTimeout(() => showPopup.value = false, 2500);
     }
 </script>
 
@@ -139,5 +146,7 @@
                 </div>
             </div>
         </div>
+
+        <div id="popup" :class="showPopup ? 'saved-pop-up' : 'invisible'">{{translations.task + ' ' + translations.saved + '!'}}</div>
     </template>
 </template>

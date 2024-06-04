@@ -39,6 +39,7 @@ const translations = {
 	saturday: "Zaterdag",
 	sunday: "Zondag",
 	save: "Opslaan",
+	saved: "Opgeslagen",
 	signed_in: "Aangemeld",
 	signed_out: "Afgemeld",
 	customer_tasks: "Klant taken",
