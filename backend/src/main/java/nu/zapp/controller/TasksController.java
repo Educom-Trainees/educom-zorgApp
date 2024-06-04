@@ -15,6 +15,7 @@ public class TasksController {
     @Autowired
     private TaskModel tModel;
 
+    //Object is unspecified, depends on @RequestParams  (commented 2024-06-03)
     @CrossOrigin()
     @GetMapping("")
     Object getTasks(@RequestParam(value="id", required = false)Integer id){

@@ -32,6 +32,13 @@ public class CustomerModel {
         return customer;
     }
 
+    //Start section
+    /*All functions between start and end are dedicated to creating and updating Customers
+    Both need the setCustomerTaskIds as in both cases the tasks are created from scratch
+    For update this is to accommodate the removal of customer tasks
+    Comment last updated: 03/06/2024
+
+     */
     public Customer createCustomer(Customer newCustomer){
         newCustomer.setId(0);
         newCustomer.setPostalcode(personModel.postalCodeCheck(newCustomer.getPostalcode()));
@@ -58,6 +65,8 @@ public class CustomerModel {
         }
         return taskList;
     }
+
+    // end section
 
 }
 

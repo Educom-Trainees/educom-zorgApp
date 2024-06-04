@@ -10,6 +10,8 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", uses = {BaseMapper.class, AppointmentTasksMapper.class})
 public interface AppointmentDetailMapper extends BaseMapper {
+
+    //Models are passed along as reference point for mapping (commented: 03/06/2024
     @Mapping(target = "customer", expression = "java(customerIdToCustomer(destination.getCustomerId(), customerModel))")
     @Mapping(target = "employee", expression = "java(employeeIdToEmployee(destination.getEmployeeId(), employeeModel))")
     Appointment destinationToSource(AppointmentDetailDTO destination, @Context CustomerModel customerModel, @Context EmployeeModel employeeModel);
